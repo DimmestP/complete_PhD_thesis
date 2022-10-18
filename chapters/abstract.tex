@@ -1,0 +1,19 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{{\subfix{../figures/}}}
+
+\begin{document}
+\chapter{Abstract}
+
+This chapter introduces open-source software practices, community development and the pedagogy of software documentation to promote the development of long-term, high impact research software. Focusing on the issue of the standardisation of qPCR analysis, the chapter contrasts the R package tidyqpcr, developed by the author, to other current software available. This use case highlights how quality software supported by comprehensive documentation can improve the quality of the entire experimental assay.
+
+This chapter contains the software development, microbiology and statistical methods used to complete my research. For the development of tidyqpcr I discussion the techniques of open software development and effective evaluation of user experience. I also outline the process of creating reproducible and quality controlled RNA-seq analysis. I describe the qualitative statistical methods used across my PhD research include linear modelling, Gaussian Processes and developing novel Bayesian models to normalised RNA-seq datasets. Finally, I outline the experimental assays planned and executed with the Wallace lab specifically for the completion of my research. 
+
+This chapter presents the development of tidyqpcr \footnote{tidyqpcr is intentionally lowercase}; an open source R package for the analysis of qPCR data.
+The introduction explores the need for improving the design, analysis and presentation of qPCR experiments.
+The results section begins with an overview of currently available software packages which highlights the lack of a scalable analysis package that supports best practices in qPCR experimental design.
+Next, the core functionality of tidyqpcr is described together with the use of best software design practices.
+Finally, a series of user tests by researchers from a variety of backgrounds are summarised.
+
+This chapter is about finding short cis-regulatory motifs in the 3'UTR of mRNA transcripts and detecting if their regulatory behaviour is dependent on the context of the whole transcript. This could be the context of the 5'UTR, ORF or the 3'UTR. We also introduced two motifs at the same time to see if they interact with each other. To begin, a literature search found 69 motifs previously identified as being enriched in transcripts that bind proteins or are highly expressed. Then, a linear model predicting transcript half life using codon usage, 3'UTR length and the presence or absence of these motifs was trained on two independent half life data sets. Using a greedy algorithm that maximised the AIC of the model, the 69 motifs were shortlisted to just 4 likely contributors. These 4 chosen motifs were inserted into two different native terminators and removed from one terminator that they appear in natively. Each motif-terminator set was also pair with three different promoters creating a library of 20 constructs. Using qPCR to detect changes in the expression of these constructs we then determined whether these motifs have the same effect in different contexts or whether they contribute the same across transcripts. We confirmed these effects are repeated in protein expression and in RNA-Seq expression. Finally we attempted to see if these transcripts had different PolyA sites in the total and decay populations but found different in only one case.
+
+\end{document}
