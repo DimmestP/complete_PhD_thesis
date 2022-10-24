@@ -52,50 +52,182 @@ I implement these best practices in open source software development to ensure t
 \subsection{qPCR}
 
 Polymerase chain reaction (PCR) is regarded as one of the most significant methods in molecular biology with its inventor Kary B. Mullis being co-awarded the Nobel prize in Chemistry in 1993.
-The accuracy of PCR as a method to produce copies of regions of DNA in a log-linear manner has led researchers to explore its use an accurate method to quantify abundance since its invention in the 1980's, \parencite{Saiki1988}.
-The introduction of fluorescent probes into the PCR  \parencite{Holland1991}, but it wasn't until the 2000's \cite{Walker2002}
+The accuracy of PCR as a method to produce copies of regions of DNA in a log-linear manner has led researchers to explore its use an accurate method to quantify abundance since its invention in the 1980's \parencite{Saiki1988}.
+The quantification of the rate of amplification in real time quickly followed \parencite{Holland1991}, but it wasn't until the 2000's that biochemistry and technology matured into a reliable quantitative PCR (qPCR) method \parencite{Walker2002}.
+qPCR is a relatively low-throughput quantification method when compared to the other methods described here.
+However, developments in microfluidics and multiplexing target probes are overcoming the bottlenecks in conducting high-throughput qPCR \parencite{Dreier2022}.
 
-
-
-%What is LOD and amp curve?
-
-The basic principle of a polymerase chain reaction consists of the duplication of a region on DNA that is specified by two short nucleotide sequences, called primers, that are designed to be complementary to the start and the end of the region of interest. 
-A highly thermal tolerant polymerase, adapted from the bacteria \textit{Thermus aquaticus}, is then able to complete the duplication of the region by elongation of the sequence between the two primers \parencite{Holland1991}.
+The basic principle of PCR consists of the duplication of a region on DNA that is specified by two short nucleotide sequences, called primers, that are designed to be complementary to the start and the end of the region of interest. 
+A highly thermal tolerant polymerase, adapted from the bacteria \textit{Thermus aquaticus}, is then able to complete the duplication of the region by elongation of the sequence between the two primers \parencite{Saiki1988}.
 The duplication cycle is repeated several times leading to the number of copies of the original region grows exponentially.
 The PCR polymerase must be thermal tolerant as the duplication cycle is rapidly repeated by raising the temperature to melt the newly created complementary stand away from the original strand before dropping the temperature back down to enable the next round of elongation. 
-
-If this cycle is repeated in a solution with surplus concentrations of primers, enzymes, and nucleotides the increase in copies per cycle is bound by an exponential defined only by the number of transcripts of the target sequence in the original sample.
-Therefore, if the exponential growth of PCR duplicates can be measured and accurately modelled then the original number of transcripts can be inferred. 
-To measure the exponential duplication, Quantitative PCR introduces dyes that only fluoresce when a region has been successfully duplicated. 
-The fluorescence of the sample is measured as the PCR cycle is repeated to determine the exponential growth in duplicates and quantify the number of transcripts of the target sequence in the original sample.
+Quantifying the rate of amplification, is done by introducing dyes that only fluoresce when a region has been successfully duplicated. 
+The fluorescence of the sample is measured as the PCR cycle is repeated to determine the exponential growth in duplicates.
+Quantitative PCR (qPCR) uses the amplification curve to infer the number of transcripts of the target sequence in the original sample \parencite{Holland1991}.
 
 \subsubsection{qPCR Methods: RNA vs DNA}
 
-qPCR is highly optimised for amplifiying DNA fragments using the \textit{Thermus aquaticus} polymerase. Therefore, to quantify RNA fragments an additional step creating cDNA from RNA using a reverse transcriptase. Unfortunately, this step can be a significant source of variation and is regularly determined to be the source of most variation between RNA samples \parencite{Stahlberg2004}. The reverse transcriptase priming method, original RNA target concentration and total RNA concentration in the sample can all vary the cDNA yield between replicates. In order for a RT-qPCR experiment to be reproducible the reverse transcriptase step must be properly optimised and clearly described. 
+qPCR is highly optimised for amplifying DNA fragments using the \textit{Thermus aquaticus} polymerase. 
+Therefore, to quantify RNA fragments an additional step is required to create cDNA from RNA using a reverse transcriptase. 
+Unfortunately, this step can be a significant source of variation and has been determined to be the source of most variation between RNA samples \parencite{Stahlberg2004}. 
+The variation in cDNA yield between replicates can be caused by the choice of reverse transcriptase priming method, the original RNA target concentration and the total RNA concentration in the sample. 
+In order for a RT-qPCR experiment to be reproducible the reverse transcriptase step must be optimised and clearly described. 
 
 \subsubsection{qPCR Methods: Taqman vs SYBR Green}
 
-# figure outlining different methods
-
-
-fluorescence resonance energy transfer (FRET) probe
-
-The fluorescent dye used to detect duplicates differs significantly between the two most common qPCR methods: Taqman and SYBR Green. SYBR Green methods contain dye that fluoresce when they bind to any double stranded DNA species in the sample. This leads it to being a cheap and relatively easy to use system, but it is highly susceptible to contamination and it is unable to distinguish between duplicates from different species. TaqMan methods bind the fluorescent dye to a oligonucleotide probe that is designed to attach to the region of interest somewhere between the two primers. In addition to the fluorescent dye on one end the oligonucleotide probe has a quencher on the other. The quencher stops any emissions from the dye from being detected. However, during elongation, when the polymerase reaches the oligonucleotide probe, the probe is hydrolysed separating the dye from the quencher. Emissions from the fluorescent dye can then be measured and the creation of a new duplicate is detected. The introduction of a custom oligonucleotide probe increases the specificity of TaqMan methods and reduces the effects of contamination. Also, the abundance of multiple species can be measured in the same sample by carefully designing different oligonucleotide probes with different fluorescent dyes. Unfortunately, the design and creation of custom probes causes TaqMan methods to be more expensive and technical. Meanwhile, the accuracy of TaqMan methods is comparable to the cheaper SYBR Green methods, if correctly conducted. \cite{Tajadini2014}
+There are two common types of fluorescent dye used to measure duplicated fragments: TaqMan and SYBR Green.
+SYBR Green is a dye that fluoresces when it binds to any double stranded DNA species in the sample.
+This leads to it being a cheap and relatively easy to use system, but it is highly susceptible to contamination and it is unable to distinguish between duplicates from different targets. 
+TaqMan methods bind the fluorescent dye to a oligonucleotide probe that is designed to attach to the region of interest somewhere between the two primers. 
+The oligonucleotide probe has the fluorescent dye on one end and a quencher on the other.
+The quencher stops any excitation emissions from the dye through fluorescence resonance energy transfer. 
+However, during elongation, when the polymerase reaches the oligonucleotide probe the probe is hydrolysed separating the dye from the quencher.
+Emissions from the fluorescent dye can then be measured and the creation of a new duplicate is detected. 
+The introduction of a custom oligonucleotide probe increases the specificity of TaqMan methods and reduces the effects of contamination. 
+Also, the abundance of multiple targets can be measured in the same sample by carefully designing different oligonucleotide probes with different fluorescent dyes.
+Unfortunately, the design and creation of custom probes causes TaqMan methods to be more expensive and technical. 
+The accuracy of TaqMan methods is comparable to the cheaper SYBR Green methods, if correctly conducted \cite{Tajadini2014}.
+Although the limit of detection (LOD) of low copy targets depends on protocol optimisation. 
 
 \subsubsection{Quantifying Abundance: Curve Fitting vs Cycle Threshold}
 
-The exponential limit of the duplicate number enables two methods that summarise amplification curves to compare abundance across samples. Assuming all samples reach the exponential growth stage in copy number per cycle at the same time then the difference it fluorescence at any cycle of the PCR assay dependent only on the original copy number. Therefore, if you set a particular fluorescence threshold during the exponential phase to compare all samples at, the number of cycles needed to reach that fluorescence level is an accurate proxy for original copy number. A common method to determine target abundance is the number of cycles required to reach a set fluorscence. Unfortunately this method assumes both that each sample reaches the exponential phase at the same time and that each cycle doubles the number of duplicates perfectly for each sample. An alternative method fits an sigmodal curve to the amplification curve and uses this model to deduce the cycles required to reach a the threshold. The additional fitting can account for difference in the times to reach the exponential growth phase between samples and can directly account for deviations in perfect duplication. 
+The exponential limit of the number of duplicates per cycle enables methods that compare abundance across samples. 
+Assuming all samples reach the exponential growth stage at the same time then the difference in fluorescence at any cycle of the PCR assay is dependent only on the original copy number. 
+However, the amplification curve of duplicates per cycle is not a perfect exponential as there is a limited window through which the number of duplicates will grow exponentially.
+The window is defined by limitations in detecting fluorescence at low abundance and the exhaustion of resources at high abundance.
+The original copy number can be inferred from the fluorescence if you set a particular fluorescence threshold during the exponential phase and compare the number of cycles needed for a sample to reach it.
+Unfortunately, this method assumes both that each sample reaches the exponential phase at the same time and that each cycle doubles the number of duplicates perfectly for each sample. 
+An alternative method fits an sigmodal curve to the amplification curve and uses this model to deduce the cycles required to reach a the threshold.
+The additional fitting can account for difference in the times to reach the exponential growth phase between samples and can directly account for deviations in perfect duplication \parencite{Swillens2008}. 
 
 \subsubsection{Quantifying Abundance: Relative vs Absolute}
 
-Multiple methods exist for converting fluorescence measurements into quantitative values for sample abundance whilst accounting for experimental and technical noise. First, qPCR experiments can be designed either to measure the relative change in abundance across samples or estimate the absolute number of copies of a target in a sample. Relative abundance measurements depend on the determination of genes that have constant expression across all samples/conditions. Any change in the gene(s) of interest across samples can then be detected by comparing expressions relative to the set of constantly expressed genes. Normalising the fluorescence to genes with constant expression minimises batch effects introduced by sample preparation, reverse transcription and reactants. Absolute quantification of a target requires a preliminary experiment where known initial quantities of the gene of interest are measured with qPCR. The amplification curve for each sample, with gradually increasing copies of the gene of interest, is measured to create a collection of standard curves. Next, the sample from the primary experiment is measured with qPCR and its amplification curve is compared to the standard curves. The absolute copy number of the gene of interest in the experimental sample can be interpolated.
+Multiple methods exist for converting cycle threshold measurements, Cq, into quantitative values for sample abundance whilst accounting for experimental and technical noise.
+First, qPCR experiments can be designed to measure the relative change in abundance across samples.
+Relative abundance measurements depend on the determination of genes that have constant expression across all samples/conditions.
+Any change in the gene(s) of interest across samples can then be detected by comparing $\Delta$Cq or the expressions relative to the set of constantly expressed genes.
+Normalising the fluorescence to genes with constant expression minimises batch effects introduced by sample preparation, reverse transcription and reactants.
+Alternatively, the absolute number of copies of a target in a sample can be estimated.
+Absolute quantification of a target requires a preliminary experiment where known initial quantities of the gene of interest are measured with qPCR.
+Several amplification curves for the gene of interest, with gradually increasing copies of the gene of interest, are measured to create a collection of standard curves.
+Next, the sample from the primary experiment is measured with qPCR and its amplification curve is compared to the standard curves.
+The absolute copy number of the gene of interest in the experimental sample can be interpolated.
 
-\subsection{Micro-arrays}
+\subsection{Microarrays}
+
+In the 1980's an assay was published to simultaneously determine multiple specific cell surface antigens through the use of matrix of antibodies fixed to a glass slide \cite{TseWen1983}.
+The opportunity to quantify multiple characteristics of a sample using the same chip led other labs to explore attaching oligonucleotides to a slide, inventing microarrays \parencite{Schena1995}.
+Microarrays facilitated the creation of the first high-dimensional data sets in transcriptomics. 
+The technology enabled the abundance in thousands of genes to be measured simultaneously unlocking studies of gene expression regulation across conditions \parencite{Gasch2000}. 
+The assay also benefited from the high quality sequencing of the genomes of multiple species as oligonucleotide probes could be designed to investigate genome-wide behaviours \cite{Lander2001}.
+
+Microarrays consist of a glass or silicon substrate with spots of DNA printed on in a regular grid. 
+Each DNA spot is a complement to a different target which fluoresces when bound with the target. 
+In assays to determine differential expression, two colour microarrays are used where each spot contains two fluorescent probes; one to detect the target abundance in the sample of interest and one to detect target abundance in a control or another sample of interest.
+A camera detects the level of fluorescence across each spot after excitation by a laser which is used to determine the abundance of that target.  
+The two colour microarray assay measures the fluorescence of the two fluorophores and uses the ratio to determine changes in expression.
+As the DNA probes have to be designed and printed onto the glass plate their complementary targets have to be decided before conducting the experiment which reduces the opportunity to discover novel regulatory elements \parencite{Schena1995}.
+
+The creation of the high-dimensional data sets with transcript abundance of thousands of genes over dozens of conditions exposed biologists to the n $<<$ p problem.
+The size of the data sets acquired were large, but the small number of data points, n, compared to the number of genes and conditions, p, led to low statistical power.
+Overcoming the n $<<$ p problem has been a fruitful task for applied statistics with robust methods for sharing expression behaviour across gene and conditions \parencite{Gui2005}.
+In addition, the packaging of these novel methods for shrinking variance, calculating penalised t statistics and implementing false discovery rate adjustments promoted the development of quality research software \parencite{Smyth2005, Ritchie2015}.
+Distributing the analysis software for microarray arrays led to the open source bioinformatics software repository Bioconductor which has grown to include over 1000 packages for tackling analysis problems across biology \parencite{Huber2015}.
+
 
 \subsection{RNA-seq}
-RNA-Seq analysis consists of three core steps: Quality Control, alignment and counting. The exact quality control steps can change significantly between types of assay. For example, enrichment of mRNA transcripts using degradation or poly(A) anchors need to be checked for effectiveness by inspecting ribosomal RNA content or tRNA levels. Meanwhile in the case of single-cell RNA-Seq checking for cases where two or more cells may have accidentally been combined (as doublets are common in occurrence in many technique) is a vital step that is not required for bulk RNA-seq methods. However, across all methods it will be required to check for sequence amplification biases, calling quality and whether each lane has successfully detect reads. Once QC has been completed it is then important to remove any adapters and UMI that may have been introduced during the library preparation as these may complicate alignment to the organism genome as they will not be included. Also it is common to trim the 3' end of reads as more error in nucleotide callings tend to occur at then end. If the assay also includes multiplexed samples these need to detect and separated. Once the reads have been trimmed and multiplexed, then they need to be aligned to the organism genome in order to be able to determine which gene they correlate to. A variety of genome aligners are available depending on organism and computing infrastructure limitations.  BowTie2 is regularly held as the most accurate aligner but it is not splice aware. Other aligner like star or hi-sat2 are much better at aligning reads across splicing junctions. There is a significant difference in speed and memory requirements between the two and users need to decide what is the priority for them. It is vital that quality control steps are conducted after the alignment step. Are the vast majority of reads aligned to your organism genome or could a contaimenant be present. Visualing reads on a genome browers is important at this point too to check you have correctly defined strandedness. Once the sequences have been aligned the next step is to remove PCR duplicates if UMIs are present. If the UMIs with random sequences are present in reads aligned to the exactly the same gene then they are considered duplicates and can be flatten to just one read. Finally, with the deduplicated aligned reads fully processed the user can then count the number of reads to each gene or conduct other downstream analyses such as detecting isoforms.
 
-Reproducible analysis of RNA-seq data is crucial as software versions, computer systems and servers can all contribute to different outcomes. Using workflow management programs, such as NextFlow, also enable scaleability (analysis of results on a computer to using a university server or cloud service). The analysis steps will be the same but the number of core/input files/ repeats of steps will change mostly without the need of user input. Combining workflow languages with containers: singularity, docker, ect, or environments: conda, renv, ect, and enabling your analysis scripts to be publicly available simultaneously allows you to conduct the same (or similar) analysis in the future and encourages reviewers to actualy confirm you analysis is correct and that there are no issue with QC.
+For 30 years the primary method for sequencing DNA was Sanger sequencing with its massively successful application in decoding the human genome \cite{Lander2001}. 
+The method consists of introducing a di-deoxynucleotide triphosphate (ddNTP) version of one of the four nucleic acids which induces premature termination of elongation when the polymerase incorporates it into a DNA chain.
+Due to the stochasicity of elongation the introduction of ddNTP will occur at different stages of duplication leading to the creation of a population of different lengths of copies of a target.
+Separating the population by weight using electrophoresis creates bands where the chosen nucleic acid has been replaced by a ddNTP version.
+Repeating the process for all nucleic acids enabled a target sequence to be read off \parencite{Sanger1977}.
+Similar to qPCR, Sanger sequencing can also be extended to RNA sequencing by introducing a reverse transcriptase step to make cDNA.
+The accuracy of the Sanger method means it is remains in use today, but the cost and difficulty of scaling up the method has limited it use.
+Instead, the success of the microarray, and its densely packed array of oligonucleotide targets fixed to a solid surface, ushered in a new sequencing technology.
+
+\subsubsection{Shotgun Sequencing}
+
+In the early 2000's, several companies competed to overcome the microarray's deficiency in requiring DNA targets to be defined before the experiment \parencite{Rusk2007}.
+Solexa (now Illumina) developed adapters that could be ligated to any sample of DNA and facilitate the attachment of the DNA sample to a solid surface. 
+Fluorescent nucleotides were created that could terminate elongation in a reversible way.
+These nucleotides enabled a base-pair by base-pair cycle of elongation with the identity of the last bound nucleotide being identified by its colour.
+Fixing the fragments of DNA to the surface meant islands of duplicates of the original fragment would be created and a clear fluorescent spot could be detected.
+Unfortunately, this technology only allowed accurate determination of reads with length <50 nucleotides originally.
+As this length is significantly shorter than the majority of sequences of biological interest, the preparation of samples for Solexa sequencing includes a step to break samples in to small fragments, coining the term shotgun sequencing.
+The size of the fragments are of the order of 100 nucleotides, which is still larger than the length of reads received from the sequencing machine.
+An extension to the single read per fragment method enabled paired reads, one at either end of the fragment, to be detected.
+Receiving two reads per fragment improved the accuracy of determining where on the genome a fragment maps to and opened the door to exploring structural variants where fragments were copies of non-adjacent segments of the genome \parencite{Risca2015}.
+
+\subsubsection{Long read Sequencing}
+
+Shotgun sequencing propelled molecular biology into an age of affordable, high-throughput sequencing data.
+However, the limit in read size from shotgun sequencing makes tasks such as de novo genome assembly and the detection of structural variants significantly difficult.
+Long read sequencing technology has now matured with Oxford Nanopore and PacBio offering solutions to read 1000's of nucleotides at a time. 
+PacBio sequencers uses fluorescent nucleotides to determine sequences similar to a Illumina sequencer, but instead of binding fragments to a solid surface they form single stranded circles from long segments of double stranded DNA (ddDNA).
+Hairpin-shaped SMRTbell adapters are attached to either end of a ddDNA segment creating a closed loop than is opened up into a circle. 
+A polymerase is attached to the adapters which can loop round the circle producing multiple copies of both strands of the original ddDNA segment \parencite{Hu2021}.
+An Oxford Nanopore sequencer consists of a membrane with 100's of transmembrane proteins that alter their electric resistance when deformed by nucleotides moxing through them.  
+A current passing through the transmembrane protein then produces a signal in response to the nucleotides moving through the protein.
+Machine learning algorithm have been trained to convert the signals in the current into the sequences nucleotides \parencite{Jain2016}.
+
+\subsubsection{Overview of RNA-Seq Based Assays}
+
+As high-throughput RNA-Seq technology has matured, assays to explore a variety of different transcriptome effects have been developed.
+poly(A) enrichment.
+With around 80\% of the RNA in a cell being ribosomal, methods to investigate other RNA populations have been developed using enrichment, through poly(A) tail selection, or depletion \parencite{Stark2019}. 
+Multiplexing methods now allow samples to be pooled together by introducing sample unique barcodes to read adapters which enables ultra-high-throughput methods with one library preparation stage \parencite{Craig2008}.
+RNA-protein interactions can be discovered by UV cross-linking transcripts to proteins, pulling out the protein of interest, degrade the protein and analyse the remaining RNA \parencite{Granneman2009}.
+Pulse labelling methods can uncover genome-wide transcript production and degradation by introducing a labelled nucleotide and measuring changes in the population of transcripts with that nucleotide \parencite{Chan2018}.
+Transcript isomers created by alternative polyadenylation are uncovered by using adapters that ensure reads are anchored to the poly(A) tail \parencite{Pelechano2013}. 
+Localisation of transcripts to organelles or membranes can be detected by ultra-centrifugating cell lysate and sequencing the pellet \parencite{Iserman2020}.
+Finally, single-cell RNA-Seq technologies are unlocking new cell types and new sources of heterogeneity between homogeneous samples \parencite{Jovic2022}.
+
+\subsubsection{Biases in RNA-Seq assays}
+
+The ubiquitous use of RNA-Seq assays across biology has led to multiple advances in its accuracy and reliability, but many well documented biases remain.
+The fragmentation step of RNA-Seq methods introduces a significant gene length bias as longer genes create more fragments \parencite{Oshlack2009}.
+GC content of genes changes the reliability of base-calling and alters read-coverage \parencite{Dohm2008}.
+RNA-Seq data sets are also highly susceptible to batch effects with total reads per run changing by orders of magnitude \parencite{Auer2010}.
+The choice of RNA extraction and enrichment can lead to significant changes in differential expression detection in the same samples \parencite{Sultan2014}.
+Meanwhile, poly(A) anchored reads can initiate elongation from internal stretched of adenine instead of the 3'end tail or switch templates mid-elongation \parencite{Balazs2019}.
+
+
+\subsubsection{RNA-Seq Analysis}
+
+RNA-Seq analysis consists of three core steps: Quality Control, alignment and counting. The exact quality control steps can change significantly between types of assay.
+For example, enrichment of mRNA transcripts using degradation or poly(A) anchors need to be checked for effectiveness by inspecting ribosomal RNA content or tRNA levels.
+Meanwhile in the case of single-cell RNA-Seq checking for cases where two or more cells may have accidentally been combined (as doublets are common in occurrence in many technique) is a vital step that is not required for bulk RNA-seq methods.
+However, across all methods it will be required to check for sequence amplification biases, calling quality and whether each lane has successfully detect reads.
+Once QC has been completed it is then important to remove any adapters and UMI that may have been introduced during the library preparation as these may complicate alignment to the organism genome as they will not be included. 
+Also it is common to trim the 3' end of reads as more error in nucleotide callings tend to occur at then end. 
+If the assay also includes multiplexed samples these need to detect and separated. Once the reads have been trimmed and multiplexed, then they need to be aligned to the organism genome in order to be able to determine which gene they correlate to.
+A variety of genome aligners are available depending on organism and computing infrastructure limitations.  
+BowTie2 is regularly held as the most accurate aligner but it is not splice aware.
+Other aligner like star or hi-sat2 are much better at aligning reads across splicing junctions. 
+There is a significant difference in speed and memory requirements between the two and users need to decide what is the priority for them.
+It is vital that quality control steps are conducted after the alignment step.
+Are the vast majority of reads aligned to your organism genome or could a contaminant be present. 
+Visualising reads on a genome browsers is important at this point too to check you have correctly defined strandedness. 
+Once the sequences have been aligned the next step is to remove PCR duplicates if UMIs are present. 
+If the UMIs with random sequences are present in reads aligned to the exactly the same gene then they are considered duplicates and can be flatten to just one read. 
+Finally, with the deduplicated aligned reads fully processed the user can then count the number of reads to each gene or conduct other downstream analyses such as detecting isoforms \parencite{Conesa2016}.
+
+\subsection{RNA-Seq Analysis Pipelines}
+
+The complexity in analysing high volume RNA-Seq data sets has lead to the development of scaleable, flexible and reproducible analysis pipelines.
+Assay dependent quality control steps, from removing adapter sequences to mapping to different genome annotations, are often completed by software packages written in different scripting languages.
+Workflow languages, such as Nextflow, are able to integrate the inputs and outputs of software in a domain agnostic manner \parencite{DiTommaso2017}.
+A community of bioinformaticians are bringing together standardise modules using Nextflow which can be cherry picked to create the best pipeline for any specific RNA-Seq assay \parencite{Ewels2020}.
+Furthermore, as differences in software versions contribute to different outcomes workflow languages are being combined with containers: such as singularity and docker \parencite{DiTommaso2015}.
+
+\section{Post-transcription Regulation}
+
+\subsection{RNA-binding Proteins}
+
+\subsection{mRNA Degradation}
+
+\subsubsection{mRNA localisation}
 
 \section{Statistical methods}
 
@@ -116,29 +248,38 @@ Raw reads are rarely used as the measure of expression between samples and betwe
 
 \section{Research Software Engineering}
 
-The don't repeat yourself (DRY) paradigm is one of the most commonly implemented practices to encourage programmers to write shorter and specific functions to solve regularly occurring tasks. Minimising the number of repetitions helps reduce errors (simply from imperfect copying), improves readability and enables faster debugging as compartmentalising tasks into separate functions enables you to test each function separately.
+The development of high-throughput, multi-omic experiments across the biological sciences has led to an unprecedented demand on software for research.
+In the late 90's less than 20\% of research papers mentioned the use of software in their research. 
+In 2021, over 70\% of publications stored on pubmed cited the use of software.
+Furthermore, articles accepted in the highest impact journals cited more pieces of software on average. (sentence emphasising use of statistical software). 
+Software developed specifically to answer research questions has rapidly become a cornerstone of the modern empirical method \cite{Schindler2022}.
+The ubiquitous use of software in modern research leads to difficulty in its definition due to its broad range of users, developers and purposes.
+However, here we use the definition given by the Knowledge Exchange \parencite{KL2016}:
+ 
+\begin{quote}
+"Research software (as opposed to simply software) is software that is developed within academia and used for the purposes of research: to generate, process and analyse results.
+This includes a broad range of software, from highly developed packages with significant user bases to short (tens of lines of code) programs written by researchers for their own use."
+\end{quote}
 
-% user feedback and interviews
-Software developers are often unaware of their own unconscious knowledge which may create a barrier for users to engage with user. 
-Also, language differences between disciplines and non-native speakers can create obstacles.
-
-Creating function tests is an example for when the DRY principle is counterproductive.
-As a correctly design suite of test are intended to help catch bugs during the development stage repeating how input arguments are defined within each test help speed the diagnosis process.
-Abstracting error messages and test to the shortest, most general form can invalid their usefulness in diagnosing bugs.
-
-%DRY paradigm  https://en.wikipedia.org/wiki/The_Pragmatic_Programmer
-
-% what is research software https://f1000research.com/articles/8-1353#ref-16
-
-The development of high-throughput, multi-omic experiments across the biological sciences has led to an unprecedented demand on software for research. In the late 90's less than 20\% of research papers mentioned the use of software in their research. In 2021, over 70\% of publications stored on pubmed cited the use of software. Furthermore, articles accepted in the highest impact journals cited more pieces of software on average. (sentence emphasising use of statistical software). Software developed specifically to answer research questions has rapidly become a cornerstone of the modern empirical method. \cite{Schindler2022}
-
-Despite its importance, research software development remains a nascent subdomain of software development. The academic position of research software engineer was only coined in the late 2000's \cite{Prause2010} with the creation of the society of software engineers being founded in 2010. Exemplary research groups and institutions exist with the primary aim of developing software to answer, or facilitate others in answering, research questions (SSI etc). However, it still remains a domain primarily occupied by self-taught programmers as an aside from their primary domain of expertise.  The software itself is regularly developed with specific short term goals during the latter stages of scientific inquiry to provide statistical summaries and deduce significant discoveries. Therefore, practitioners are rarely trained in the standard development practices that are used across all other professional software development contexts and they often consider the analysis steps a final hurdle before completing a project/publication.
-
-This leads to common patterns that define research software. Research software is typically written in high level scripting languages (R/Python), often to produce statistical summaries of complex datasets as a means to gather evidence to support a conclusion in the latter stages of scientific inquiry (typically. during the steps of writing a publication for submission).
+Despite its importance, research software development remains a nascent subdomain of software development. 
+The academic position of research software engineer was only coined in the late 2000's \cite{Prause2010} with the creation of the society of software engineers being founded in 2010. 
+Exemplary research groups and institutions now exist with the primary aim of developing software to answer, or facilitate others in answering, research questions (Software Sustainability Institute, Alan Turing Institute, etc). 
+However, it still remains a domain primarily occupied by self-taught programmers as an aside from their primary domain of expertise. 
+The software itself is regularly developed with specific short term goals during the latter stages of scientific inquiry to provide statistical summaries and deduce significant discoveries. 
+Therefore, practitioners are rarely trained in the standard development practices that are used across all other professional software development contexts.
 
 \subsection{Software development practices}
 
-As the practice of software development became a profession, practitioners have created frameworks to facilitate efficient and rigorous software development.
+%https://f1000research.com/articles/8-1353#ref-19
+
+As software development has become a profession, practitioners have created practices and frameworks to facilitate efficient and rigorous software development.
+The practice of don't repeat yourself (DRY) is one of the most commonly implemented to encourage programmers to write shorter and specific functions to solve regularly occurring tasks. 
+Minimising the number of repetitions helps reduce errors (simply from imperfect copying), improves readability and enables faster debugging as compartmentalising tasks into separate functions enables you to test each function separately \parencite{Thomas1999}.
+However, DRY does have its opponents as the focus on general abstractions can lead to unreadable code.
+For example, a correctly design suite of test is intended to help diagnose bugs during the development stage.
+Abstracting error messages and test to the shortest, most general form can invalid their usefulness in diagnosing bugs.
+Therefore, using Descriptive and Meaningful Phrases (DAMP) and repeating how input arguments are defined within each test helps to speed the diagnosis process.
+
 The first software development framework, and the one still most used in the sciences, is called Waterfall.
 Waterfall introduces a structure to the coding practice by outlining a series of stages that are completed linearly.
 It starts with a detailed specification before moving to development and finally implementation.
@@ -148,16 +289,53 @@ Others even enable the specification to be altered and redefined as the project 
 The flexibility to redefine the project as it is being developed is why the alternative practices are called agile. 
 
 Two common agile practices in industry are scrum and extreme programming.
-Scrum is the modern archetypal agile method.
+Scrum is the modern archetypal agile method \parencite{Schwaber2020}.
 Instead of fixing the development schedule as each stage much be completed sequentially the project is broken into sprints each iteratively adding some functionality which is reviewed tested and implemented before moving onto the next.
 Constantly reviewing and testing the code enables programmers to catch bugs early (ensuring complex dependency issues don't arise) receive feedback on whether initial functionality is actually useful and achievable.
-As its name suggests extreme programming pushes the principles of agile programming to the extreme
+As its name suggests extreme programming pushes the principles of agile programming to the extreme \parencite{Beck2004}.
 Updates to the software are expected on a weekly basis with additions tested and implemented. 
 In addition programmers are expected to conduct paired programming. 
-Two programmes work together at all time with only one coding while the other verbally dictates what should be added. 
+Two programmers work together at all time with only one coding while the other verbally dictates what should be added. 
 Although this reduces the number of lines of code written per developer, with two coders constantly reviewing each other code the number of programming bugs introduced is reduced which is assumed to negate any reduction in productivity.
+Inclusion of agile practices in biomedical research suggests the iterative nature of exploratory research combines effectively with the flexibility of agile software development\parencite{kane2006}.
 
-Does research software differ from general software? (in terms of aims, requirements and expectations)
+\subsection{Open source software development}
+
+The growing expectation for a science that has its results open to all to read, data freely available to use and decisions that are completely transparent leads to an natural proclivity towards the already developed world of open software. 
+The software development practices described above can be followed with a closed development process or an open one. 
+It is fairly prolific across research to leave any code used in a research paper to be 'available upon request'. However, the encouragement of open research software practices offers many of the advantages currently seen in industry. 
+The success of the Google supported Machine Learning framework TensorFlow showcases the enhanced re-usability, collaboration and accessibility enabled by adompting an Open Source framework. 
+
+Conducting research software development in an open manner offers several benefits to the developer.
+Open source projects have improved findability, accessibility, reproducibility, transparency.
+Open science research overall is linked with increased citations, funding bodies placing more weight on open access policies and open project tend to get more coverage in the media \parencite{McKiernan2016}.
+A modern parable for open source software development comes for the epidemiological modelling of the spread of COVID-19 by Prof Neil Ferguson at Imperial Collage London.
+Crucial to the justification of national lockdowns to kerb the spread of COVID-19, the model was actual developed 13 years prior using undocumented, closed source C++ code.
+After six weeks of intense revisions and refactoring, with direct help from Microsoft and GitHub software architects, is now the poster child for open source research software \url{https://github.com/mrc-ide/covid-sim}.
+
+\subsubsection{Computation and the environment}
+
+A fast growing aspect of software development practices is the contribution of compute to the emission of CO$_2$.
+It is estimated that the IT sector will be responsible for 20\% of the world's CO$_2$ production by 2030 \parencite{CCEE2020}. 
+Incorporating carbon footprint estimates into coding specifications and benchmarking published code may be the norm in the future \parencite{Lannelongue2021}.
+The of use software and the versions of software may increase speed, but at the cost of increased energy requirements.
+For example, HISAT2 and STAR are two commonly used sequence aligners noted for significantly different speeds and memory requirements.
+Previous research has noted that memory usage is overtaking CPU as the leading energy consumer in severs.
+Even just the allocation of memory to a task can significantly increase energy usage with 90\% of energy spent on maintaining memory in the background regardless of load \parencite{Karyakin2017}.
+On a broader note, the standard implementations of agile software development could be questioned with weekly or daily testing considered computationally wasteful.
+
+
+
+\subsection{GUIs or CLIs}
+
+In the initial stages of developing any piece of software the developer decides how the user will interact with the software: point and click with a graphical user interface (GUI), or programmatically with a command line interface (CLI).
+Statistical software has been developed using GUIs since the Macintosh as developers attempted to attempted to reduce the mental load of conducting statistical analyses by removing the programming requirement \parencite{ValeroMora2012}. 
+The better user experience in a GUI over a CLI \parencite{Staggers2000} is paid for by larger development and maintenance costs.
+A GUI also tends to become outdated as there isn't be an intuitive structure to create and expand a GUI in response to novel statistical methods and problems \parencite{Unwin2012}.
+Finally, analyses using CLIs tend to be more scalable and reproducible that GUI analyses as they are difficult to intergrate with modern workflow systems. 
+
+
+\subsection{Software documentation}
 
 Software development methodologies from Waterfall to Extreme focus entirely on efficient and accurate frameworks for writing code. 
 Although these methodologies differ in the timing and extent of feedback from primary stakeholders none explicitly state time for writing documentation. 
@@ -165,59 +343,9 @@ Software is only as effective as its user.
 Coding practices are highly developed. Efficient coding practices, interactions between teams and automatic integration and testing of work. In practice, software is limited by the users understanding of its implementation.
 Documentation practices are less developed.
 
-% https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf#zoom=100
-
-% https://hygger.io/blog/extreme-programming-waterfall-agile-kanban-scrum-lean/#extreme-programming-vs-waterfall
-
-% https://ieeexplore.ieee.org/abstract/document/1231158?casa_token=6sbQr1xrIy4AAAAA:0GmEQG8RPMLhd5563BpXhyfQqSPd7Tw88hrhpX2uo4bu3LgewtZNrNKTYggK0JMFJpBvsFMUS2c
-
-% https://peerj.com/articles/cs-835/#results--analysis-of-software-mentions
-
-\subsubsection{Computation and the environment}
-
-A fast growing aspect of software development practices is the contribution of compute to the emission of CO2.
-It is estimated that the IT sector will be responsible for 20\% of the world's CO2 production by 2030. 
-Incorporating carbon footprint estimates into coding specifications and benchmarking published code may be the norm in the future
-Balancing efficiencies and speed for new software updates may need to be encouraged.
-Depending on highly inefficient older code may be detrimental to the carbon footprint but the latest version my prioritise speed over memory/CPU usage and actually increase emissions.
-In addition, programming philosophies may need to be developed. 
-Time tends to be the limiting factor in many analyses so swapping to faster code is nearly always the priority. 
-However, is there a limit to how much we prioritise speed? 
-If each run emits more CO2 and we conduct far more runs than was initially thought necessary will that always be seen as the ideal.
-
-Two common sequence aligners hi-sat 2 and star are noted for their significant difference in memory consumption.
-Previously research has noted that memory usage is overtaking CPU as the leading energy consumer in severs.
-Over allocating memory to a task can significantly increase energy usage with 90\% of energy spent on maintaining memory in the background regardless of load.
-Interestingly, the consequences of agile development practises with weekly or even daily testing could contribute to significant increases CO2 emissions.
-Tools such of GitHub actions do enable quick detection of bugs but does the significant increase in compute worth the cost?
-
-% https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1009324
-
-% https://dl.acm.org/doi/pdf/10.1145/3076113.3076117?download=true
-
-\subsection{Open source software development}
-
-The growing expectation for a science that has its results open to all to read, data freely available to use and decisions that are completely transparent leads to an natural proclivity towards the already developed world of open software. The software development practices described above can be followed with a closed development process or an open one. It is fairly prolific across research to leave any code used in a research paper to be 'available upon request'. However, the encouragement of open research software practices offers many of the advantages currently seen in industry. The success of the Google supported Machine Learning framework TensorFlow showcases the enhanced re-usability, collaboration and accessibility enabled by adompting an Open Source framework. Specific to the academic setting,  it have been shown suggest that publications that follow open science practices tend to have increased citations. A modern parable for open source software development comes for the epidemiological modelling of the spread of COVID-19 by Prof Neil Ferguson at Imperial Collage London. Crucial to the justification of national lockdowns to kerb the spread of COVID-19, the model was actual developed 13 years prior using undocumented, closed source C++ code. After six weeks of intense revisions and refactoring, with direct help from Microsoft and GitHub software architects,  is now, arguably, the poster child for open source research software.
-
-% https://github.com/mrc-ide/covid-sim
-
-% https://www.nature.com/articles/nature10836?em_x=22
-
-% https://elifesciences.org/articles/16800
-
-\subsection{GUIs or CLIs}
-
-\begin{itemize}
-    \item Since the macintosh there has been a continued shift between GUI and CLI statistical software taking the lead \cite{ValeroMora2012}. 
-    \item GUIs tend to be associated a dramatically lower learning curve but larger development and maintenance costs.
-    \item Better user experience in a quality GUI than CLI \cite{Staggers2000}, however do GUI developers prioritise ease of use over quality of analysis by ignoring key steps (such as quality control).
-    \item GUIs are also limited by the number of ways a user can interact with the screen (interactive operations), drop down boxes quickly become unwieldy if they list every possible action to take on an object. 
-    \item CLIs are often quicker to develop (so can include the latest statistical methods), easier to scale to larger work loads, better reproducibility and cheaper to maintain.
-    \item Without a unified framework to conduct statistical analysis (how you define models and manipulate data) there cannot be an intuitive structure to create and expand a GUI. \cite{Unwin2012}
-
-\end{itemize}
-
-\section{Software documentation}
+% user feedback and interviews
+Software developers are often unaware of their own unconscious knowledge which may create a barrier for users to engage with user. 
+Also, language differences between disciplines and non-native speakers can create obstacles.
 
 \subsection{Why is research software documentation important}
 
@@ -281,10 +409,6 @@ Rich Bowen, Community Manager for the CentOS project,  says "There’s common wi
     \item Including/understanding the pedagogy of software documentation
     \item Resources available on the Turing Way, open life science and Mozilla
 \end{itemize}
-
-\subsection{RNA-seq Analysis Pipelines}
-
-Sequence reads were checked for call quality, repetition and GC content using FASTQC. Each QuantSeq sample was ran over four sequencing lanes and reads were concatenated together. 5PSeq reads contained UMIs due to the additional PCR amplification step and they were separated using UMItools. Illumina adapters and reads with low call quality were removed with Cutadapt. HiSat-2 read aligner was used to align reads from both assays. Both provide paired end reads but with different strandedness. QuantSeq was postive stranded read1 and 5PSeq contained negative stranded read1. The sacCer3 (R64-2) genome build was used for alignment taken from the Saccharomyces Genome Database with the addition of the plasmid sequence. The quality of the alignment was checked by compared the fraction of unambiguously aligned pairs of reads using MultiQC. The gtf was custom made to include the 3'UTRs as detected by pelchena et al. Once reads were aligned the 5PSeq pipeline used UMItools to detect duplicates. The reads mapped to each 3'UTR were counted using featureCounts. Samtools and Bedtools were used throughout to manipulate the alignment files. The analysis of 5PSeq and QuantSeq was conducted using the same NextFlow pipeline was different user defined arguments. A custom script function extracted reads mapped to the 3'UTRs of the constructs of interest.
 
 \section{Ideas}
 
