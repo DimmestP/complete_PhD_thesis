@@ -223,6 +223,11 @@ Furthermore, as differences in software versions contribute to different outcome
 
 \section{Post-transcription Regulation}
 
+Bioinformatics Approaches to Gain Insights into cis-Regulatory Motifs Involved in mRNA Localization %https://link.springer.com/chapter/10.1007/978-3-030-31434-7_7
+
+Localization elements and zip codes in the intracellular transport and localization of messenger RNAs in Saccharomyces cerevisiae
+%https://wires.onlinelibrary.wiley.com/doi/10.1002/wrna.1591
+
 \subsection{RNA-binding Proteins}
 
 \subsection{mRNA Degradation}
@@ -301,9 +306,9 @@ Inclusion of agile practices in biomedical research suggests the iterative natur
 
 \subsection{Open source software development}
 
-The growing expectation for a science that has its results open to all to read, data freely available to use and decisions that are completely transparent leads to an natural proclivity towards the already developed world of open software. 
 The software development practices described above can be followed with a closed development process or an open one. 
-It is fairly prolific across research to leave any code used in a research paper to be 'available upon request'. However, the encouragement of open research software practices offers many of the advantages currently seen in industry. 
+It is fairly prolific across research to leave any code used in a research paper to be 'available upon request'.
+However, the encouragement of open research software practices offers many of the advantages currently seen in industry. 
 The success of the Google supported Machine Learning framework TensorFlow showcases the enhanced re-usability, collaboration and accessibility enabled by adompting an Open Source framework. 
 
 Conducting research software development in an open manner offers several benefits to the developer.
@@ -337,92 +342,53 @@ Finally, analyses using CLIs tend to be more scalable and reproducible that GUI 
 
 \subsection{Software documentation}
 
-Software development methodologies from Waterfall to Extreme focus entirely on efficient and accurate frameworks for writing code. 
-Although these methodologies differ in the timing and extent of feedback from primary stakeholders none explicitly state time for writing documentation. 
-Software is only as effective as its user.
-Coding practices are highly developed. Efficient coding practices, interactions between teams and automatic integration and testing of work. In practice, software is limited by the users understanding of its implementation.
-Documentation practices are less developed.
-
-% user feedback and interviews
-Software developers are often unaware of their own unconscious knowledge which may create a barrier for users to engage with user. 
-Also, language differences between disciplines and non-native speakers can create obstacles.
-
-\subsection{Why is research software documentation important}
-
-Software is intended to be a tool used to complete tasks efficiently.
-It alleviates some of the mundane and repetitive tasks to enable users to focus on the complex and abstract. 
-However, the intent is not always matched by the execution as users may become frustrated with design idiosyncrasies or suboptimal implementations.
-In fact, researchers often dread the steps in their experimental assays that require the use of software or the analysis stages of their studies.
-An opinion quickly becoming untenable as the trend trend towards data rich, high throughput studies has led even the most rudimentary analyses to depend on software.
-Indeed, as statistical methodologies are still being developed to explore the vast data landscape the practice of reanalysing old experiments is only going to be more common. 
-Although the demands for better computational literacy in undergrad and postgrad education is partially addressing these issues only by demanding software meet users halfway by emphasising transparency and accessibility will the problem full resolved.
-
-In order to support reproducibility and the user experience, research software needs to be rewarded on its usability and documentation as well as its functionality.
-In order assess the quality of software documentation it is useful to consider the types of documentation broadly separated by its intended audience and content. 
+Software development methodologies from Waterfall to Extreme focus entirely on efficient and accurate frameworks for writing code, but none explicitly state time for writing documentation. 
+Poor documentation deters user from using you software by extending the its learning curve and increases the likelihood of inappropriate applications of software as users may not understand its assumptions and functionality.
 Previous studies have recognised three categories of documentation: documentation of decisions, why did you chose this problem to solve and why did you chose this particular method to solve it; documentation of product, what is contained within this software implementation and how do users interact with it; and documentation of technicalities, how developers created the software and how maintainers can contribute to it. 
-Any software intended to be shared contains some product documentation, but few research software projects outline technical details and fewer still mention any decisions made in development \cite{Geiger2018}.
+Any software intended to be shared contains some product documentation, but few research software projects outline technical details and fewer still mention any decisions made in development \parencite{Geiger2018}.
 
-Funding bodies and journals have acknowledged across the board that research data needs to be FAIR (Findable, Accessible, Interoperable and Reusable). \textbf{evidence on uptake of fair practices} However, few guidelines have been implemented on the software packages and analysis pipelines that create/enrich/analysis these dataset to generate conclusions. Are the same FAIR condition relevant to research software? What does software that is FAIR mean? % https://www.rd-alliance.org/system/files/FAIR4RS_Principles_v0.3_RDA-RFC.pdf.
+\subsection{The importance of research software documentation}
 
-% https://www.researchsquare.com/article/rs-1239393/v1
+The literature on developing useful and usable bioinformatics software is unanimous on the need to document how and why to use a package \parencite{Wilson2017,Taschuk2017,Leprevost2014}.
+Furthermore, the widely popular Findable, Accessible, Interoperable and Reusable (FAIR) principles for scientific data have now been extended to research software and documentation is at the forefront: "R1. Software is described with a plurality of accurate and relevant attributes" \parencite{Barker2022}.
+Widely used software repositories, such as Bioconductor, demand long-form documentation outlining the decisions made in creating a package as well as how to interact with it in order for the package to be accepted \parencite{Gentleman2004}.
+Documentation acts as "a resource for learning and a second role: as an advertisement for the software project" and the current health of a project\parencite{Geiger2018}.
+Finally, poor documentation is limiting the scientific research as archived and outdated software packages are still being used for the because they are well documented.
 
-Open source documentation as well as the software itself helps combat unconscious knowledge (knowledge that the initial developer had but forgets that not everyone knows!) Unconcious knowledge can break early stage tasks especially when the primary developer leaves and there is too much of a steep learning curve for anyone to take over.  
+As well as being best practice for ensuring code usability, quality documentation can also improve the quality of the code itself.
+Documentation of technicalities and a suitable code of conduct can help develop a community of maintainers that can fix bugs, update dependencies and add functionality together \parencite{Community2022}.
+Open source documentation combats unconscious knowledge as developers of the code can overlook key pieces of information for using the software that can only be rectified by new users contributing to the package \parencite{Hermann2022}.
 
-% https://www.software.ac.uk/resources/publications/better-software-better-research
 
-\subsection{Why is research software documentation poor?}
+\subsection{Understanding the rise of poor research software documentation}
 
 The existence of multiple categories of documentation leads to a diverse set of reasons why users may find a software’s documentation insufficient.
-To quantitatively detect patterns in poor software documentation \cite{Aghajani2019} scowered mailing lists, github issues and stack overflow for issues posted by users pertaining problems in documentaion. 
-Common issues were based on factually incorrect statements in the documentation, sections of code/functions without any documentation at all or documentation becoming out of date with the latest package versions.
+Previous research found common issues were based on factually incorrect statements in the documentation, sections of code/functions without any documentation at all or documentation becoming out of date with the latest package versions.
 Other issues discuss the ease at which API documentation could be found and searched at all, exactly what terms meant in specific contexts and not having quality translations of documentation in other languages.
-As expected, a complete lack of documentation is the most common issue but on the other extreme is dense, unintelligible documentation that is difficult to maintain and search.
+As expected, a complete lack of documentation is the most common issue but on the other extreme is dense, unintelligible documentation that is difficult to maintain and search \cite{Aghajani2019}.
 
 Every developer knows the importance of documentation, but new software continues to be created with poor documentation.
-In a 2017 GitHub survey of OSS contributors, 93\% reported that “incomplete or outdated documentation is a pervasive problem” but “60\% of contributors say they rarely or never contribute to documentation” \cite{Geiger2017}.
+In a 2017 GitHub survey of OSS contributors, 93\% reported that “incomplete or outdated documentation is a pervasive problem” but “60\% of contributors say they rarely or never contribute to documentation” \parencite{Geiger2017}.
 Software documentation typically is the least credited part of software development with little time or funds allocated to its development.
-Documentation writers are first to go in times of economic difficulty. \cite{Forward2002}
-However, paradoxically writing software documentation requires the most diverse set of skills and experiences to enable people from different backgrounds and knowledge to jump right in at an appropriate level \cite{Geiger2018}.
-Documentation writers also envelope a larger populous than those with technical programming skills as the software developers themselves can be limited in their ability to write accessible documentation by unconscious knowledge.
+In industry, documentation writers are first to go in times of economic difficulty \parencite{Forward2002}.
+In academia, research posts are only for a few years so there is little time, or motivation, for the developer to respond to user queries \parencite{Hermann2022}.
+Simultaneously, writing software documentation requires the most diverse set of skills and experiences to enable people from different backgrounds and knowledge to jump right in at an appropriate level \parencite{Geiger2018}.
 
-The skills and interests of software developers may not naturally align with the demands of writing documentation, but perhaps the issues actually lies in the lack of community between developer, documenters and users.
-Rich Bowen, Community Manager for the CentOS project,  says "There’s common wisdom in the open source world: Everybody knows that the documentation is awful, that nobody wants to write it, and that this is just the way things are. But the truth is that there are lots of people who want to write the docs. We just make it too hard for them to participate. So they write articles on Stack Overflow, on their blogs, and third-party forums. Although this can be good, it’s also a great way for worst-practice solutions to bloom and gain momentum. Embracing these people and making them part of the official documentation effort for your project has many advantages." https://labs.quansight.org/blog/2020/03/documentation-as-a-way- to-build-community/
 
-\subsection{What are the benefits of good research software documentation?}
-\begin{itemize}
-    \item Documentation acts as "a resource for learning and a second role: as an advertisement for the software project" and the current health of a project.\cite{Geiger2018}
-    \item Documentation supports the formation of a developer and maintainer community. Shifting knowledge acquisition away from poorly moderated forums such as biostars or stackoverflow. Extends accessibility of code by highlighting unconscious knowledge and even languages.
-    \item Maybe a quick look at the top downloaded R packages on bioconductor and if that correlates with quality documentation?
-    \item The quality of hardware and the underlying software dependencies of a package will also change and update, requiring regular maintenance of code for it to be continued to use. However, documentation and reporting the motivations/solutions to problems is often a contribution that last far longer.
-    \item Archived and outdated software packages are still being used for the alignment of sequencing data because they are well documented. Simply saying a piece of code is old/out of date is not enough. Justification of the severe negatives of using outdated code should be highlighted in the documentation.
-    \item As software get more and more specialised and refined we need to come up with a better way of accrediting work and encouraging documentation so we know exactly how the dependencies run and have a chance of fixing any future eventual bugs. (xkcd meme about software dependency and maintenance. https://xkcd.com/2347/)
-\end{itemize}
+\subsection{Improving research software documentation}
+% https://www.software.ac.uk/resources/publications/better-software-better-research
 
-\subsection{How do we improve research software documentation?}
-
-\begin{itemize}
-    \item Lessons learnt from R: vignettes, roxygen, pkgdown
-    \item Documentation framework to ensure the right documentation is included and maintainable.
-    \item Diataxis is a popular framework for creating documentation along its two axis of knowledge: theory vs practice and acquisition vs application. They separate software documentation into four rough types: Tutorials, practical and ap- plication knowledge; How-tos, practical and acquisition knowledge; references, theoretical and acquisition knowledge; and explaintions, theoretical and application knowledge. %https://diataxis.fr/
-    \item User interviews to evaluate documentation as well as functionality
-    \item Use of GitHub (issue add transparency to decisions, template issues/pull request help contributors)
-    \item Including/understanding the pedagogy of software documentation
-    \item Resources available on the Turing Way, open life science and Mozilla
-\end{itemize}
-
-\section{Ideas}
-
-Bioinformatics Approaches to Gain Insights into cis-Regulatory Motifs Involved in mRNA Localization %https://link.springer.com/chapter/10.1007/978-3-030-31434-7_7
-
-Localization elements and zip codes in the intracellular transport and localization of messenger RNAs in Saccharomyces cerevisiae
-%https://wires.onlinelibrary.wiley.com/doi/10.1002/wrna.1591
-
-% https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2015EA000136 https://f1000research.c 295/v1 https://www.exascaleproject.org/event/softwaredocumentation/ https://elib.dlr.de/147388/
-% https://headrush.typepad.com/creatingpassionateusers/2006/01/crashcour 
+The solutions to improving research software documentation target the three main causes: lack of understanding of how to document software, loss of focus on the audience and little reason to allocate time to writing documentation. 
+Developers of research software need to be taught the pedagogy of software documentation and the tools available to support documentation.
+Institutes such as the Software Sustainability Institute and the Turing Institute are supporting training and learning resources, but little is mentioned in formal data-analysis training. 
+Similar to the frameworks developed for software development, documentation frameworks need to be popularised to acknowledge the continued effort required to keep documentation relevant, accurate and searchable.
+Diataxis is a popular framework for creating documentation along its two axis of knowledge: theory vs practice and acquisition vs application. 
+They separate software documentation into four rough types: Tutorials, practical, and ap- plication knowledge; How-tos, practical, and acquisition knowledge; references, theoretical, and acquisition knowledge; and explanations, theoretical, and application knowledge.
+Researchers and software developers need to be rewarded for creating usable and documented software packages.
+Recognising and correctly citing the use of other peoples software should be as important as citing other peoples research papers.
+Long-lasting code requires long-term funding which need to be supported by suitable grants judged on appropriate criteria \parencite{Goble2014}.
+Funding bodies and journals have acknowledged across the board that research data needs to be FAIR and hopefully the FAIR principles for research software will be equally supported.
+% https://www.rd-alliance.org/system/files/FAIR4RS_Principles_v0.3_RDA-RFC.pdf.
+ %https://diataxis.fr/
 % https://www.proquest.com/docview/304387282
-% https://ieeexplore.ieee.org/document/1241364 https://www.jstor.org/stable/44424301
-% https://scholar.lib.vt.edu/ejournals/JOTS/Summer- Fall-2000/holmes.html
-
-
-
 \end{document}
