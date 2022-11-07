@@ -109,8 +109,8 @@
           \end{onehalfspace}%
         }%
       }%
-      \vskip 1em%
-      \vskip 1.5em%
+      \vskip 2em%
+      \vskip 2.5em%
       %% Author
       {\fontfamily{\rmdefault}\selectfont%
       {\LARGE\itshape%
@@ -146,10 +146,10 @@
 % [Re]definition of environments abstract and resumo
 %=======================================================================
 \renewenvironment{abstract}[1][Abstract]{%
-	\itshape
 	\begin{center}
 	\textbf{#1}
 	\end{center}
+    \onehalfspacing
 }{%
 }
 

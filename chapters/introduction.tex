@@ -78,16 +78,25 @@ In order for a RT-qPCR experiment to be reproducible the reverse transcriptase s
 
 \subsubsection{qPCR Methods: Taqman vs SYBR Green}
 
+\begin{figure}[h]
+
+{\centering \includegraphics[width=\linewidth]{figures/taqmanvssybrgreen} 
+
+}
+
+\caption[Comparison of qPCR fluorescent probes.]{\textbf{Comparison of qPCR fluorescent probes.} (\textbf{A}) SYBR Green fluorescent probes bind to any double stranded DNA. (\textbf{B}) TaqMan fluorescent probes bind to specific sequences and only fluoresce once detached from their paired quencher post-polymerisation. Figure adapted from Wikimedia Taqman diagram.}\label{fig:qpcr-fluo-tech}
+\end{figure}
+
 % https://commons.wikimedia.org/w/index.php?curid=42613619
 
 There are two common types of fluorescent dye used to measure duplicated fragments: TaqMan and SYBR Green.
-SYBR Green is a dye that fluoresces when it binds to any double stranded DNA species in the sample.
+SYBR Green is a dye that fluoresces when it binds to any double stranded DNA species in the sample, Figure \ref{fig:qpcr-fluo-tech}A.
 This leads to it being a cheap and relatively easy to use system, but it is highly susceptible to contamination and it is unable to distinguish between duplicates from different targets. 
 TaqMan methods bind the fluorescent dye to a oligonucleotide probe that is designed to attach to the region of interest somewhere in between the two primers. 
 The oligonucleotide probe has the fluorescent dye on one end and a quencher on the other.
 The quencher stops any excitation emissions from the dye through fluorescence resonance energy transfer. 
 However, during elongation, when the polymerase reaches the oligonucleotide probe the probe is hydrolysed separating the dye from the quencher.
-Emissions from the fluorescent dye can then be measured and the creation of a new duplicate is detected. 
+Emissions from the fluorescent dye can then be measured and the creation of a new duplicate is detected, \ref{fig:qpcr-fluo-tech}B. 
 The introduction of a custom oligonucleotide probe increases the specificity of TaqMan methods and reduces the effects of contamination. 
 Also, the abundance of multiple targets can be measured in the same sample by carefully designing different oligonucleotide probes with different fluorescent dyes.
 Unfortunately, the design and creation of custom probes causes TaqMan methods to be more expensive and technical. 
@@ -151,13 +160,22 @@ Similar to qPCR, Sanger sequencing can also be extended to RNA sequencing by int
 The accuracy of the Sanger method means it is remains in use today, but the cost and difficulty of scaling up the method has limited it use.
 Instead, the success of the microarray, and its densely packed array of oligonucleotide targets fixed to a solid surface, ushered in a new sequencing technology.
 
+\begin{figure}[h]
+
+{\centering \includegraphics[width=\linewidth]{comparisonofsequencers} 
+
+}
+
+\caption[Comparison of RNA-seq technologies.]{\textbf{Comparison of RNA-seq technologies.} (\textbf{A}) Illumina sequencers attach short fragments to a solid surface called a flowcell. Fluorescent nucleotides create a clear fluorescent spot that identifies the last nucleotide to be attached. (\textbf{B}) PacBio sequencers enable long reads by opening up double stranded DNA into a circle. A polymerase can loop round the circle attaching fluorescent nucleotides that identify the next nucleotide in the sequence. (\textbf{C}) Oxford Nanopore sequencers force nucleotide fragments through protein pores in a membrane. The transmembrane proteins change the current passing through them in response to the nucleotide sequence. The changing in the current can be used to determine the nucleotide sequence. Figure adapted from \cite{Stark2019}}\label{fig:rna-seq-tech}
+\end{figure}
+
 \subsubsection{Shotgun Sequencing}
 
 In the early 2000's, several companies competed to overcome the microarray's deficiency in requiring DNA targets to be defined before the experiment \parencite{Rusk2007}.
 Solexa (now Illumina) developed adapters that could be ligated to any sample of DNA and facilitate the attachment of the DNA sample to a solid surface. 
 Fluorescent nucleotides were created that could terminate elongation in a reversible way.
 These nucleotides enabled a base-pair by base-pair cycle of elongation with the identity of the last bound nucleotide being identified by its colour.
-Fixing the fragments of DNA to the surface meant islands of duplicates of the original fragment would be created and a clear fluorescent spot could be detected.
+Fixing the fragments of DNA to the surface meant islands of duplicates of the original fragment would be created and a clear fluorescent spot could be detected, Figure \ref{fig:rna-seq-tech}A.
 Unfortunately, this technology only allowed accurate determination of reads with length <50 nucleotides originally.
 As this length is significantly shorter than the majority of sequences of biological interest, the preparation of samples for Solexa sequencing includes a step to break samples in to small fragments, coining the term shotgun sequencing.
 The size of the fragments are of the order of 100 nucleotides, which is still larger than the length of reads received from the sequencing machine.
@@ -170,10 +188,10 @@ Shotgun sequencing propelled molecular biology into an age of affordable, high-t
 However, the limit in read size from shotgun sequencing made tasks such as de novo genome assembly and the detection of structural variants significantly difficult.
 Long read sequencing technology has now matured with Oxford Nanopore and PacBio offering solutions to read 1000's of nucleotides at a time. 
 PacBio sequencers uses fluorescent nucleotides to determine sequences similar to a Illumina sequencer, but instead of binding fragments to a solid surface they form single stranded circles from long segments of double stranded DNA (ddDNA).
-Hairpin-shaped SMRTbell adapters are attached to either end of a ddDNA segment creating a closed loop that is opened up into a circle. 
+Hairpin-shaped SMRTbell adapters are attached to either end of a ddDNA segment creating a closed loop that is opened up into a circle, Figure \ref{fig:rna-seq-tech}B. 
 A polymerase is attached to the adapters which can loop round the circle producing multiple copies of both strands of the original ddDNA segment \parencite{Hu2021}.
 An Oxford Nanopore sequencer consists of a membrane with 100's of transmembrane proteins that alter their electric resistance when deformed by nucleotides moving through them.  
-A current passing through the transmembrane protein then produces a signal in response to the nucleotides moving through the protein.
+A current passing through the transmembrane protein then produces a signal in response to the nucleotides moving through the protein, Figure \ref{fig:rna-seq-tech}C.
 Machine learning algorithm have been trained to convert the signals in the current into the sequences nucleotides \parencite{Jain2016}.
 
 \subsubsection{Overview of RNA-Seq Based Assays}
@@ -232,7 +250,17 @@ Furthermore, as differences in software versions contribute to different outcome
 
 Across all cells in all organisms genetic information flows from DNA to RNA to proteins, the central dogma of molecular biology.
 Transcription from DNA to RNA and translation from RNA to protein are regulated by numerous mechanisms simultaneously to enable cells to respond to their environment.
-This chapter is a brief overview of the transcription and post-transcriptional regulatory mechanisms that contribute to the differential expression of mRNA transcripts with emphasis on the mechanisms present in \textit{Saccharomyces} cerevisiae. 
+This chapter is a brief overview of the transcription and post-transcriptional regulatory mechanisms that contribute to the differential expression of mRNA transcripts with emphasis on the mechanisms present in \textit{Saccharomyces} cerevisiae, Figure \ref{fig:mrna-regulation}. 
+
+\begin{figure}[h]
+
+{\centering \includegraphics[width=\linewidth]{figures/post-transcriptional-regulation} 
+
+}
+
+\caption[Overview of key mRNA regulatory processes.]{\textbf{Overview of key mRNA regulatory processes.} Several mechanisms act simultaneously to enable cells to respond to their environment through the regulation of mRNA transcripts. Figure adapted from \cite{Corbett2018}}\label{fig:mrna-regulation}
+\end{figure}
+
 
 \subsection{Transcriptional Regulation}
 
@@ -255,7 +283,6 @@ The freely floating pre-mRNA transcript is then bound by a poly(A) polymerase th
 The remaining string of RNA bound to the polymerase and DNA template is degraded by a 5' to 3' exonuclease, which is thought to dislodge the polymerase and terminate transcription \parencite{Alberts2017}.
 The terminator can contain multiple cleavage sites leading to transcript isoforms with different poly(A) positions.
 Further isoforms can be created as the promoter can contain different transcription start sites leading to transcript isoforms with different exons and 5'UTRs.
-
 
 \subsection{Post-transcriptional Regulation}
 
@@ -458,6 +485,15 @@ Therefore, practitioners are rarely trained in the standard development practice
 
 %https://f1000research.com/articles/8-1353#ref-19
 
+\begin{figure}[h]
+
+{\centering \includegraphics[width=\linewidth]{figures/agileVsWaterfall} 
+
+}
+
+\caption[Comparison of two common software development practices.]{\textbf{Comparison of two common software development practices.} \textbf{A} Waterfall consists of a linear sequence of tasks each of which must be fully completed before moving onto the next. \textbf{B} Agile focuses on gaining feedback as soon as possible by quickly implementing small changes and using feedback to influence the next design stage. }\label{fig:development-practices}
+\end{figure}
+
 As software development has become a profession, practitioners have created practices and frameworks to facilitate efficient and rigorous software development.
 The practice of don't repeat yourself (DRY) is one of the most commonly implemented to encourage programmers to write short and specific functions to solve regularly occurring tasks. 
 Minimising the number of repetitions helps reduce errors (simply from imperfect copying), improves readability and enables faster debugging as compartmentalising tasks into separate functions enables you to test each function separately \parencite{Thomas1999}.
@@ -466,13 +502,13 @@ For example, a correctly design suite of test is intended to help diagnose bugs 
 Abstracting error messages to the shortest, most general form can invalid their usefulness in diagnosing bugs.
 Therefore, using Descriptive and Meaningful Phrases (DAMP) and repeating how input arguments are defined within each test helps to speed the diagnosis process.
 
-The first software development framework, and the one loosly followed in the sciences, is called waterfall.
-Waterfall introduces a structure to the coding practice by outlining a series of stages that are completed linearly.
+The first software development framework, and the one loosely followed in the sciences, is called waterfall.
+Waterfall introduces a structure to the coding practice by outlining a series of stages that are completed linearly, Figure \ref{fig:development-practices}A.
 It starts with a detailed specification before moving to development and finally implementation.
 Alternative practices generally deviate from the waterfall ethos of leaving implementation to the very last stage.
 Instead they prioritise creating a minimal viable product as soon as possible and testing its functionality.
 Others even enable the specification to be altered and redefined as the project develops.
-The flexibility to redefine the project as it is being developed is why the alternative practices are called agile. 
+The flexibility to redefine the project as it is being developed is why the alternative practices are called agile, Figure \ref{fig:development-practices}B. 
 
 Two common agile practices in industry are scrum and extreme programming.
 Scrum is the modern archetypal agile method \parencite{Schwaber2020}.

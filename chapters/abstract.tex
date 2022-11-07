@@ -2,18 +2,30 @@
 \graphicspath{{\subfix{../figures/}}}
 
 \begin{document}
-\chapter{Abstract}
+\begin{abstract}
 
-This chapter introduces open-source software practices, community development and the pedagogy of software documentation to promote the development of long-term, high impact research software. Focusing on the issue of the standardisation of qPCR analysis, the chapter contrasts the R package tidyqpcr, developed by the author, to other current software available. This use case highlights how quality software supported by comprehensive documentation can improve the quality of the entire experimental assay.
+Molecular biology has entered an age of unprecedented volumes of data.
+The growth of available data has overwhelmed manual curation and has led to a dependence on computational methods to automate analysis.
+Yet, the complexity of regulatory mechanisms within cells still dwarfs the available information. 
+The perilous situation of having too much data to inspect manually, but too little high quality data to describe a process in its entirety is a significant challenge to modern research.
+Inadequate analysis is contributing to the ongoing crisis around reproducing conclusions from published research.
+Rigorous implementations of statistical analysis software can uncover phenomena at incredible scales, but closed, obscure, and incorrect analyses can propagate the reproducibility crisis to unassailable new heights.
 
-This chapter contains the software development, microbiology and statistical methods used to complete my research. For the development of tidyqpcr I discussion the techniques of open software development and effective evaluation of user experience. I also outline the process of creating reproducible and quality controlled RNA-seq analysis. I describe the qualitative statistical methods used across my PhD research include linear modelling, Gaussian Processes and developing novel Bayesian models to normalised RNA-seq datasets. Finally, I outline the experimental assays planned and executed with the Wallace lab specifically for the completion of my research. 
+The objective of this research project is the implementation of open source software practices and the pedagogy of software documentation to promote rigorous statistical analysis through the development of quality research software. 
+The thesis focuses on the analysis of transcriptomics data sets, predominately in the model organism \textit{Saccharomyces} cerevisiae.
+The first project discusses the issue of the standardisation of qPCR data analysis. 
+The chapter contrasts the R package tidyqpcr, developed by the author, to other current software available. 
+This use case highlights how quality software supported by comprehensive documentation can improve the quality of an entire experimental assay.
+The next chapter showcases how the implementation of quality analysis can detect subtle interactions between regulatory motifs.
+The careful design of several reporter constructs using insights from already published data sets shows how even short regulatory motifs can be affected by their overall context.
+The final results chapter outlines the development of a statistical software package to rigorously analyse noisy transcriptomic data from a non-standard RNA-Seq assay.
+Several software packages have been developed to counter the significant biases present in RNA-Seq data sets.
+However, their generality requires them to make assumptions about the overall structure of the RNA data sets; assumptions that are broken in many RNA-seq assays.
+The versatility of Bayesian hierarchical models at incorporating complex error structures is used to create software to analysis RNA-Seq assays exploring the localisation of mRNA transcripts through differential fractionation.
 
-This chapter presents the development of tidyqpcr \footnote{tidyqpcr is intentionally lowercase}; an open source R package for the analysis of qPCR data.
-The introduction explores the need for improving the design, analysis and presentation of qPCR experiments.
-The results section begins with an overview of currently available software packages which highlights the lack of a scalable analysis package that supports best practices in qPCR experimental design.
-Next, the core functionality of tidyqpcr is described together with the use of best software design practices.
-Finally, a series of user tests by researchers from a variety of backgrounds are summarised.
+In summary, this thesis presents and implements two examples of research software that improve the reproducibilty of and the quality of conclusions from data acquired from common experimental assays in molecular biology. 
+The thesis also outlines how to implement open source development practices and create inclusive documentation in an academic setting. 
+Software developed within this framework is then used to elucidate subtle ways that cells regulate their transcriptome.
 
-This chapter is about finding short cis-regulatory motifs in the 3'UTR of mRNA transcripts and detecting if their regulatory behaviour is dependent on the context of the whole transcript. This could be the context of the 5'UTR, ORF or the 3'UTR. We also introduced two motifs at the same time to see if they interact with each other. To begin, a literature search found 69 motifs previously identified as being enriched in transcripts that bind proteins or are highly expressed. Then, a linear model predicting transcript half life using codon usage, 3'UTR length and the presence or absence of these motifs was trained on two independent half life data sets. Using a greedy algorithm that maximised the AIC of the model, the 69 motifs were shortlisted to just 4 likely contributors. These 4 chosen motifs were inserted into two different native terminators and removed from one terminator that they appear in natively. Each motif-terminator set was also pair with three different promoters creating a library of 20 constructs. Using qPCR to detect changes in the expression of these constructs we then determined whether these motifs have the same effect in different contexts or whether they contribute the same across transcripts. We confirmed these effects are repeated in protein expression and in RNA-Seq expression. Finally we attempted to see if these transcripts had different PolyA sites in the total and decay populations but found different in only one case.
-
+\end{abstract}
 \end{document}
