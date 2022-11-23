@@ -4,12 +4,13 @@
 \begin{document}
 
 \chapter{{Introduction}}
+\onehalfspacing
 
 The acquisition of quality, high-throughput data sets is outpacing the creation and implementation of methods to handle and analyse it. 
 In 2012, the European Bioinformatics Institute (EBI) was one of the biggest biology repositories in the world with a 20Pb storage facility \parencite{EBI2012}. 
 However, by 2021, the upload of new data reached 20Pb a year with the institute having to explore collaborations with Google and Amazon in order to keep up \parencite{EBI2021}. 
 The “data deluge” \parencite{Royal2012} is not only affecting infrastructure but is leading to fundamental questions about the philosophy of science as scientific publications are starting to benefit from the quality and quantity of their data rather than the significance of the conclusions they reach \parencite{Leonelli2019, Botstein2010}. 
-However, the pursuit of big data in biology is undoubtedly leading to answers to questions thought unassailable a few years ago, such as AlphaFold base-pair resolution protein structures for entire genomes \parencite{Jumper2021}. 
+However, the pursuit of big data in biology is undoubtedly leading to answers to questions thought unassailable a few years ago, such as AlphaFold angstrom resolution protein structures for entire genomes \parencite{Jumper2021}. 
 
 Significant progress has been made in developing methods that extract useful information from the “data deluge”.
 In investigations of linear covariates, robustness to noise and outliers can be improved by using alternative loss functions, such as the least absolute deviation, or the introduction of penalising terms, such as the $L_n$-norm of the regression coefficients \parencite{Wu2015}.
@@ -33,37 +34,114 @@ Fundamentally, the work by computational biologists is just as susceptible to th
 How data is preprocessed, how missing values are dealt with and which software is used can all drastically change results \parencite{Ioannidis2009}.
 In big data, as the volume and types of data increases, the sparsity of biologically relevant data points increases which only decrease the likelihood of an analysis being reproducible \parencite{Chattopadhyay2019}.
 
-There remains a gap between the computation methods used to analysis high-dimensional data and the implementation of these methods on biological data.
-Those that bridge this gap are typically biologist with no formal software engineering training \parencite{Attwood2019} and little motivation to develop prototype analysis scripts into fully fledged programs \parencite{Prins2015}. 
+There remains a gap between the computational methods used to analysis high-dimensional data and the implementation of these methods on biological data.
+Those that bridge this gap are typically biologist with no formal software engineering training \parencite{Attwood2019} and who are unlikely to develop prototype analysis scripts into fully fledged programs \parencite{Prins2015}. 
 In addition, selection of appropriate models are dependent on subject, hypothesis and quality of data \parencite{Ching2018}.
 This leads to high duplication, poor reproducibility and slower overall progress \parencite{Lawlor2015}.
 Only through the use of rigorous statistical methods implemented in reproducible and usable software packages can the dawn of the big data effectively combat the reproducibility crisis in biology.
 
 Here, I discuss work using data sets from high-throughput transcriptomics experiments to expand the quantification of regulatory effects on mRNA transcripts. 
 Through the development of analysis software and statistical models that incorporate both experimental noise and non-standard interactions I explore transcript localisation and the context dependence of cis-regulatory elements. 
-The introduction starts by covering the basics of key transcriptomic assays that have enabled the dawn of the big data in molecular biology. 
+The introduction starts with an overview some of the key mechanisms used by eukaryotic cells to regulate their expression 
+I also cover the basics of key transcriptomic assays that have enabled the dawn of the big data in molecular biology. 
 qPCR, microarrays and RNA-Seq are covered with emphasis on the sources of error that can be present in these experiments. 
-I also overview some of the key mechanisms used by eukaryotic cells to regulate their expression.
 Then, I discuss a handful of statistical methods that enable rigorous analysis of the multi-dimensional data sets with the emphasis of discovering sparse features with biological significance. 
 Finally, I outline the key software development practices that have influenced the work I have conducted. 
 I implement these best practices to ensure the analysis software I develop is accessible, interoperable and usable.
 
 \newpage
 
+\section{Gene Expression Regulation}
+
+Across all cells in all organisms genetic information flows from DNA to RNA to proteins, the central dogma of molecular biology.
+Transcription from DNA to RNA and translation from RNA to protein are regulated by numerous mechanisms simultaneously to enable cells to respond to their environment.
+This chapter is a brief overview of the transcription and post-transcriptional regulatory mechanisms that contribute to the differential expression of mRNA transcripts with emphasis on the mechanisms present in \textit{Saccharomyces} cerevisiae, Figure \ref{fig:mrna-regulation}. 
+
+\begin{figure}[h]
+
+{\centering \includegraphics[width=\linewidth]{figures/post-transcriptional-regulation} 
+
+}
+
+\caption[Overview of key mRNA regulatory processes.]{\textbf{Overview of key mRNA regulatory processes.} Several mechanisms act simultaneously to enable cells to respond to their environment through the regulation of mRNA transcripts. Figure adapted from \cite{Corbett2018}}\label{fig:mrna-regulation}
+\end{figure}
+
+
+\subsection{Transcriptional Regulation}
+
+The successful creation of an mRNA transcript from its corresponding DNA template requires the completion of three key transcriptional steps: initiation, elongation and termination.
+Initiation of transcription consists of the RNA polymerase II binding to the DNA template upstream of the sequence encoding a protein.
+The region where the RNA polymerase II initiates transcription is called the promoter.
+In eukaryotes, DNA is wound around nucleosomes and densely packaged in several orders of chromatin structure.
+Therefore, the initiation of transcription requires a variety of transcription factors to aid in the unwinding of the chromatin, scanning of regions for promoters, and the binding of RNA polymerase II.
+Promoters consist of regulatory sequences that encourage the binding of transcription factors and can be further affected by distal regulatory regions such as enhancers. 
+
+Once transcription is initiated the polymerase begins the sporadic process of elongation from the transcript start site.
+For a transcript without introns, the polymerase first transcribes the 5' untranslated region (5'UTR) of an mRNA transcript, then the coding sequence for the corresponding protein, and finally the 3' untranslated region (3'UTR).
+However, the process of elongation is highly stochastic with polymerases regularly pausing and even stalling with several accessory proteins required to maintain the process.
+Early on in the elongation stage, the 5' end of the pre-mRNA is modified by several enzymes to form a 5'-methyl cap which inhibits degradation and aids translation.
+Finally, the termination of transcription remains a relatively unclear process as a distinct termination sequence has not been found.
+Instead, the polymerase continues to transcribe the sequence downstream of the 5'UTR.
+This downstream terminator region does contain sequences to recruit cleavage and polyadenylation factors.
+The still elongating RNA transcript is cleaved at the end of the 5'UTR as dictated by these sequences.
+The freely floating pre-mRNA transcript is then bound by a poly(A) polymerase that adds a tail of hundreds of adenine bases to the end of the transcript.
+The remaining string of RNA bound to the polymerase and DNA template is degraded by a 5' to 3' exonuclease, which is thought to dislodge the polymerase and terminate transcription \parencite{Alberts2017}.
+The terminator can contain multiple cleavage sites leading to transcript isoforms with different poly(A) positions.
+Further isoforms can be created as the promoter can contain different transcription start sites leading to transcript isoforms with different exons and 5'UTRs.
+
+\subsection{Post-transcriptional Regulation}
+
+In between the transcription of a nascent RNA transcript and its translation into a sequence of amino acids, a variety of regulatory mechanisms act to remove introns, check for quality control and transport transcripts around the cell.
+Some genes consist of regions, called introns, that are between the transcription start and end sites but are not in the final mature transcripts.
+Concurrently with or immediately after transcription a group of co-functional RNA and proteins called the spliceosome remove intron segments within nascent RNA transcripts.
+The regions that forms the mature mRNA transcript are called exons and a single transcript may consist of 10's of exons spliced together.
+Alternative splicing of introns and exons can theoretically produce thousands of different versions of a protein in some Drosophila genes.
+
+Selective degradation of low quality mRNA or transcripts that that are no longer needed is a crucial post-transcriptional regulation mechanism.
+The importance of degradation in gene regulation is reflected in the number of redundant processes to degrade transcripts, but the majority of degradation is facilitated by the deadenylation-dependent mRNA decay pathway.
+This pathway starts by flagging transcript for degradation by shortening  the poly(A) tail.
+Then either the 5'methyl cap is removed to enable 5'->3' degradation by the XRN1 exoribonuclease or 3'->5' degradation is initiated by the exosome attaching to the exposed 3' end. 
+A variety of surveillance methods can trigger transcript degradation, including: non-sense mediated decay which checks for premature stop codons, non-stop mediated decay which checks for missing stop codons, and no-go mediated decay which checks for stalled ribosomes on mRNA.
+In response to stress or other cause of high load on the degradation machinery, P bodies can form in the cytoplasm that are believed to facilitate degradation as they often contain deadenylation, decapping and degradation factors \parencite{Garneau2007}.
+
+Post-transcription regulation is also known to facilitate temporal and spatial regulation in cells.  
+Temporal regulation is common in developmental processes where the order of production of specific proteins is highly regulated. 
+For example, in C. elegans lin-4 is a non-coding RNA gene crucial for regulating cell fates during the early stages of larval development \parencite{Wightman1993}. 
+Lin-4 is a small RNA that binds to its target mRNA lin-14 and inhibits the translation of lin-14 \parencite{Lee1993}.
+Since lin-4 is only expressed at the end of the first larval development stage, lin-14 only is only translationally inhibited late into stage 1, initiating the start of stage 2 \parencite{Olsen1999}. 
+Similarly, to establish meiotic chromosome segregation in budding yeast, mRNA encoding cyclin CLB3 is transcribed in stage I of meiosis, but is translationally repressed until stage II of meiosis. 
+CLB3 is translationally repressed by the RNA-binding protein Rim4. 
+During the transition to meiosis II, Rim4 is phosphorylated which inhibits binding to CLB3 and enables CLB3 to be translated \parencite{Berchowitz2013}. 
+Therefore, post-transcription control of CLB3 by Rim4 and of lin-4 by lin-14 depends on the timing of promoter-specified transcriptional control.
+
+Spatial regulation enables centrally transcribed mRNA transcripts to be regulated differently depending on target location of their encoded protein.
+In yeast, the Ash1 protein represses mating-type switching only in daughter
+cells \parencite{Sil1996}, due to localisation of the ASH1 transcript at the bud tip and subsequent localised translation \parencite{Niednery2014}. 
+It is thought that co-transcriptional recruitment of She2 to the ASH1 transcript in the nucleus enables the later recruitment of cytoplasmic factors Khd1/Hek2 and Puf6, factors known for translational repression. 
+Furthermore, successful transport of ASH1 to the bud tip by She2-She3-Myo4 complexes depends on translational repression by Khd1 and Puf6. 
+Later, phosphorylation of Khd1 and Puf6 by bud-membrane-localised kinases leads to localised translational activation of the ASH1 mRNP \parencite{Paquin2007, Deng2008}.
+
+Another example where the effect of a CRE on a transcript depends on co-localisation with a regulatory kinase comes from the fungal RNA-binding protein Ssd1. 
+Yeast cell wall proteins such as Sun4 and Tos6 are translationally repressed by Ssd1 \parencite{Jansen2009}.
+It is thought that these transcripts are translationally activated at bud sites after the phosphorylation of Ssd1 by a localised kinase, Cbk1 \parencite{Jansen2009}. 
+There is no evidence that Ssd1 directly acts to transport RNA, so this localised activation presumably depends on localisation the recruitment of other RNA-binding proteins to those transcripts \parencite{Hogan2008, Bayne2021}, that then in turn recruit transport machinery.
+\newpage
+
+
 \section{High-Throughput RNA Assays}
 
 \subsection{qPCR}
 
-Polymerase chain reaction (PCR) is regarded as one of the most significant methods in molecular biology with its inventor Kary B. Mullis being co-awarded the Nobel prize in Chemistry in 1993.
+Polymerase chain reaction (PCR) is regarded as one of the most significant methods in molecular biology.
 The accuracy of PCR as a method to produce copies of regions of DNA in a log-linear manner has led researchers to explore its use an accurate method to quantify abundance since its invention in the 1980's \parencite{Saiki1988}.
 The quantification of the rate of amplification in real time quickly followed \parencite{Holland1991}, but it wasn't until the 2000's that biochemistry and technology matured into a reliable quantitative PCR (qPCR) method \parencite{Walker2002}.
 qPCR is a relatively low-throughput quantification method when compared to the other methods described here.
 However, developments in microfluidics and multiplexing target probes are overcoming the bottlenecks in conducting high-throughput qPCR \parencite{Dreier2022}.
 
 The basic principle of PCR consists of the duplication of a region of DNA that is specified by two short nucleotide sequences, called primers, that are designed to be complementary to the start and the end of the region of interest. 
-A highly thermal tolerant polymerase, adapted from the bacteria \textit{Thermus aquaticus}, is then able to complete the duplication of the region by elongation of the sequence between the two primers \parencite{Saiki1988}.
+A highly thermotolerant polymerase, adapted from the bacteria \textit{Thermus aquaticus}, is then able to complete the duplication of the region by elongation of the sequence between the two primers \parencite{Saiki1988}.
 The duplication cycle is repeated several times leading to an exponential growth in the number of copies of the original region.
-The PCR polymerase must be thermal tolerant as the duplication cycle is rapidly repeated by raising the temperature to melt the newly created complementary stand away from the original strand before dropping the temperature back down to enable the next round of elongation. 
+The PCR polymerase must be thermotolerant as the duplication cycle is rapidly repeated by raising the temperature to melt the newly created complementary stand away from the original strand before dropping the temperature back down to enable the next round of elongation. 
 Quantifying the rate of amplification, is done by introducing dyes that only fluoresce when a region has been successfully duplicated. 
 The fluorescence of the sample is measured as the PCR cycle is repeated to determine the exponential growth in duplicates.
 Quantitative PCR (qPCR) uses the amplification curve to infer the number of transcripts of the target sequence in the original sample \parencite{Holland1991}.
@@ -71,7 +149,7 @@ Quantitative PCR (qPCR) uses the amplification curve to infer the number of tran
 \subsubsection{qPCR Methods: RNA vs DNA}
 
 qPCR is highly optimised for amplifying DNA fragments using the \textit{Thermus aquaticus} polymerase. 
-Therefore, to quantify RNA fragments an additional step is required to create cDNA from RNA using a reverse transcriptase. 
+Therefore, to quantify RNA fragments an additional step is required to create complementary DNA (cDNA) from RNA using a reverse transcriptase. 
 Unfortunately, this step can be a significant source of variation and has been determined to be the source of most variation between RNA samples \parencite{Stahlberg2004}. 
 The variation in cDNA yield between replicates can be influenced by the choice of reverse transcriptase priming method, the original RNA target concentration and the total RNA concentration in the sample. 
 In order for a RT-qPCR experiment to be reproducible the reverse transcriptase step must be optimised and clearly described. 
@@ -244,81 +322,6 @@ Workflow languages, such as Nextflow, are able to integrate the inputs and outpu
 A community of bioinformaticians are bringing together standardise modules using Nextflow which can be cherry picked to create the best pipeline for any specific RNA-Seq assay \parencite{Ewels2020}.
 Furthermore, as differences in software versions contribute to different outcomes workflow languages are being combined with containers: such as singularity and docker \parencite{DiTommaso2015}.
 
-\newpage
-
-\section{Gene Expression Regulation}
-
-Across all cells in all organisms genetic information flows from DNA to RNA to proteins, the central dogma of molecular biology.
-Transcription from DNA to RNA and translation from RNA to protein are regulated by numerous mechanisms simultaneously to enable cells to respond to their environment.
-This chapter is a brief overview of the transcription and post-transcriptional regulatory mechanisms that contribute to the differential expression of mRNA transcripts with emphasis on the mechanisms present in \textit{Saccharomyces} cerevisiae, Figure \ref{fig:mrna-regulation}. 
-
-\begin{figure}[h]
-
-{\centering \includegraphics[width=\linewidth]{figures/post-transcriptional-regulation} 
-
-}
-
-\caption[Overview of key mRNA regulatory processes.]{\textbf{Overview of key mRNA regulatory processes.} Several mechanisms act simultaneously to enable cells to respond to their environment through the regulation of mRNA transcripts. Figure adapted from \cite{Corbett2018}}\label{fig:mrna-regulation}
-\end{figure}
-
-
-\subsection{Transcriptional Regulation}
-
-The successful creation of an mRNA transcript from its corresponding DNA template requires the completion of three key transcriptional steps: initiation, elongation and termination.
-Initiation of transcription consists of the RNA polymerase II binding to the DNA template upstream of the sequence encoding a protein.
-The region where the RNA polymerase II initiates transcription is called the promoter.
-In eukaryotes, DNA is wound around nucleosomes and densely packaged in several orders of chromatin structure.
-Therefore, the initiation of transcription requires a variety of transcription factors to aid in the unwinding of the chromatin, scanning of regions for promoters, and the binding of RNA polymerase II.
-Promoters consist of regulatory sequences that encourage the binding of transcription factors and can be further affected by distal regulatory regions such as enhancers. 
-
-Once transcription is initiated the polymerase begins the sporadic process of elongation from the transcript start site.
-For a transcript without introns, the polymerase first transcribes the 5' untranslated region (5'UTR) of an mRNA transcript, then the coding sequence for the corresponding protein, and finally the 3' untranslated region (3'UTR).
-However, the process of elongation is highly stochastic with polymerases regularly pausing and even stalling with several accessory proteins required to maintain the process.
-Early on in the elongation stage, the 5' end of the pre-mRNA is modified by several enzymes to form a 5'-methyl cap which inhibits degradation and aids translation.
-Finally, the termination of transcription remains a relatively unclear process as a distinct termination sequence has not been found.
-Instead, the polymerase continues to transcribe the sequence downstream of the 5'UTR.
-This downstream terminator region does contain clear sequences to recruit cleavage and polyadenylation factors. 
-The still elongating RNA transcript is cleaved at the end of the 5'UTR as dictated by these sequences.
-The freely floating pre-mRNA transcript is then bound by a poly(A) polymerase that adds a tail of hundreds of adenine bases to the end of the transcript.
-The remaining string of RNA bound to the polymerase and DNA template is degraded by a 5' to 3' exonuclease, which is thought to dislodge the polymerase and terminate transcription \parencite{Alberts2017}.
-The terminator can contain multiple cleavage sites leading to transcript isoforms with different poly(A) positions.
-Further isoforms can be created as the promoter can contain different transcription start sites leading to transcript isoforms with different exons and 5'UTRs.
-
-\subsection{Post-transcriptional Regulation}
-
-In between the transcription of a nascent RNA transcript and its translation into a sequence of amino acids, a variety of regulatory mechanisms act to remove introns, check for quality control and transport transcripts around the cell.
-Some genes consist of regions, called introns, that are between the transcription start and end sites but are not in the final mature transcripts.
-Concurrently with or immediately after transcription a group of co-functional RNA and proteins called the spliceosome remove unwanted intron segments within nascent RNA transcripts.
-The regions that forms the mature mRNA transcript are called exons and a single transcript may consist of 10's of exons spliced together.
-Alternative splicing of introns and exons can theoretically produce thousands of different versions of a protein in some Drosophila genes.
-
-Selective degradation of low quality mRNA or transcripts that that are no longer needed is a crucial post-transcriptional regulation mechanism.
-The importance of degradation in gene regulation is reflected in the number of redundant processes to degrade transcripts, but the majority of degradation is facilitated by the deadenylation-dependent mRNA decay pathway.
-This pathway starts by flagging transcript for degradation by shortening  the poly(A) tail.
-Then either the 5'methyl cap is removed to enable 5'->3' degradation by the XRN1 exoribonuclease or 3'->5' degradation is initiated by the exosome attaching to the exposed 3' end. 
-A variety of surveillance methods can trigger transcript degradation, including: non-sense mediated decay which checks for premature stop codons, non-stop mediated decay which checks for missing stop codons, and no-go mediated decay which checks for stalled ribosomes on mRNA.
-In response to stress or other cause of high load on the degradation machinery, P bodies can form in the cytoplasm that are believed to facilitate degradation as they often contain deadenylation, decapping and degradation factors \parencite{Garneau2007}.
-
-Post-transcription regulation is also known to facilitate temporal and spatial regulation in cells.  
-Temporal regulation is common in developmental processes where the order of production of specific proteins is highly regulated. 
-For example, in C. elegans lin-4 is a non-coding RNA gene crucial for regulating cell fates during the early stages of larval development \parencite{Wightman1993}. 
-Lin-4 is a small RNA that binds to its target mRNA lin-14 and inhibits the translation of lin-14 \parencite{Lee1993}.
-Since lin-4 is only expressed at the end of the first larval development stage, lin-14 only is only translationally inhibited late into stage 1, initiating the start of stage 2 \parencite{Olsen1999}. 
-Similarly, to establish meiotic chromosome segregation in budding yeast, mRNA encoding cyclin CLB3 is transcribed in stage I of meiosis, but is translationally repressed until stage II of meiosis. 
-CLB3 is translationally repressed by the RNA-binding protein Rim4. 
-During the transition to meiosis II, Rim4 is phosphorylated which inhibits binding to CLB3 and enables CLB3 to be translated \parencite{Berchowitz2013}. 
-Therefore, post-transcription control of CLB3 by Rim4 and of lin-4 by lin-14 depends on the timing of promoter-specified transcriptional control.
-
-Spatial regulation enables centrally transcribed mRNA transcripts to be regulated differently depending on target location of their encoded protein.
-In yeast, the Ash1 protein represses mating-type switching only in daughter
-cells \parencite{Sil1996}, due to localisation of the ASH1 transcript at the bud tip and subsequent localised translation \parencite{Niednery2014}. 
-It is thought that co-transcriptional recruitment of She2 to the ASH1 transcript in the nucleus enables the later recruitment of cytoplasmic factors Khd1/Hek2 and Puf6, factors known for translational repression. 
-Furthermore, successful transport of ASH1 to the bud tip by She2-She3-Myo4 complexes depends on translational repression by Khd1 and Puf6. 
-Later, phosphorylation of Khd1 and Puf6 by bud-membrane-localised kinases leads to localised translational activation of the ASH1 mRNP \parencite{Paquin2007, Deng2008}.
-Another example where the effect of a CRE on a transcript depends on co-localisation with a regulatory kinase comes from the fungal RNA-binding protein Ssd1. 
-Yeast cell wall proteins such as Sun4 and Tos6 are translationally repressed by Ssd1 \parencite{Jansen2009}.
-It is thought that these transcripts are translationally activated at bud sites after the phosphorylation of Ssd1 by a localised kinase, Cbk1 \parencite{Jansen2009}. 
-There is no evidence that Ssd1 directly acts to transport RNA, so this localised activation presumably depends on localisation the recruitment of other RNA-binding proteins to those transcripts \parencite{Hogan2008, Bayne2021}, that then in turn recruit transport machinery.
 \newpage
 
 \section{Statistical Methods}
@@ -608,4 +611,5 @@ Funding bodies and journals have acknowledged across the board that research dat
 % https://www.rd-alliance.org/system/files/FAIR4RS_Principles_v0.3_RDA-RFC.pdf.
  %https://diataxis.fr/
 % https://www.proquest.com/docview/304387282
+
 \end{document}

@@ -18,6 +18,11 @@
 \usepackage{xcolor}
 \usepackage{tabularx}
 \usepackage{tocloft}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{bayesnet}
+
 \usepackage[
 backend=bibtex,
 style=apa,
@@ -101,7 +106,7 @@ morestring=[b]"}
 
 \begin{document}
 %\title{PhD Thesis}
-\title{Developing Open Source Analysis Software for the Quantification of RNA Transcript Abundance}
+\title{Computational Methods for the Quantification of RNA Transcript Abundance and Messenger RNA Regulation}
 \author{Samuel Joseph Haynes}
 \date{2022}
 \makethesistitle
@@ -117,8 +122,7 @@ morestring=[b]"}
 \newpage
 
 %\chapter{Declaration}
-%I declare that this thesis was composed by myself, that the work contained herein
-%is my own except where explicitly stated otherwise in the text, and that this work has not been submitted for any other degree or professional qualification.
+%I declare that this thesis was composed by myself, that the work contained herein is my own except where explicitly stated otherwise in the text, and that this work has not been submitted for any other degree or professional qualification.
 
 %Samuel Haynes 
 %2022
@@ -135,19 +139,19 @@ morestring=[b]"}
 
 \newpage
 
-%\chapter{Lay Summary}
+\chapter{Lay Summary}
 
 \newpage
 
-%\tableofcontents
+\tableofcontents
 
 \newpage
 
-%\listoffigures
+\listoffigures
 
 \newpage
 
-%\listoftables
+\listoftables
 
 \newpage
 
@@ -165,33 +169,33 @@ morestring=[b]"}
 
 %\chapter{Introduction}
 
-%\subfile{chapters/introduction}
+\subfile{chapters/introduction}
 
 \newpage
 
 %\chapter{Materials and methods}
 
-% \subfile{chapters/materials_and_methods}
+\subfile{chapters/materials_and_methods}
 
 \newpage
 
 %chapter{tidyqpcr}
 
-%\subfile{chapters/tidyqpcr_chapter}
+\subfile{chapters/tidyqpcr_chapter}
 \newpage
 
 %\chapter{Chimera chapter}
 
-%\subfile{chapters/chimera_chapter}
+\subfile{chapters/chimera_chapter}
 \newpage
 
 %\chapter{Differential fractionation}
 
-%\subfile{chapters/differential_fractionation_chapter}
+\subfile{chapters/differential_fractionation_chapter}
 
 \newpage
 
-%\subfile{chapters/discussion_chapter}
+\subfile{chapters/discussion_chapter}
 
 \newpage
 
@@ -201,20 +205,20 @@ morestring=[b]"}
 
 \newpage
 
-%\chapter{Appendix}
+\chapter{Appendix}
 
-%\includepdf[pages=1-4]{chapters/tidyqpcr_appendix_A}
-
-\newpage
-
-%\includepdf[pages=1-2]{chapters/tidyqpcr_appendix_B}
+\includepdf[pages=1-4]{chapters/tidyqpcr_appendix_A}
 
 \newpage
 
-%\includepdf{chapters/tidyqpcr_appendix_C}
+\includepdf[pages=1-2]{chapters/tidyqpcr_appendix_B}
 
 \newpage
 
-%\subfile{chapters/chimera_chapter_supp_data}
+\includepdf{chapters/tidyqpcr_appendix_C}
+
+\newpage
+
+\subfile{chapters/chimera_chapter_supp_data}
 
 \end{document}
