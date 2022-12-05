@@ -5,4 +5,56 @@
 
 \chapter{{Discussion}}
 
+Technology developed over the last 30 years has enable investigations into the regulatory mechanisms that cells use to control their gene expression at unprecedented resolutions.
+However, the in-depth data sets are discovering subtle mechanisms that are easily confounded by experimental noise.
+As the volume and detail of data sets continues to increase the susceptibility to confounding noise with novel phenomena  due to inadequate analysis also grows.
+This is contributing to a reproducibility crisis across biology.
+This thesis described how the implementation of software development practices can support rigorous statistical methods and improve the design and conclusion of experiments.
+
+In chapter 4, the R package tidyqpcr was introduced as an open source R package for the analysis of qPCR data. 
+We saw the widespread usage of qPCR across biology and medicine, but also how the lack of understanding of best practices in the design and analysis of qPCR experiments was impeding reproducibility.
+The current software landscape was reviewed showing there are some open source packages with extensive functionality but steep learning curves that led a continual need for new packages.
+tidyqpcr was shown to combine the best practices in qPCR experimental design as outlined by the MIQE-guidelines together with the latest developments in data analysis available in the R tidyverse.
+The development of extensive documentation together with feedback from user interviews and an rOpenSci code review ensured that tidyqpcr was accessible to prospective users of varying coding abilities. 
+
+Chapter 5 described how the use of tidyqpcr, the rigorous analysis of published data sets, and the integration of data sets from multiple experiments detected subtle interactions between regulatory elements.
+We showed how the terminator sequence of mRNA transcripts can have different contributions to protein fluorescence when paired with different promoters and ORFs.
+We then extended beyond previous investigations into interactions between cis-regulatory elements by selecting short motifs within the 3'UTR sequence of terminators and show they also express different contributions to gene expression when inserted into different constructs.
+The presence and contribution of the chosen motifs were further supported by poly(A) anchored RNA-Seq and comparison of construct 3'UTR sequences.
+
+The results from chapter 5 contribute to the growing evidence for a more complex picture of cis-regulatory elements with consequences for computational and synthetic biology.
+High resolution maps of protein-RNA interactions are revealing RBPs with gapped, multi-partite motifs \parencite{Olivier2005} or motifs that must be repeated in the same transcript to be effective \parencite{Jackson2004, Gu2004}.
+Computational methods to find motifs, such as the MEME Suite \parencite{Bailey2015}, have extended beyond fixed length, gapless motifs but may still assume motifs occur independently and only once per transcript \parencite{Frith2008}.
+The unpredictability in the expression of combinations of otherwise well-characterised regulatory elements has led some experiments in synthetic biology to depend on time-consuming directed evolution assays to overcome mis-matches in component expression levels \parencite{Yokobayashi2002}.
+Introducing pools of combinations of suitable CREs when characterising synthetic libraries can screen for the correct expression levels \parencite{Kosuri2013}.
+
+In chapter 6, a Bayesian hierarchical model is introduced that can overcome a significant deficiency in common differential expression software if combined with appropriate experimental design. 
+We began by outlining the assumptions of normalising techniques that enable the detection of differential expression despite known biases in RNA-Seq.
+Fractionation based RNA-Seq assays enable investigations of post-transcriptional regulatory mechanisms that localise RNA transcripts, but the comparison of RNA samples that are expected to have global changes in counts invalidates the assumptions of common normalising techniques.
+DiffFracQuant was described as a Bayesian hierarchical model that normalises and detecta differential fractionation without the assumptions of other techniques.
+The performance if DiffFracQuant is shown to out perform DESeq2 on three data sets whilst detectng changes in total RNA levels as well as underlying changes in fractionation.
+
+\section{Future Work}
+
+tidyqpcr is a fully functional qPCR analysis package that has had significant contributions to the research of several labs. 
+However, the package is missing functionality that would extend its application and contribute to its overall aim of removing dependence on proprietary software. 
+Adding functions to read alternative qPCR data file formats, calculate Cq values directly from amplification curves and enable the analysis of qPCR assays other than SYBR Green remain priorities.
+There also remains work to be done on promoting its comprehensive documentation as a teaching resource both for conducting reproducible analysis and for implementing MIQE-compliant qPCR experimental design.
+The development and organisation of tidyqpcr workshops inspired by the widely successful Carpentries workshop for coding and data science will help grow tidyqpcr's user base.
+
+The limitations of composability of cis-regulatory elements can be further explored through the creation of a larger construct library which can be characterised using high-throughput gene expression assays.
+Several questions remain about the composability of the four 3'UTR motifs explored in chapter 5.
+First is whether behaviour of these motifs observed in the three host terminators is representative of their behaviour across the yeast genome.
+Second is the positional effects of the motifs particularly in respect to distance from the poly(A) tail.
+Finally, the design of more constructs that include multiple motifs together could uncover new interactions between motifs.
+The extended construct library could be characterised with high-throughput flow cytometry to determine protein fluorescence and multiplexed RNA-Seq to determine transcript abundance. 
+
+DiffFracQuant is currently able to analysis experiments with two fractions and two conditions.
+The first development of DiffFracQuant would be to extend the framework to enable more complex design matrices.
+The inclusion of more than two fractions would enable it to be applied to more experimental assays.
+Furthermore, allowing design matrices that facilitate interactions between multiple conditions and between fractions will enhance the quality of the conclusions that can be deduced with DiffFracQuant.
+The implementation of the R package that contains the DiffFracQuant model needs further development. 
+The function documentation needs to be enhanced and a vignette describing a typical DiffFracQuant workflow remains to be introduced.
+Investigating the default priors and the method for posterior sampling could also lead to a reduce run time.
+
 \end{document}

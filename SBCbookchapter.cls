@@ -109,8 +109,8 @@
           \end{onehalfspace}%
         }%
       }%
-      \vskip 2em%
-      \vskip 2.5em%
+      \vskip 3em%
+      \vskip 5em%
       %% Author
       {\fontfamily{\rmdefault}\selectfont%
       {\LARGE\itshape%

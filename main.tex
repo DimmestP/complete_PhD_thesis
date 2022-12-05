@@ -21,6 +21,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{tikz}
+\usepackage{gensymb}
 \usetikzlibrary{bayesnet}
 
 \usepackage[
@@ -115,9 +116,16 @@ morestring=[b]"}
 
 \renewcommand{\thepage}{\roman{page}}
 
-%\chapter{Dedication}
 
-%To Angela, Wayne, Charlotte, and all the fools who call me friend.
+\topskip0pt
+\vspace*{\fill}
+%\begin{center}
+%\textit{To Angela, Wayne, Charlotte,}
+
+%\textit{and all the fools who call me friend.}
+%\end{center}
+%\vspace*{\fill}
+%
 
 \newpage
 
@@ -131,27 +139,31 @@ morestring=[b]"}
 
 %\chapter{Acknowledgements}
 
+%\subfile{chapters/acknowledgements}
+
 \newpage
 
 %\chapter{Abstract}
 
-\subfile{chapters/abstract}
+%\subfile{chapters/abstract}
 
 \newpage
 
-\chapter{Lay Summary}
+%\chapter{Lay Summary}
+
+%\subfile{chapters/lay_summary}
 
 \newpage
 
-\tableofcontents
+%\tableofcontents
 
 \newpage
 
-\listoffigures
+%\listoffigures
 
 \newpage
 
-\listoftables
+%\listoftables
 
 \newpage
 
@@ -169,24 +181,28 @@ morestring=[b]"}
 
 %\chapter{Introduction}
 
-\subfile{chapters/introduction}
+%\subfile{chapters/introduction}
+
+\newpage
+
+%\subfile{chapters/transcriptomic_assays}
 
 \newpage
 
 %\chapter{Materials and methods}
 
-\subfile{chapters/materials_and_methods}
+%\subfile{chapters/materials_and_methods}
 
 \newpage
 
 %chapter{tidyqpcr}
 
-\subfile{chapters/tidyqpcr_chapter}
+%\subfile{chapters/tidyqpcr_chapter}
 \newpage
 
 %\chapter{Chimera chapter}
 
-\subfile{chapters/chimera_chapter}
+%\subfile{chapters/chimera_chapter}
 \newpage
 
 %\chapter{Differential fractionation}
@@ -201,24 +217,22 @@ morestring=[b]"}
 
 \setcounter{secnumdepth}{-1}
 
+%\chapter{Appendix}
+
+%\includepdf[pages=1-4]{chapters/tidyqpcr_appendix_A}
+
+\newpage
+
+%\includepdf[pages=1-2]{chapters/tidyqpcr_appendix_B}
+
+\newpage
+
+%\includepdf{chapters/tidyqpcr_appendix_C}
+
+\newpage
+
+%\subfile{chapters/chimera_chapter_supp_data}
+
 \printbibliography[heading=bibintoc]
-
-\newpage
-
-\chapter{Appendix}
-
-\includepdf[pages=1-4]{chapters/tidyqpcr_appendix_A}
-
-\newpage
-
-\includepdf[pages=1-2]{chapters/tidyqpcr_appendix_B}
-
-\newpage
-
-\includepdf{chapters/tidyqpcr_appendix_C}
-
-\newpage
-
-\subfile{chapters/chimera_chapter_supp_data}
 
 \end{document}
