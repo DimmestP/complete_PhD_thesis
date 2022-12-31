@@ -7,11 +7,13 @@
 \usepackage{array}
 \usepackage{setspace}
 \usepackage{colortbl}
+\usepackage{hyperref}
 \usepackage{listings}
 \usepackage{amsmath}
 \usepackage[hyphens]{url}
 \usepackage{setspace}
 \usepackage{amssymb}
+\usepackage{bm}
 \usepackage[font=small,labelfont=bf]{caption}
 \usepackage{fancyhdr}
 \usepackage{pdfpages}
@@ -20,9 +22,19 @@
 \usepackage{tocloft}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{placeins}
 \usepackage{tikz}
 \usepackage{gensymb}
+\usepackage{lstbayes}
 \usetikzlibrary{bayesnet}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,      
+    urlcolor=blue,
+    citecolor=blue
+    }
 
 \usepackage[
 backend=bibtex,
@@ -86,7 +98,7 @@ sorting=ynt
 % Add functions so that they are properly highlighted in code blocks
 
 \lstdefinelanguage{tidyqpcr}
-{morekeywords={aaa, display_plate_value, calculate_efficiency_bytargetid,calculate_deltacq_bysampleid,calculate_deltadeltacq_bytargetid,calculate_normvalue,create_blank_plate,label_plate_rowcol,create_colkey_4diln_2ctrl_in_24,create_rowkey_4_in_16,read_lightcycler_1colour_raw,calculate_drdt_plate,factor,rep,paste0,create_colkey_6_in_24,system.file,read_lightcycler_1colour_cq,left_join,mutate,bind_rows,unite,tibble,filter,group_by,summarize,median,ggplot,geom_point,aes,position_jitter,facet_wrap,scale_y_log10,label_number,theme,element_text,function,assert_that,has_name,pull,norm_function}
+{morekeywords={aaa, display_plate_value, calculate_, deltadeltacq_bytargetid, calculate_deltacq_, bysampleid, read_lightcycler, _1colour_raw, calculate_efficiency_bytargetid,calculate_deltacq_bysampleid,calculate_deltadeltacq_bytargetid,calculate_normvalue,create_blank_plate,label_plate_rowcol,create_colkey_4diln_2ctrl_in_24,create_rowkey_4_in_16,read_lightcycler_1colour_raw,calculate_drdt_plate,factor,rep,paste0,create_colkey_6_in_24,system.file,read_lightcycler_1colour_cq,left_join,mutate,bind_rows,unite,tibble,filter,group_by,summarize,median,ggplot,geom_point,aes,position_jitter,facet_wrap,scale_y_log10,label_number,theme,element_text,function,assert_that,has_name,pull,norm_function}
 sensitive=false,
 morecomment=[l]#,
 morestring=[b]"}
@@ -106,7 +118,6 @@ morestring=[b]"}
 \renewcommand{\cftchapnumwidth}{6em}
 
 \begin{document}
-%\title{PhD Thesis}
 \title{Computational Methods for the Quantification of RNA Transcript Abundance and Messenger RNA Regulation}
 \author{Samuel Joseph Haynes}
 \date{2022}
@@ -119,58 +130,61 @@ morestring=[b]"}
 
 \topskip0pt
 \vspace*{\fill}
-%\begin{center}
-%\textit{To Angela, Wayne, Charlotte,}
+\begin{center}
+\textit{To Angela, Wayne, Charlotte,}
 
-%\textit{and all the fools who call me friend.}
-%\end{center}
-%\vspace*{\fill}
-%
+\textit{and all the fools who call me friend.}
+\end{center}
+\vspace*{\fill}
+
 
 \newpage
 
-%\chapter{Declaration}
-%I declare that this thesis was composed by myself, that the work contained herein is my own except where explicitly stated otherwise in the text, and that this work has not been submitted for any other degree or professional qualification.
+\chapter{Declaration}
+I declare that this thesis was composed by myself, that the work contained herein is my own except where explicitly stated otherwise in the text, and that this work has not been submitted for any other degree or professional qualification.
 
-%Samuel Haynes 
-%2022
+\begin{flushright}
+Samuel Joseph Haynes
+
+2022
+\end{flushright}
 
 \newpage
 
 %\chapter{Acknowledgements}
 
-%\subfile{chapters/acknowledgements}
+\subfile{chapters/acknowledgements}
 
 \newpage
 
 %\chapter{Abstract}
 
-%\subfile{chapters/abstract}
+\subfile{chapters/abstract}
 
 \newpage
 
 %\chapter{Lay Summary}
 
-%\subfile{chapters/lay_summary}
+\subfile{chapters/lay_summary}
 
 \newpage
 
-%\tableofcontents
+\tableofcontents
 
 \newpage
 
-%\listoffigures
+\listoffigures
 
 \newpage
 
-%\listoftables
+\listoftables
 
 \newpage
 
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[RO]{\nouppercase{\rightmark\hfill\thepage}}
-\fancyhead[LE]{\nouppercase{\thepage\hfill}}
+\fancyhead[LE]{\nouppercase{\rightmark\hfill\thepage}}
 
 \renewcommand{\thepage}{\arabic{page}}
 
@@ -181,28 +195,30 @@ morestring=[b]"}
 
 %\chapter{Introduction}
 
-%\subfile{chapters/introduction}
+\subfile{chapters/introduction}
 
 \newpage
 
-%\subfile{chapters/transcriptomic_assays}
+\subfile{chapters/transcriptomic_assays}
 
 \newpage
 
 %\chapter{Materials and methods}
 
-%\subfile{chapters/materials_and_methods}
+\subfile{chapters/materials_and_methods}
 
 \newpage
 
 %chapter{tidyqpcr}
 
-%\subfile{chapters/tidyqpcr_chapter}
+\subfile{chapters/tidyqpcr_chapter}
+
 \newpage
 
 %\chapter{Chimera chapter}
 
-%\subfile{chapters/chimera_chapter}
+\subfile{chapters/chimera_chapter}
+
 \newpage
 
 %\chapter{Differential fractionation}
@@ -217,21 +233,50 @@ morestring=[b]"}
 
 \setcounter{secnumdepth}{-1}
 
-%\chapter{Appendix}
+\chapter{Appendix A}
 
-%\includepdf[pages=1-4]{chapters/tidyqpcr_appendix_A}
+\setcounter{secnumdepth}{2}
 
-\newpage
+\setcounter{section}{0}
 
-%\includepdf[pages=1-2]{chapters/tidyqpcr_appendix_B}
-
-\newpage
-
-%\includepdf{chapters/tidyqpcr_appendix_C}
+\renewcommand\thesection{A.\arabic{section}}
+\renewcommand\thesubsection{A.\arabic{section}.\arabic{subsection}}
 
 \newpage
 
-%\subfile{chapters/chimera_chapter_supp_data}
+\subfile{chapters/tidyqpcr_questionnaire}
+
+\newpage
+
+\subfile{chapters/tidyqpcr_software_review_table}
+
+\newpage
+
+\setcounter{secnumdepth}{-1}
+\setcounter{section}{0}
+
+\chapter{Appendix B}
+
+\newpage
+
+\setcounter{secnumdepth}{2}
+
+\renewcommand\thesection{B.\arabic{section}}
+
+\subfile{chapters/chimera_chapter_supp_data}
+
+\setcounter{secnumdepth}{-1}
+\setcounter{section}{0}
+
+\chapter{Appendix C}
+
+\setcounter{secnumdepth}{2}
+
+\newpage
+
+\renewcommand\thesection{C.\arabic{section}}
+
+\subfile{chapters/DiffFracSeq_appendix}
 
 \printbibliography[heading=bibintoc]
 

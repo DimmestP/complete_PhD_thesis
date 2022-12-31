@@ -4,17 +4,20 @@
 \makeatletter
 \renewcommand{\fnum@figure}{Supplementary Figure \thefigure}
 \renewcommand{\fnum@table}{Supplementary Table \thetable}
-\renewcommand{\thefigure}{S\arabic{figure}}
-\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{B\arabic{figure}}
+\renewcommand{\thetable}{B\arabic{table}}
 \makeatother
 \setcounter{figure}{0}
 \setcounter{table}{0}
 
-\chapter*{Appendix D}
-\subsection*{Supplementary Tables}
+\section{Chapter 5 Supplementary Tables}
 
-\begin{table}[h!]\centering \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont{\begin{tabular}{ c c }\textbf{mCherry} & \textbf{mTurq} \\ pRPS3 &  \\
-\begin{tabularx}{0.4\textwidth} { 
+\begin{table}[bh!]
+\centering
+\def\arraystretch{1.25}
+\begingroup\setlength{\tabcolsep}{5pt}\fontsize{9}{9}\selectfont{\begin{tabular}{ c }\textbf{mCherry} \\
+pRPS3  \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X | }
@@ -39,36 +42,9 @@ tPAB1 & 0.6018695 & 2.2e-06\\
 \hline
 tRPS3 & 0.8958268 & 0.0e+00\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.4\textwidth} { 
-  | >{\centering\arraybackslash}X 
-  | >{\centering\arraybackslash}X 
-  | >{\centering\arraybackslash}X | }
-\hline
-\textbf{Terminator} & \textbf{log2 fold change} & \textbf{p.adj}\\
-\hline
-tPMA1 & -2.4173566 & 0.000\\
-\hline
-tSUN4 & -1.8362856 & 0.000\\
-\hline
-tTOS6 & -1.2512970 & 0.000\\
-\hline
-tSRO9 & -0.7268833 & 0.000\\
-\hline
-tRPS13 & -0.0881267 & 0.330\\
-\hline
-tHSP26 & 0.1310147 & 0.300\\
-\hline
-tCLN2 & 0.2638312 & 0.015\\
-\hline
-tRPS3 & 0.3529039 & 0.001\\
-\hline
-tPAB1 & 0.6543571 & 0.000\\
-\hline
-\end{tabularx}
-\\ pHSP26 &  \\
-\begin{tabularx}{0.4\textwidth} { 
+\end{tabularx} \\
+pHSP26  \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X | }
@@ -93,36 +69,9 @@ tHSP26 & 0.0319040 & 1.0e+00\\
 \hline
 tRPS3 & 0.1164520 & 1.0e+00\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.4\textwidth} { 
-  | >{\centering\arraybackslash}X 
-  | >{\centering\arraybackslash}X 
-  | >{\centering\arraybackslash}X | }
-\hline
-\textbf{Terminator} & \textbf{log2 fold change} & \textbf{p.adj}\\
-\hline
-tPMA1 & -1.5432817 & 8.4e-06\\
-\hline
-tSUN4 & -1.2474233 & 3.0e-04\\
-\hline
-tSRO9 & -1.0514050 & 2.7e-03\\
-\hline
-tTOS6 & -0.6661552 & 1.2e-01\\
-\hline
-tHSP26 & -0.5293229 & 3.0e-01\\
-\hline
-tRPS13 & -0.3155979 & 1.0e+00\\
-\hline
-tCLN2 & -0.1610090 & 1.0e+00\\
-\hline
-tRPS3 & -0.0913532 & 1.0e+00\\
-\hline
-tPAB1 & 0.1215476 & 1.0e+00\\
-\hline
-\end{tabularx}
-\\pRPS13 &  \\
-\begin{tabularx}{0.4\textwidth} { 
+\end{tabularx}\\
+pRPS13  \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X | }
@@ -147,36 +96,9 @@ tPAB1 & 0.5324084 & 4.7e-05\\
 \hline
 tRPS3 & 0.5549583 & 2.9e-05\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.4\textwidth} { 
-  | >{\centering\arraybackslash}X 
-  | >{\centering\arraybackslash}X 
-  | >{\centering\arraybackslash}X | }
-\hline
-\textbf{Terminator} & \textbf{log2 fold change} & \textbf{p.adj}\\
-\hline
-tPMA1 & -2.0420263 & 0.0e+00\\
-\hline
-tSUN4 & -1.7210314 & 0.0e+00\\
-\hline
-tTOS6 & -0.8907257 & 0.0e+00\\
-\hline
-tSRO9 & -0.5765566 & 3.0e-07\\
-\hline
-tRPS13 & 0.0611790 & 5.0e-01\\
-\hline
-tHSP26 & 0.1966032 & 6.8e-02\\
-\hline
-tRPS3 & 0.2642338 & 1.5e-02\\
-\hline
-tCLN2 & 0.2901645 & 9.0e-03\\
-\hline
-tPAB1 & 0.5886753 & 2.0e-07\\
-\hline
-\end{tabularx}
-\\ pPGK1 &  \\
-\begin{tabularx}{0.4\textwidth} { 
+\end{tabularx} \\
+pPGK1  \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X | }
@@ -201,9 +123,97 @@ tHSP26 & 0.0881576 & 1.00\\
 \hline
 tCLN2 & 0.2156118 & 0.12\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.4\textwidth} { 
+\end{tabularx} \\
+\end{tabular}}\endgroup{}\caption[Tables showing changing contributions to gene expression from terminators paired with different promoters and coding sequences.]{\textbf{Tables showing changing contributions to gene expression from terminators paired with different promoters and coding sequences. $log_2$ fold change is calculated with respect to the PGK1 terminator of each promoter-coding sequence set. p.adj values are FDR adjusted t-test pvalues.}}\label{tab:norm-terminator-mcherry-sig-effect}\end{table}
+
+\begin{table}[ph!]
+\def\arraystretch{1.25}
+\centering 
+\begingroup\setlength{\tabcolsep}{5pt}\fontsize{9}{9}\selectfont{\begin{tabular}{ c }
+\textbf{mTurq} \\
+pRPS3 \\
+\begin{tabularx}{0.8\textwidth} { 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X | }
+\hline
+\textbf{Terminator} & \textbf{log2 fold change} & \textbf{p.adj}\\
+\hline
+tPMA1 & -2.4173566 & 0.000\\
+\hline
+tSUN4 & -1.8362856 & 0.000\\
+\hline
+tTOS6 & -1.2512970 & 0.000\\
+\hline
+tSRO9 & -0.7268833 & 0.000\\
+\hline
+tRPS13 & -0.0881267 & 0.330\\
+\hline
+tHSP26 & 0.1310147 & 0.300\\
+\hline
+tCLN2 & 0.2638312 & 0.015\\
+\hline
+tRPS3 & 0.3529039 & 0.001\\
+\hline
+tPAB1 & 0.6543571 & 0.000\\
+\hline
+\end{tabularx} \\
+pHSP26  \\
+\begin{tabularx}{0.8\textwidth} { 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X | }
+\hline
+\textbf{Terminator} & \textbf{log2 fold change} & \textbf{p.adj}\\
+\hline
+tPMA1 & -1.5432817 & 8.4e-06\\
+\hline
+tSUN4 & -1.2474233 & 3.0e-04\\
+\hline
+tSRO9 & -1.0514050 & 2.7e-03\\
+\hline
+tTOS6 & -0.6661552 & 1.2e-01\\
+\hline
+tHSP26 & -0.5293229 & 3.0e-01\\
+\hline
+tRPS13 & -0.3155979 & 1.0e+00\\
+\hline
+tCLN2 & -0.1610090 & 1.0e+00\\
+\hline
+tRPS3 & -0.0913532 & 1.0e+00\\
+\hline
+tPAB1 & 0.1215476 & 1.0e+00\\
+\hline
+\end{tabularx} \\
+pRPS13 \\
+\begin{tabularx}{0.8\textwidth} { 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X | }
+\hline
+\textbf{Terminator} & \textbf{log2 fold change} & \textbf{p.adj}\\
+\hline
+tPMA1 & -2.0420263 & 0.0e+00\\
+\hline
+tSUN4 & -1.7210314 & 0.0e+00\\
+\hline
+tTOS6 & -0.8907257 & 0.0e+00\\
+\hline
+tSRO9 & -0.5765566 & 3.0e-07\\
+\hline
+tRPS13 & 0.0611790 & 5.0e-01\\
+\hline
+tHSP26 & 0.1966032 & 6.8e-02\\
+\hline
+tRPS3 & 0.2642338 & 1.5e-02\\
+\hline
+tCLN2 & 0.2901645 & 9.0e-03\\
+\hline
+tPAB1 & 0.5886753 & 2.0e-07\\
+\hline
+\end{tabularx} \\
+pPGK1 \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X | }
@@ -229,18 +239,19 @@ tCLN2 & -0.0457990 & 0.7200\\
 tPAB1 & 0.4671738 & 0.0019\\
 \hline
 \end{tabularx}
-\end{tabular}}\endgroup{}\caption[Tables showing changing contributions to gene expression from terminators paired with different promoters and coding sequences.]{\textbf{Tables showing changing contributions to gene expression from terminators paired with different promoters and coding sequences. $log_2$ fold change is calculated with respect to the PGK1 terminator of each promoter-coding sequence set. p.adj values are FDR adjusted t-test pvalues.}}\label{tab:norm-terminator-sig-effect}\end{table}
+\end{tabular}}\endgroup{}\caption[Tables showing changing contributions to gene expression from terminators paired with different promoters and coding sequences.]{\textbf{Tables showing changing contributions to gene expression from terminators paired with different promoters and coding sequences. $log_2$ fold change is calculated with respect to the PGK1 terminator of each promoter-coding sequence set. p.adj values are FDR adjusted t-test pvalues.}}\label{tab:norm-terminator-mTurq-sig-effect}\end{table}
 
-\begin{table}[h!]
+\begin{table}[ph!]
+\def\arraystretch{1.25}
 \centering
-\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont
-\begin{tabularx}{0.45\textwidth} { 
+\begingroup\setlength{\tabcolsep}{5pt}\fontsize{9}{9}\selectfont
+\begin{tabularx}{\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
   | >{\centering\arraybackslash}X | }
 \hline
-\begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{CRE}\endgroup & \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Individual}\endgroup & \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Drop}\endgroup & \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Cumulative}\endgroup\\
+\textbf{CRE} &  \textbf{Individual} & \textbf{Drop} &  \textbf{Cumulative}\\
 \hline
 Codon Usage & 42.0\% & -40.5\% & 42.0\%\\
 \hline
@@ -249,34 +260,35 @@ Motifs & 3.2\% & -1.6\% & 43.7\%\\
 3'UTR Length & 0.6\% & 0.0\% & 43.7\%\\
 \hline
 \end{tabularx}
+\endgroup
 \caption[Variance explained by each type of CRE in the half-life model applied to data from Chan et al (2018).]{\label{tab:hlife-variance-table}\textbf{Variance explained by each type of CRE in the half-life model applied to data from Chan et al (2018).} Variance explained was estimated in 3 different ways. The individual variance explained by a linear model containing each type of CRE on its own.  The drop in variance explained when one type of CRE is removed from the full model. The cumulative variance explained when each CRE is added to the linear model in sequence; starting with codon usage, then adding motifs and finally 3'UTR length.}
 \end{table}
 
 \arrayrulecolor{white}
 
-\begin{table}[h!]
+\begin{table}[ph!]
+\def\arraystretch{1.25}
 \centering
-\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont
+\setlength{\tabcolsep}{5pt}\fontsize{9}{9}\selectfont
 \begin{tabular}[t]{>{\centering\arraybackslash}p{30em}}
 \hline
 mCherry construct sequences are available on the manuscript github repo.\\
 \hline
-https://github.com/DimmestP/chimera\_project\_manuscript/ tree/main/supplementary\_data\_chapter/data/ mCherry\_fluorescence\_reporter\_dna\_sequences.csv\\
+\url{https://github.com/DimmestP/chimera_project_manuscript/tree/main/supplementary_data_chapter/data/mCherry_fluorescence_reporter_dna_sequences.csv}\\
 \hline
 \end{tabular}
 \caption[Table showing the DNA sequences for all mCherry reporter constructs.]{\label{tab:mCherry-seq}\textbf{Table showing the DNA sequences for all mCherry reporter constructs.}}
 \end{table}
 
-\begin{table}[h!]
-
-
+\begin{table}[ph!]
+\def\arraystretch{1.25}
 \centering
-\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont
+\setlength{\tabcolsep}{5pt}\fontsize{9}{9}\selectfont
 \begin{tabular}[t]{>{\centering\arraybackslash}p{30em}}
 \hline
 mTurq construct sequences are available on the manuscript github repo\\
 \hline
-https://github.com/DimmestP/chimera\_project\_manuscript/ tree/main/supplementary\_data\_chapter/data/ mTurq\_fluorescence\_reporter\_dna\_sequences.csv\\
+\url{https://github.com/DimmestP/chimera_project_manuscript/tree/main/supplementary_data_chapter/data/mTurq_fluorescence_reporter_dna_sequences.csv}\\
 \hline
 \end{tabular}
 \caption[Table showing the DNA sequences for all mTurq reporter constructs.]{\label{tab:mTurq-seq}\textbf{Table showing the DNA sequences for all mTurq reporter constructs.}}
@@ -284,52 +296,52 @@ https://github.com/DimmestP/chimera\_project\_manuscript/ tree/main/supplementar
 
 \arrayrulecolor{black}
 
-\begin{table}[h!]
-
-
+\begin{table}[ph!]
+\def\arraystretch{1.25}
 \centering
-\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont
+\setlength{\tabcolsep}{5pt}\fontsize{9}{9}\selectfont
 \begin{tabularx}{0.95\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X
   | >{\centering\arraybackslash}X | }
 \hline
-\begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Primer name}\endgroup & \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Primer sequence}\endgroup & \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Purpose}\endgroup\\
+\textbf{Primer name} & \textbf{Primer sequence} & \textbf{Purpose}\\
 \hline
-mCh\_F7 & AGGACGGCGAGTTCATCTA & qPCR primer for mCherry ORF\\
+mCh\_F7 & AGGACGGCGAGTT CATCTA & qPCR primer for mCherry ORF\\
 \hline
-mCh\_R7 & CCCATGGTCTTCTTCTGCATTA & qPCR primer for mCherry ORF\\
+mCh\_R7 & CCCATGGTCTTCTT CTGCATTA & qPCR primer for mCherry ORF\\
 \hline
-RPS3\_F1 & TCGCTGACGGTGTCTTCTACG & qPCR primer for RPS3 ORF\\
+RPS3\_F1 & TCGCTGACGGTGT CTTCTACG & qPCR primer for RPS3 ORF\\
 \hline
-RPS3\_R1 & TCGGTCTTGGTTGGAGTGACA & qPCR primer for RPS3 ORF\\
+RPS3\_R1 & TCGGTCTTGGTTGGA GTGACA & qPCR primer for RPS3 ORF\\
 \hline
-RPS13\_EF & CTAGAAATGCTCCAGCTTGGTTCAA & qPCR primer for RPS13 ORF\\
+RPS13\_EF & CTAGAAATGCTCCAGC TTGGTTCAA & qPCR primer for RPS13 ORF\\
 \hline
-RPS13\_ER & TCAAACCCTTTCTCGCGTACTTG & qPCR primer for RPS13 ORF\\
+RPS13\_ER & TCAAACCCTTTCTCG CGTACTTG & qPCR primer for RPS13 ORF\\
 \hline
-PGK1\_F2 & GCTGCTTTGCCAACCATCAA & qPCR primer for PGK1 ORF\\
+PGK1\_F2 & GCTGCTTTGCCAAC CATCAA & qPCR primer for PGK1 ORF\\
 \hline
-PGK1\_R2 & TCGTTTCTTTCACCGTTTGGTC & qPCR primer for PGK1 ORF\\
+PGK1\_R2 & TCGTTTCTTTCACCG TTTGGTC & qPCR primer for PGK1 ORF\\
 \hline
-mTu\_F2 & TTGGGGTGTTCAATGTTTTGC & qPCR primer for mTurq2 ORF\\
+mTu\_F2 & TTGGGGTGTTCAATG TTTTGC & qPCR primer for mTurq2 ORF\\
 \hline
-mTu\_R2 & TGAACATAACCTTCTGGCATGG & qPCR primer for mTurq2 ORF\\
+mTu\_R2 & TGAACATAACCTTCT GGCATGG & qPCR primer for mTurq2 ORF\\
 \hline
 \end{tabularx}
 \caption[Primer sequences created for all qPCR experiments.]{\label{tab:chimera-qpcr-primers-table}\textbf{Primer sequences created for all qPCR experiments.}}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[ph!]
+\def\arraystretch{1.25}
 \centering
-\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont
-\begin{tabularx}{0.45\textwidth} { 
+\setlength{\tabcolsep}{5pt}\fontsize{9}{9}\selectfont
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
   | >{\centering\arraybackslash}X | }
 \hline
-\begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Motif}\endgroup & \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Total Count}\endgroup & \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Coef}\endgroup & \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{p.value}\endgroup\\
+\textbf{Motif} & \textbf{Total Count} &  \textbf{Coef} & \textbf{p.value}\\
 \hline
 CTTCATTTC & 14 & -0.52197 & 0.00474\\
 \hline
@@ -365,16 +377,17 @@ ATTCATTAT & 39 & -0.22684 & 0.04928\\
 \caption[Selecting the HWNCATTWY motif, TTTCATTTC]{\label{tab:HWNCATTWY-motif-coef}\textbf{Selecting the HWNCATTWY motif, TTTCATTTC}. Summary of the number of occurences and contributions to a linear model predecting half-life for each possible version of the HWNCATTWY motif.}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[ph!]
+\def\arraystretch{1.25}
 \centering
-\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont
-\begin{tabularx}{0.45\textwidth} { 
+\setlength{\tabcolsep}{5pt}\fontsize{9}{9}\selectfont
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
   | >{\centering\arraybackslash}X | }
 \hline
-\begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Motif}\endgroup & \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Total Count}\endgroup & \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Coef}\endgroup & \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{p.value}\endgroup\\
+\textbf{Motif} &  \textbf{Total Count} &  \textbf{Coef} &  \textbf{p.value}\\
 \hline
 TGTATATTA & 83 & -0.51920 & 0.00000\\
 \hline
@@ -399,15 +412,16 @@ TGTACATTA & 26 & -0.29426 & 0.02791\\
 
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[ph!]
+\def\arraystretch{1.25}
 \centering
-\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont
-\begin{tabularx}{0.45\textwidth} { 
+\setlength{\tabcolsep}{5pt}\fontsize{9}{9}\selectfont
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X
   | >{\centering\arraybackslash}X | }
 \hline
-\begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Terminator}\endgroup & \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Construct}\endgroup & \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont \textbf{Minimum free energy (kcal/mol)}\endgroup\\
+\textbf{Terminator} &  \textbf{Construct} &  \textbf{Minimum free energy (kcal/mol)}\\
 \hline
 RPS3 & WT & -6.10\\
 \hline
@@ -457,8 +471,12 @@ PIR1 & mod\_NTNNN & -30.10\\
 \caption[Table showing minimum free energies of 3'UTR constructs with inserted/deleted motifs.]{\label{tab:minimum-free-energy-table}\textbf{Table showing minimum free energies of 3'UTR constructs with inserted/deleted motifs.}}
 \end{table}
 
-\begin{table}\centering \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont{\renewcommand{\arraystretch}{1}\begin{tabular}{ c c }\textbf{mod\_NAA} & \textbf{mod\_NTN} \\
-\begin{tabularx}{0.45\textwidth} { 
+\begin{table}[ph!]
+\def\arraystretch{1.25}
+\centering 
+\begingroup\setlength{\tabcolsep}{5pt}\fontsize{9}{9}\selectfont{\begin{tabular}{ c }
+\textbf{mod\_NAA} \\ 
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -478,9 +496,9 @@ pPGK1 & tTSA1 & 0.8142880 & 1.2e-01\\
 \hline
 pSRO9 & tTSA1 & 1.0662162 & 4.2e-01\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx}\\
+\textbf{mod\_NTN} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -500,9 +518,9 @@ pSRO9 & tRPS3 & 0.9947510 & 9.5e-01\\
 \hline
 pPGK1 & tRPS3 & 1.0568824 & 8.1e-01\\
 \hline
-\end{tabularx}
-\\\textbf{mod\_HNH} & \textbf{mod\_HTH} \\
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{mod\_HNH} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -522,9 +540,9 @@ pSRO9 & tRPS3 & 0.8151770 & 0.0240\\
 \hline
 pSRO9 & tTSA1 & 0.8734047 & 0.4000\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{mod\_HTH} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -544,9 +562,9 @@ pPGK1 & tTSA1 & 0.5889067 & 1.5e-03\\
 \hline
 pPGK1 & tRPS3 & 0.5891336 & 1.8e-03\\
 \hline
-\end{tabularx}
-\\\textbf{mod\_NGG} & \textbf{WT} \\
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{mod\_NGG} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -566,9 +584,9 @@ pRPS3 & tRPS3 & 1.1957891 & 0.2700\\
 \hline
 pSRO9 & tRPS3 & 1.5013874 & 0.0017\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+ \textbf{WT} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -591,8 +609,12 @@ pSRO9 & tRPS3 & 1.4012037 & 0.093\\
 \end{tabularx}
 \end{tabular}}\endgroup{}\caption[Tables showing fold changes in transcript abundance of promoter-terminator constructs with different inserted motifs.]{\textbf{Tables showing fold changes in transcript abundance of promoter-terminator constructs with different inserted motifs. Tables are sorted by fold change which is calculated with respect to that promoter-terminator construct's mod\_NNN.}}\label{tab:insertion-construct-ttest}\end{table}
 
-\begin{table}\centering \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont{\renewcommand{\arraystretch}{1}\begin{tabular}{ c c }\textbf{mod\_NTHHH} & \textbf{mod\_ANHHH} \\
-\begin{tabularx}{0.45\textwidth} { 
+\begin{table}[ph!]
+\def\arraystretch{1.25}
+\centering 
+\begingroup\setlength{\tabcolsep}{5pt}\fontsize{9}{9}\selectfont{\begin{tabular}{ c }
+\textbf{mod\_NTHHH} \\ 
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -606,9 +628,9 @@ pPGK1 & tPIR1 & 1.165855 & 0.0500\\
 \hline
 pPIR1 & tPIR1 & 1.399047 & 0.0038\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{mod\_ANHHH} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -622,9 +644,9 @@ pPIR1 & tPIR1 & 1.536283 & 0.00380\\
 \hline
 pSRO9 & tPIR1 & 1.725748 & 0.00045\\
 \hline
-\end{tabularx}
-\\\textbf{mod\_ATNHH} & \textbf{mod\_ATHNH} \\
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{mod\_ATNHH} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -638,9 +660,9 @@ pSRO9 & tPIR1 & 1.134849 & 0.400\\
 \hline
 pPIR1 & tPIR1 & 1.231856 & 0.012\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{mod\_ATHNH} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -654,9 +676,9 @@ pPGK1 & tPIR1 & 0.9777246 & 0.81\\
 \hline
 pPIR1 & tPIR1 & 1.0788127 & 0.67\\
 \hline
-\end{tabularx}
-\\\textbf{mod\_ATNNN} & \textbf{mod\_ANNNN} \\
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{mod\_ATNNN} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -670,9 +692,9 @@ pPIR1 & tPIR1 & 1.209994 & 0.180\\
 \hline
 pPGK1 & tPIR1 & 1.267952 & 0.018\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{mod\_ANNNN} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -686,9 +708,9 @@ pPGK1 & tPIR1 & 1.599674 & 0.0015\\
 \hline
 pPIR1 & tPIR1 & 2.126692 & 0.0002\\
 \hline
-\end{tabularx}
-\\\textbf{mod\_NTNNN} &  \\
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{mod\_NTNNN}  \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -702,11 +724,15 @@ pPGK1 & tPIR1 & 1.578562 & 0.0004\\
 \hline
 pPIR1 & tPIR1 & 1.685034 & 0.0038\\
 \hline
-\end{tabularx}
-& \\\end{tabular}}\endgroup{}\caption[Tables showing fold changes in transcript abundance of promoter-terminator constructs with different deleted motifs.]{\textbf{Tables showing fold changes in transcript abundance of promoter-terminator constructs with different deleted motifs. Tables are sorted by fold change which is calculated with respect to that promoter-terminator construct's WT.}}\label{tab:deletion-construct-ttest}\end{table}
+\end{tabularx} \\
+\end{tabular}}\endgroup{}\caption[Tables showing fold changes in transcript abundance of promoter-terminator constructs with different deleted motifs.]{\textbf{Tables showing fold changes in transcript abundance of promoter-terminator constructs with different deleted motifs. Tables are sorted by fold change which is calculated with respect to that promoter-terminator construct's WT.}}\label{tab:deletion-construct-ttest}\end{table}
 
-\begin{table}\centering \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont{\renewcommand{\arraystretch}{1}\begin{tabular}{ c c }\textbf{ATATTC} & \textbf{TGTAHMNTA and HWNCATTWY} \\
-\begin{tabularx}{0.45\textwidth} { 
+\begin{table}[ph!]
+\def\arraystretch{1.25}
+\centering
+\begingroup\setlength{\tabcolsep}{5pt}\fontsize{9}{9}\selectfont{\begin{tabular}{c}
+\textbf{ATATTC}  \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -732,9 +758,9 @@ pPGK1 & tTSA1 & -0.1481944 & 1.6e-01\\
 \hline
 pSRO9 & tTSA1 & 0.0462500 & 6.8e-01\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{TGTAHMNTA and HWNCATTWY} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -760,9 +786,9 @@ pSRO9 & tPIR1 & 0.1539836 & 0.0760\\
 \hline
 pPGK1 & tTSA1 & 0.3288889 & 0.0200\\
 \hline
-\end{tabularx}
-\\\textbf{TGTAHMNTA} & \textbf{HWNCATTWY} \\
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{TGTAHMNTA} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -788,9 +814,9 @@ pSRO9 & tRPS3 & -0.0075926 & 9.7e-01\\
 \hline
 pPGK1 & tRPS3 & 0.0798148 & 7.2e-01\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{HWNCATTWY} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -816,9 +842,9 @@ pPGK1 & tPIR1 & -0.0711111 & 0.1600\\
 \hline
 pSRO9 & tPIR1 & 0.0729630 & 0.2800\\
 \hline
-\end{tabularx}
-\\\textbf{GTATACCTA} &  \\
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx}\\
+\textbf{GTATACCTA}  \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -838,11 +864,14 @@ pRPS3 & tRPS3 & 0.1289815 & 0.200\\
 \hline
 pSRO9 & tRPS3 & 0.2931481 & 0.011\\
 \hline
-\end{tabularx}
-& \\\end{tabular}}\endgroup{}\caption[Tables showing fold changes in transcript abundance of motifs in different contexts.]{\textbf{Tables showing fold changes in transcript abundance of motifs in different contexts. Tables are sorted by fold change.}}\label{tab:motif-abundance-effect-table}\end{table}
+\end{tabularx} \\
+\end{tabular}}\endgroup{}\caption[Tables showing fold changes in transcript abundance of motifs in different contexts.]{\textbf{Tables showing fold changes in transcript abundance of motifs in different contexts. Tables are sorted by fold change.}}\label{tab:motif-abundance-effect-table}\end{table}
 
-\begin{table}\centering \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont\begin{tabular}{ c c }\textbf{tRPS3 Site 1} & \textbf{tRPS3 Site 2} \\
-\begin{tabularx}{0.45\textwidth} { 
+\begin{table}[ph!]
+\def\arraystretch{1.25}
+\centering 
+\begingroup\setlength{\tabcolsep}{5pt}\fontsize{9}{9}\selectfont\begin{tabular}{ c } \textbf{tRPS3 Site 1} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -866,9 +895,9 @@ pPGK1 & mod\_NAA & 0.1248866 & 0.640\\
 \hline
 pRPS3 & mod\_NAA & 0.1769533 & 0.970\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{tRPS3 Site 2} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -892,9 +921,9 @@ pRPS3 & WT & 0.1697265 & 0.970\\
 \hline
 pRPS3 & mod\_NAA & 0.2062429 & 0.970\\
 \hline
-\end{tabularx}
-\\\textbf{tTSA1 Site 1} & \textbf{tTSA1 Site 2} \\
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{tTSA1 Site 1} \\ 
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -910,9 +939,9 @@ pTSA1 & mod\_NAA & 0.1503364 & 0.027\\
 \hline
 pTSA1 & WT & 0.1715484 & 0.068\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{tTSA1 Site 2} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -931,8 +960,12 @@ pTSA1 & mod\_NTN & 0.3519398 & 1.00\\
 \end{tabularx}
 \end{tabular}\endgroup\caption[Tables showing relative usage of the two major Poly(A) sites in tRPS3 and tTSA1 terminators across constructs.]{\textbf{Tables showing relative usage of the two major Poly(A) sites in tRPS3 and tTSA1 terminators across constructs. p values are calculated using a two sided Wilcoxon signed rank exact test with respect to the mod\_NNN construct.}}\label{tab:polya-usage-effect-table}\end{table}
 
-\begin{table}\centering \begingroup\setlength{\tabcolsep}{5pt}\fontsize{6}{6}\selectfont{\begin{tabular}{ c c }\textbf{tRPS3 Site 1} & \textbf{tRPS3 Site 2} \\
-\begin{tabularx}{0.45\textwidth} { 
+\begin{table}[ph!]
+\def\arraystretch{1.25}
+\centering 
+\begingroup\setlength{\tabcolsep}{5pt}\fontsize{9}{9}\selectfont{\begin{tabular}{ c }
+\textbf{tRPS3 Site 1} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -950,9 +983,9 @@ pRPS3 & mod\_NTN & 1.00 & 0.0651922\\
 \hline
 pRPS3 & mod\_NAA & 1.00 & 0.1047647\\
 \hline
-\end{tabularx}
-&
-\begin{tabularx}{0.45\textwidth} { 
+\end{tabularx} \\
+\textbf{tRPS3 Site 2} \\
+\begin{tabularx}{0.8\textwidth} { 
   | >{\centering\arraybackslash}X 
   | >{\centering\arraybackslash}X  
   | >{\centering\arraybackslash}X
@@ -973,15 +1006,15 @@ pRPS3 & mod\_NTN & 0.92 & 0.3802624\\
 \end{tabularx}
 \end{tabular}}\endgroup{}\caption[Tables showing relative usage of the two major Poly(A) sites in tRPS3 across constructs as detected by 5PSeq.]{\textbf{Tables showing relative usage of the two major Poly(A) sites in tRPS3 across constructs as detected by 5PSeq. p.values are calculated by comparing the rel\_counts of the same construct across the two RNA-seq methods using a two sided Wilcoxon signed rank exact test.}}\label{tab:polya-usage-effect-5PSeq-table}\end{table}
 
-\pagebreak
+\newpage
+\FloatBarrier
+\section{Chapter 5 Supplementary Figures}
 
-\subsection*{Supplementary Figures}
-
-\begin{figure}[h!]
+\begin{figure}[bh!]
 \includegraphics[width=\textwidth]{pro_ter_platereader_raw_mTurq_and_mCh} \caption[Both terminator and promoter contribute to gene expression.]{\textbf{Both terminator and promoter contribute to gene expression.} (\textbf{A}) Protein abundance estimated by mCherry and mTurquoise2 (mTurq) fluorescence for 10 terminators paired with 4 high expressing promoters. Fluorescence and OD were measured in cultures grown in a plate reader, and reported at the time of each sample's maximum growth rate (see methods). Each diamond represents a biological replicate, averaged over 3 technical replicates.  The vertical line is the mean of all 6 biological replicates. (\textbf{B}) Same as panel B, but for 2 low expressing promoters. Negative fluorescence values arising from instrument noise dominating measurements of constructs with negligible fluorescence are automatically set to 0.}\label{fig:raw-pro-ter-swap-protein-fluo}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[ph!]
 
 {\centering \includegraphics[width=0.98\linewidth]{RPS3_TSA1_PIR1_protein_and_RNA_plot} 
 
@@ -990,7 +1023,7 @@ pRPS3 & mod\_NTN & 0.92 & 0.3802624\\
 \caption[Relative protein abundance correlates with relative mRNA abundance for reporter constructs with modified 3'UTRs.]{\textbf{Relative protein abundance correlates with relative mRNA abundance for reporter constructs with modified 3'UTRs.} (\textbf{A}) Fold changes in RT-qPCR vs fold changes in mCherry fluorescence for all terminator constructs in the pRPS3-mCherry-tRPS3 and pTSA1-mCherry-tTSA1 pairings. Transcript abundance is relative to the mod0 construct of each promoter-terminator pairing. (\textbf{B}) Fold changes in RT-qPCR vs fold changes in mCherry fluorescence for all terminator constructs in the pPIR1-mCherry-tPIR1 pairing. Transcript abundance is relative to WT construct of the promoter-terminator pairing. The mean and standard error calculated over 6 biological replicates is plotted for each construct.}\label{fig:protein-vs-RNA-plot-motifs}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[ph!]
 
 {\centering \includegraphics[width=0.98\linewidth]{motif_position_histograms} 
 
@@ -999,7 +1032,7 @@ pRPS3 & mod\_NTN & 0.92 & 0.3802624\\
 \caption[Relative positions of ATATTC, TGTAHMNTA and HWNCATTWY motifs in native 3'UTRs.]{\textbf{Relative positions of ATATTC, TGTAHMNTA and HWNCATTWY motifs in native 3'UTRs.} Histogram shows the counts of the motif occurrences in 3'UTRs relative to the total length of 3'UTR, where 0 would be starting exactly at the stop codon and 1 would be at the reported poly(A)-site. See (methods or ref to data repository) for details.}\label{fig:motif-position-histograms}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[ph!]
 
 {\centering \includegraphics[width=0.85\linewidth]{polya_usage_plot_5PSeq} 
 
@@ -1008,7 +1041,7 @@ pRPS3 & mod\_NTN & 0.92 & 0.3802624\\
 \caption[Decapped constructs measured by 5Pseq match mature constructs measured by QuantSeq.]{\textbf{Decapped constructs measured by 5Pseq match mature constructs measured by QuantSeq.} pRPS3-tRPS3 constructs were chosen to investigate changes in poly(A) site usage across 5' decapped transcripts flagged for decay. (\textbf{A}) Comparison of construct transcript abundance as independently measured by qPCR and RNA-Seq assays. Transcript abundance was normalised to the median abundance of  plasmid URA3, genomic PGK1 and RPS3 transcripts for each construct. Fold change is relative to the mod\_NNN construct in each promoter-terminator context. The black diagonal line represents the expected values if RNAseq and qPCR results correlated perfectly. (\textbf{B}) Cumulative counts of reads mapped downstream of WT (grey) and mod\_NNN (golden) construct stop codons as fraction of total reads mapped to the constructs terminator. WT reads have been shifted downstream to align with the mod\_NNN sequence by accounting for motif insertion sites. Major poly(A) sites have been highlighted by a black vertical line. Constructs also used in the QuantSeq analysis have their QuantSeq cumulative graphs plotted in dotted lines. (\textbf{C}) Similar to Figure \textbf{B} but with each motif insertion construct plotted separately. Columns designate cumulative plots from different terminator constructs.}\label{fig:polyA-site-usage-5Pseq}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[ph!]
 
 {\centering \includegraphics[width=0.85\linewidth]{sequencing_sample_correlation} 
 
@@ -1017,7 +1050,7 @@ pRPS3 & mod\_NTN & 0.92 & 0.3802624\\
 \caption[High correlation in transcript counts between samples for both RNA-Seq assays.]{\textbf{High correlation in transcript counts between samples for both RNA-Seq assays.} (\textbf{A}) Correlation heat map of DESeq2 normalised log2 pseudocounts across all genes for each sample pair in the QuantSeq assay. From top to bottom on the y axis (left to right on the x-axis) the terminator contexts are pRPS3-tRPS3, pPGK1-tRPS3 and pTSA1-tTSA1. (\textbf{B}) Similar correlation heat map for all sample pairs in the 5PSeq assay. (\textbf{C}) Comparison of mean log2 abundance of construct mRNA transcripts as measured by 5PSeq and QuantSeq. Only 5 terminator constructs were measured by both methods and only in the pRPS3-tRPS3 context. Transcript abundance for each sample is normalised to the median of the genomic PGK1, TSA1 and RPS3, and the plasmid URA3 genes to match the normalisation used in the qPCR analysis.}\label{fig:rnaseq-QC-correlation}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[ph!]
 
 {\centering \includegraphics[width=0.85\linewidth]{polya_QC_plot_QuantSeq_and_5PSeq} 
 
@@ -1026,7 +1059,7 @@ pRPS3 & mod\_NTN & 0.92 & 0.3802624\\
 \caption[Poly(A) site usage for genomic PGK1, TSA1 and RPS3 terminators remains the same across samples for each RNA-Seq assay.]{\textbf{Poly(A) site usage for genomic PGK1, TSA1 and RPS3 terminators remains the same across samples for each RNA-Seq assay.} Cumulative counts of reads mapped downstream of native genomic gene stop codons as fraction of total reads mapped to the terminator. Each line plots the cumulative counts of a separate sequencing run (including two tech reps per sample) which is given a unique colour. Relative usage of poly(A) sites remain similar across samples and across RNA-seq assays. Higher variability in QuantSeq PGK1 poly(A) site usage is due to low overall transcript counts.}\label{fig:rnaseq-QC-QuantSeq-and-5PSeq-genomic-polyA}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[ph!]
 
 {\centering \includegraphics[width=0.85\linewidth]{plasmid_vs_genome_polyA_combined_plot} 
 
@@ -1035,7 +1068,7 @@ pRPS3 & mod\_NTN & 0.92 & 0.3802624\\
 \caption[Poly(A) site usage remains the same for genomic TSA1 and RPS3 terminators as for plasmid expressed WT constructs in QuantSeq and 5PSeq.]{\textbf{Poly(A) site usage remains the same for genomic TSA1 and RPS3 terminators as for plasmid expressed WT constructs in QuantSeq and 5PSeq.} Cumulative counts of reads mapped downstream of WT stop codons for native genomic terminators and plasmid construct terminators as a fraction of total reads mapped to the constructs terminator. Each line plots the cumulative counts of a separate sequencing run (including two tech reps per sample) which is given a unique colour. Expressing constructs from a low copy number plasmid does not seem to affect poly(A) site usage.}\label{fig:rnaseq-QC-genomic-vs-plasmid-polyA}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[p]
 
 {\centering \includegraphics[width=0.85\linewidth]{relative_polya_counts_QuantSeq_and_5PSeq} 
 
@@ -1044,7 +1077,7 @@ pRPS3 & mod\_NTN & 0.92 & 0.3802624\\
 \caption[Construct poly(A) site usage across 5PSeq and QuantSeq.]{\textbf{Construct poly(A) site usage across 5PSeq and QuantSeq.} Relative counts of reads mapped downstream of construct stop codons as fraction of total reads mapped to the constructs terminator. Peaks represent the position of major poly(A) sites. Replicates are plotted on top of each other where available.}\label{fig:relative-polya-counts}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[ph!]
 
 {\centering \includegraphics[width=0.85\linewidth]{combined_5p_end_read_plot} 
 

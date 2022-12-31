@@ -1,0 +1,92 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{{\subfix{../figures/}}}
+
+\begin{document}
+\section{tidyqpcr User Questionnaire}
+\subsection{Subject questionnaire}
+Estimated Time : 20 Minutes
+
+\subsubsection{Tell me about your experience with qPCR experiments.}
+
+Question notes:
+\begin{itemize}
+    \item RNA or DNA qPCR ?
+    \item primers only or probe sets?
+    \item How many qPCR experiments in last year/two?
+    \item How many planned in next 6 months?
+    \item How difficult would it be to reanalyse/repeat your own qPCR experiment?
+\end{itemize}
+
+\subsubsection{Describe how qPCR experiments are used/presented in published papers related to your research.}
+
+Question notes:
+\begin{itemize}
+    \item Recount a time where you questioned results/conclusion from qPCR experments
+    \item Did you attempt to reanalyse/recreate their qPCR data?
+\end{itemize}
+
+\subsubsection{Describe the design of your most recent qPCR experiment.}
+
+Question notes:
+
+\begin{itemize}
+    \item Technical/biological/experimental replicates?
+    \item Plate design?
+    \item Software to design plate (excel?)
+    \item Methodology for ordering samples
+    \item Number of wells?
+    \item Typical number of probes?
+    \item Primer efficiency calculation?
+    \item MIQE best practises qPCR guidelines?
+    \item How did you load your plates - single-channel pipette, multichannel pipette, electronic or manual, automatic loading with what robot?
+    \item What qPCR instrument did you use?
+    \item How do you tell if your experiment worked - what do you do for quality control?
+\end{itemize}
+
+\subsubsection{Describe the analysis pipeline of your most recent RT-qPCR experiment.}
+
+Question notes:
+
+\begin{itemize}
+    \item GUI / Terminal / R based?
+    \item Proprietary software?
+    \item See, understand and repeat every step?
+    \item Customisable, paper ready output graph?
+    \item Whats the biggest frustration? (is there something you know you should be doing but don’t)
+    \item Would it be easy to redo an experiment (because something went wrong) using the same analysis?
+    \item The features you require from qPCR software
+\end{itemize}
+
+\subsubsection{What is your previous R programming / terminal experience?}
+
+Question notes:
+\begin{itemize}
+    \item Previous courses?
+    \item Previous obstacles?
+    \item Familiar with the concept of tidy data?
+    \item Interest in learning?
+\end{itemize}
+
+\subsection{tidyqpcr worksheet}
+Estimated Time : 40 minutes
+
+\subsubsection{Follow installation instructions on \href{https://github.com/ewallace/tidyqpcr}{github.com/ewallace/tidyqpcr}.}
+
+\subsubsection{Read through the vignette on plate designing}
+
+\subsubsection{Create a example plate design for the following experiment:}
+\begin{itemize}
+    \item 8 by 12 well plate
+    \item Three Biological Replicates
+    \item Three Technical Replicates + “-RT” control
+    \item One strain: “WT”
+    \item Two conditions: + and - “menadione”
+    \item Four probes: "PGK1","ALG9", " HHT2", "HTB2"
+\end{itemize}
+
+\subsubsection{Read through the instructions on conducting qPCR analysis with tidyqpcr in the multifactor vignette}
+
+\subsubsection{Load in the example plate plan using data (tidyqpcr\_plateplan) and associated experimental data.}
+
+\subsubsection{Normalise raw data and produce plot of differential expression under two stresses.}
+\end{document}

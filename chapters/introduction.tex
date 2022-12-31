@@ -8,50 +8,62 @@
 
 \section{Overview}
 
-The acquisition of quality, high-throughput data sets is outpacing the creation and implementation of methods to handle and analyse it. 
-In 2012, the European Bioinformatics Institute (EBI) was one of the biggest biology repositories in the world with a 20Pb storage facility \parencite{EBI2012}. 
-However, by 2021, the upload of new data reached 20Pb a year with the institute having to explore collaborations with Google and Amazon in order to keep up \parencite{EBI2021}. 
-The “data deluge” \parencite{Royal2012} is not only affecting infrastructure but is leading to fundamental questions about the philosophy of science as scientific publications are starting to benefit from the quality and quantity of their data rather than the significance of the conclusions they reach \parencite{Leonelli2019, Botstein2010}. 
-However, the pursuit of big data in biology is undoubtedly leading to answers to questions thought unassailable a few years ago, such as AlphaFold angstrom resolution protein structures for entire genomes \parencite{Jumper2021}. 
+Assays quantifying changes in transcript abundance with unprecedented sensitivity have rewritten our understanding of RNA regulation.
+Regulatory mechanisms for the localisation, degradation and modification of RNA transcripts can now be investigated across entire transcriptomes.
+However, as the sensitivity of experiments has increased so has the difficulty of distinguishing biologically significant effects from experimental noise.
+Confounding biological effects with experimental noise could undermine the progress promised from a data-rich age of molecular biology.
 
-Significant progress has been made in developing methods that extract useful information from the “data deluge”.
-In investigations of linear covariates, robustness to noise and outliers can be improved by using alternative loss functions, such as the least absolute deviation, or the introduction of penalising terms, such as the $L_n$-norm of the regression coefficients \parencite{Wu2015}.
-Reducing the dimensionality of data sets to emphasise regions of interest has also become standard through methods such as principle component analysis \parencite{Wall2005}.  
-Methods to compare alternative models of high-dimensional data have been explored including error estimation with cross-validation \parencite{Molinaro2005} or calculating the Akaike information criterion (AIC) \parencite{Akaike1998}.
-Finally, conservative methods to test the significance of multiple features whilst maintaining power are widely implemented, e.g. the false discovery rate (FDR) \parencite{Benjamini1995}.
-
-An alternative approach to analysing high-dimensional data sets is the application of flexible deep-learning algorithms.
-A variety of ML architectures have been successfully applied to big data across biology ranging from detecting cancer to predicting gene expression \parencite{Xie2017, Liang2015, Tang2019}.
-However, complex models appear to be less tolerant of experimental noise and more susceptible to confounding batch effects than simpler models \parencite{Cortes2015, Kaiser2019, Schmitt2021}.
-The decisions made by deep-learning algorithms also tend to be difficult to interpret limiting their contribution to improving our understanding \parencite{Caruana2015, Ribeiro2016}.
-Other probabilistic methods, such as Bayesian hierarchical models, can offer a balance between interpretability and flexibility, which will be discussed later.
-However, whatever the algorithm its effectiveness will be decided by the implementation by the end user. 
-Unfortunately, big data scales up the issues inherent to modern biological research alongside novel solutions. 
-
-Science is suffering from a massive reproducibility crisis. 
+Science is suffering from a reproducibility crisis. 
 In 2017, Nature surveyed over 1500 scientists and found over 70\% of them tried and failed to reproduce someone else's work \parencite{Baker2016}.
 The origins of the crisis come from the lack of detail in experimental protocols, obscure analysis methods, and misunderstanding of statistical tests.
-The level at which scientists mis-used statistical tests has even led a journal to ban any reference to statistical significance \parencite{Trafimow2015}.
-Fundamentally, the work by computational biologists is just as susceptible to the reproducibility crisis \parencite{Garijo2013}.
-How data is preprocessed, how missing values are dealt with and which software is used can all drastically change results \parencite{Ioannidis2009}.
-In big data, as the volume and types of data increases, the sparsity of biologically relevant data points increases which only decrease the likelihood of an analysis being reproducible \parencite{Chattopadhyay2019}.
+The level at which scientists mis-use statistical tests has even led a journal to ban any reference to statistical significance \parencite{Trafimow2015}.
 
-There remains a gap between the computational methods used to analysis high-dimensional data and the implementation of these methods on biological data.
-Those that bridge this gap are typically biologist with no formal software engineering training \parencite{Attwood2019} and who are unlikely to develop prototype analysis scripts into fully fledged programs \parencite{Prins2015}. 
-In addition, selection of appropriate models are dependent on subject, hypothesis and quality of data \parencite{Ching2018}.
+The reproducibility crisis is worsened by the gap between the statistical methods developed to analyse noisy data and the implementation of these methods on biological questions.
+The choice of statistical method can change depending on subject, hypothesis and data quality which also contributes to the gap \parencite{Ching2018}.
+The way data is preprocessed, the method used to deal with missing values and the software used can all drastically change results \parencite{Ioannidis2009}.
+Meanwhile, those that bridge this gap are typically biologists with no formal software engineering training \parencite{Attwood2019} and who are unlikely to develop prototype analysis scripts into fully fledged programs \parencite{Prins2015}. 
 This leads to high duplication, poor reproducibility and slower overall progress \parencite{Lawlor2015}.
-Only through the use of rigorous statistical methods implemented in reproducible and usable software packages can the dawn of the big data effectively combat the reproducibility crisis in biology.
 
-Here, I discuss work using data sets from high-throughput transcriptomics experiments to expand the quantification of regulatory effects on mRNA transcripts. 
-Through the development of analysis software and statistical models that incorporate both experimental noise and non-standard interactions I explore transcript localisation and the context dependence of cis-regulatory elements. 
-The introduction starts with an overview some of the key mechanisms used by eukaryotic cells to regulate their expression 
-I also cover the basics of key transcriptomic assays that have enabled the dawn of the big data in molecular biology. 
-qPCR, microarrays and RNA-Seq are covered with emphasis on the sources of error that can be present in these experiments. 
-Then, I discuss a handful of statistical methods that enable rigorous analysis of the multi-dimensional data sets with the emphasis of discovering sparse features with biological significance. 
-Finally, I outline the key software development practices that have influenced the work I have conducted. 
-I implement these best practices to ensure the analysis software I develop is accessible, interoperable and usable.
+The use of rigorous statistical methods implemented in reproducible, open-source research software is the only way to overcome this crisis.
+Furthermore, the inclusion of comprehensive documentation with research software can encourage experimental best-practices and improve the reproducibility of an entire experimental assay.
+This thesis combines software development best practices with rigorous analysis of multiple transcriptomic assays to conduct reproducible experiments and investigate post-transcription regulatory mechanisms acting on mRNA. 
 
-\section{Thesis layout}
+
+\section{Contributions}
+The aim of this thesis is to develop and apply computational methods to investigate the regulation of RNA abundance.
+The contributions of this thesis are as follows:
+
+\begin{itemize}
+    \item The development of tidyqpcr, an open source R package for the analysis of qPCR data. 
+    tidyqpcr contains extensive documentation and integrates with the wider tidyverse suit of data analysis packages to help users conduct reproducible, flexible, and MIQE best-practice compliant quantitative PCR experiments.
+    The R package is available to download and has an accompanying publication in the Journal for Open Source Software, \href{https://joss.theoj.org/papers/10.21105/joss.04507}{doi:10.21105/joss.04507}.
+    \item  The detection of the limitations of composability of cis-regulatory elements beyond promoter and terminator regions.
+    Short regulatory sequences in the 3'UTR of mRNA transcripts are shown to have different contributions to gene expression depending on context.
+    The paper is currently under review by Nucleic Acids Research with a preprint available on bioarxiv, \href{https://www.biorxiv.org/content/10.1101/2021.08.12.455418v2}{doi:10.1101/2021.08.12.455418v2}.
+    \item The development of DiffFracSeq, a novel Bayesian statistical model that normalises bulk RNA-Seq assays exploring differential fractionation. 
+    Exploiting the physical properties of sequencing sub-fractions of a larger body DiffFracSeq can overcome issues with normalising samples that have global changes in the transcriptome.
+    The model to available to use as an R package downloadable from GitHub, \href{https://github.com/DimmestP/DiffFracSeq}{github.com/DimmestP/DiffFracSeq}.
+\end{itemize}
+
+\section{Thesis Layout}
+
+In this thesis, I outline the development of analysis software and statistical models to explore transcript localisation and the context dependence of cis-regulatory elements.
+Chapter 2 provides the necessary background knowledge required to understand the results of this thesis.
+It starts with an overview of the key mechanisms used by eukaryotic cells to regulate RNA abundance. 
+Then, the basics of several transcriptomic assays that have enabled quantitative comparisons of RNA abundance are explained. 
+qPCR, microarrays and RNA-Seq are introduced with emphasis on the sources of error that can be present in these experiments. 
+Finally, the chapter introduces software development practices that have been implemented in this work. 
+
+Chapter 3 describes the materials and methods used to complete my PhD, including: a brief overview of the statistical methods used, details of the practices followed to develop tidyqpcr, and an overview of experiments conducted by members of the Wallace lab for the results in chapter 5. 
+Chapter 4 starts by justifying the need for a new qPCR analysis package and explaining how tidyqpcr has been designed to overcome some of the deficiencies in currently available software.
+
+Chapter 5 introduces the concept of composability of regulatory elements in the contexts of synthetic and computational biology.
+Then, the changing contributions to gene expression from terminators when paired with different promoters and coding sequences is shown.
+The chapter ends by describing the design of constructs with short regulatory motifs inserted or removed from their terminators and showing that these motifs also have differing contributions depending on context.
+
+Chapter 6 begins by outlying the difficulties in detecting differential fractionation using standard RNA-Seq analysis software.
+The Bayesian statistical model behind DiffFracSeq is then introduced and its ability to successfully detect differential fractionation is inspected using three different data sets.
+Finally, chapter 7 summarises the main contributions of this body of work and suggests some avenues for future research. 
 
 \newpage
 

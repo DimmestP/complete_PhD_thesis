@@ -1,0 +1,191 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{{\subfix{../figures/}}}
+
+\begin{document}
+\section{Software review table}
+
+\begin{table}[h!]
+    \centering
+    \begingroup\setlength{\tabcolsep}{5pt}\fontsize{10}{10}\selectfont{
+    \def\arraystretch{1.5}
+    \begin{tabularx}{\textwidth} { 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X | }
+    \hline
+         & \textbf{Platform} & \textbf{Normalisation} & \textbf{Method of Cq determination} & \textbf{Quantification method} & \textbf{Plots summary statistics}\\
+    \hline
+         \textbf{QuantGenius} & Web & To ref genes & N/A & Absolute (Standard Curve) & No\\
+    \hline
+         \textbf{ELIMU-MDx} & Web & To ref genes & N/A & Absolute (Standard Curve) and Relative & No\\
+    \hline
+         \textbf{shinyCurves} & Web/R & N/A & N/A & Relative & No\\
+    \hline
+         \textbf{PIPE-T} & Web & Numerous methods (from HTqPCR) & N/A & Relative & No\\
+    \hline
+         \textbf{SATqPCR} & Web & To ref genes & N/A & Relative & Yes\\
+    \hline
+         \textbf{Auto-qPCR} & Web/Python & To ref genes & N/A & Absolute (Standard Curve) and Relative & Yes\\
+    \hline
+         \textbf{Chainy} & Web/R & To ref genes & Several methods to determine gradient of Amp curve & Relative & Yes\\
+    \hline
+         \textbf{LEMming} & R & Linear Error Mode & N/A & Relative & No\\
+    \hline
+         \textbf{pcr} & R & To ref genes & N/A & Relative (delta Cq or standard curve) & Yes\\
+    \hline
+         \textbf{HTqPCR} & R & Ref genes, quartile mean, rank-invariant normalising feature & N/A & Relative & Yes\\
+    \hline
+         \textbf{ReadqPCR/ NormqPCR} & R & To ref genes & N/A & Relative & No\\
+    \hline
+         \textbf{qpcR} & R & Numerous methods & Fitting multi parameter logistic curve & Relative and absolute & Yes\\
+    \hline
+         \textbf{qpcr} & python & To ref genes & N/A & Relative & Yes\\
+    \hline
+         \textbf{Spreadsheet} & Misc & To ref genes & N/A & Relative & No\\
+    \hline
+    \end{tabularx}}
+    \endgroup{}
+\end{table}
+
+\begin{table}[p]
+    \def\arraystretch{1.5}
+    \centering
+    \begingroup\setlength{\tabcolsep}{5pt}\fontsize{10}{10}\selectfont{
+    \begin{tabularx}{\textwidth} { 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X | }
+    \hline
+         & \textbf{Scalability} & \textbf{Summary statistics} & \textbf{Outlier identification} & \textbf{Calculate primer calibration} & \textbf{Use primer efficiency}\\
+    \hline
+         \textbf{QuantGenius} & Requires copy and pasting input & No & Yes & No & No but filters based on it)\\
+    \hline
+         \textbf{ELIMU-MDx} & If you can create RDML files & No & No & No & No\\
+    \hline
+         \textbf{shinyCurves} & If in correct excel format and sample NT/control positions & No & Manual & No & No\\
+    \hline
+         \textbf{PIPE-T} & If files in tab separated format & two condition tests & Yes & No & No\\
+    \hline
+         \textbf{SATqPCR} & If files in tab separated txt format & t-test or ANOVA & No & No & Yes\\
+    \hline
+         \textbf{Auto-qPCR} & If input files in right format & t-test or ANOVA & Yes & No & No\\
+    \hline
+         \textbf{Chainy} & Manual upload of files & permutation approach equivalent to the REST software & Yes & Yes & Yes\\
+    \hline
+         \textbf{LEMming} & If imported into R & t-test and Wilcoxon signed-rank test & No & No & No\\
+    \hline
+         \textbf{pcr} & If imported into R & t-test, ANOVA and signed-rank test & No & Yes & No\\
+    \hline
+         \textbf{HTqPCR} & Yes & t-test, Mann-Whitney Test and limma package linear models & Yes & No & No\\
+    \hline
+         \textbf{ReadqPCR/ NormqPCR} & Yes & No & No & No & No\\
+    \hline
+         \textbf{qpcR} & Yes & F-test for model selection & Yes & Yes & Yes\\
+    \hline
+         \textbf{qpcr} & If input files in right format & No & Yes & Yes & Yes\\
+    \hline
+         \textbf{Spreadsheet} & No & t-test & No & No & Yes\\
+    \hline
+    \end{tabularx}}
+    \endgroup{}
+\end{table}
+
+\begin{table}[p]
+    \def\arraystretch{1.5}
+    \centering
+    \begingroup\setlength{\tabcolsep}{5pt}\fontsize{10}{10}\selectfont{
+    \begin{tabularx}{\textwidth} { 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X
+  | >{\centering\arraybackslash}X | }
+    \hline
+         & \textbf{QC} & \textbf{Reproducible} & \textbf{Copy number} & \textbf{Input} \\
+    \hline
+         \textbf{QuantGenius} & No melt/amp curve. Highlights outliers, outside LOD and efficiency & No & Yes & Copy and paste each target and reference gene separately\\
+    \hline
+         \textbf{ELIMU-MDx} & No melt/amp curves. Checks LOD, efficiency and control Cq & If you can host it & No & RDML, excel\\
+    \hline
+         \textbf{shinyCurves} & Both melt/amp curve with qpcR & Yes (If you identify the same outliers) & Yes & csv, (custom) xlsx, xls\\
+    \hline
+         \textbf{PIPE-T} & No melt/amp curve. Highlights outliers, outside LOD and efficiency & Yes & No & tsv\\
+    \hline
+         \textbf{SATqPCR} & No & Yes & No & txt\\
+    \hline
+         \textbf{Auto-qPCR} & Filters out samples with SD cutoff. No melt/amp curve & Yes & Yes & csv, txt\\
+    \hline
+         \textbf{Chainy} & Plots amp curve and highlight outliers that dont fit sigmoidal & Yes & No & RDML, csv, raw qPCR machine excel, plate plan\\
+    \hline
+         \textbf{LEMming} & No & Yes & No & R data.frame\\
+    \hline
+         \textbf{pcr} & No & Yes & No & R data.frame\\
+    \hline
+         \textbf{HTqPCR} & No melt/amp curve. Functions to plot wells, conduct PCA, calc variation. Can flag High Cq value and high variable samples & Yes & No &raw qPCR machine excel\\
+    \hline
+         \textbf{ReadqPCR/ NormqPCR} & No melt/amp curve. Functions to pairwise results across replicates/plates. Can impute missing values. flag High Cq value and high variable samples & Yes & No & raw qPCR machine excel\\
+    \hline
+         \textbf{qpcR} & Yes & Yes & No & R data.frame\\
+    \hline
+         \textbf{qpcr} & Filters out samples with SD cutoff. No melt/amp curve & Yes & No & csv, (custom) excel\\
+    \hline
+         \textbf{Spreadsheet} & Filters out samples with SD cutoff. No melt/amp curve & No & No & (custom) excel\\
+    \hline
+    \end{tabularx}}
+    \endgroup{}
+\end{table}
+
+\begin{table}[p]
+    \def\arraystretch{1.5}
+    \centering
+    \begingroup\setlength{\tabcolsep}{5pt}\fontsize{10}{10}\selectfont{
+    \begin{tabularx}{\textwidth} { 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X 
+  | >{\centering\arraybackslash}X
+  | >{\centering\arraybackslash}X | }
+    \hline
+         & \textbf{Output} & \textbf{GUI} & \textbf{Last update} & \textbf{Release date} & \textbf{Number of wells} & \textbf{Normalising gene selection}\\
+    \hline
+         \textbf{Quant Genius} & txt, xls & Yes & 2017 Feb & 2017 Feb & Unlimited & No\\
+    \hline
+         \textbf{ELIMU-MDx} & RDML, excel & Yes & 2020 Dec & 2019 Oct & Unlimited & No\\
+    \hline
+         \textbf{shinyCurves} & csv, png & Yes & 2021 Oct & 2021 Oct  & 96 or 364  & No\\
+    \hline
+         \textbf{PIPE-T}  & tsv, PNGs & Yes & 2019 Nov & 2019 Nov  & Unlimited  & No\\
+    \hline
+         \textbf{SATqPCR} & txt, png & Yes & 2019 Aug & 2019 Aug   & Unlimited  & stability parameter and coefficient of variation\\
+    \hline
+         \textbf{Auto-qPCR} & csv, png & Yes & 2021 Oct & 2021 Oct  & Unlimited  & No\\
+    \hline
+         \textbf{Chainy} & csv, png & Yes & 2020 Aug & 2017 May  & Unlimited  & Yes (geNorm method from NormqPCR)\\
+    \hline
+         \textbf{LEMming} & R data.frame & No & 2015 Sept & 2015 Sept & Unlimited  & No \\
+    \hline
+         \textbf{pcr} & R data.frame and plots & No & 2020 April & 2018 May & Unlimited  & No\\
+    \hline
+         \textbf{HTqPCR} & R S4 object and plots & No & N/A & 2009 Dec  & Unlimited  & No\\
+    \hline
+         \textbf{ReadqPCR/ NormqPCR} & R S4 object and plots & No & 2018 July  & 2012 Jul   & Unlimited  & Yes (geNorm or NormFinder)\\
+    \hline
+         \textbf{qpcR} & R S3 object and plots & No & 2018 June  & 2008 July   & Unlimited  & Yes \\
+    \hline
+         \textbf{qpcr} & txt, jpg  & No & 2022 Feb   & 2021 Aug    & Unlimited  & No \\
+    \hline
+         \textbf{Spreadsheet} & excel & No & N/A & N/A & Unlimited  & No \\
+    \hline
+    \end{tabularx}}
+    \endgroup{}
+\end{table}
+
+\end{document}

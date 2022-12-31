@@ -146,10 +146,11 @@
 % [Re]definition of environments abstract and resumo
 %=======================================================================
 \renewenvironment{abstract}[1][Abstract]{%
-	\begin{center}
-	\textbf{#1}
-	\end{center}
-    \onehalfspacing
+    \begin{huge}
+        {\parindent0pt\textbf{#1}}
+    \end{huge}
+\onehalfspacing
+\vspace{3em}
 }{%
 }
 

@@ -4,17 +4,154 @@
 \begin{document}
 \chapter{Materials and Methods}
 
-\section{Software Development}
+\section{Statistical Methods}
 
-tidyqpcr was developing using open software development best practices taught by the eLife Innovative Leaders Program \url{https://elifesciences.org/labs/bced51c5/innovation-leaders-2020-a-summary}.
+The list of statistical methods described has been curated to cover the methods implemented in this thesis.
+A comprehensive overview of methods to explore data in the $p >> n$ regime, where $p$ is the number of feature and $n$ is the number of data points, is beyond the scope of this section.
+This section draws broadly from several sources: the Elements of Statistical Learning \parencite{Hastie2009}, Bayesian Data Analysis \parencite{Gelman2014} as well as relevant review papers \parencite{Greener2021, Wu2015}.
+A more representative view of available statistical methods can be found in the original literature.
+
+The list also reveals a pragmatic approach to the frequentist vs Bayesian debate on statistical inference.
+Philosophically, the idea that there is an objective truth to be found for any inference task, which motivated the methods within the frequentist ideology, has been unhelpful at best in the pursuit of scientific knowledge.
+The Bayesian method of incorporating prior knowledge into a model and exploring uncertainty in your results by sampling from a posterior distribution offers a highly applicable structure for compartmentalising sources of error.
+However, the efficiency at which frequentist methods can be applied and the quality of available software implementations using them means they are an useful tools in high-throughput data analysis.
+Their use as methods to highlight fruitful avenues for further exploration is distinct from their misuse as arbitrators of truth. 
+
+\subsection{Linear regression}
+
+Predicting observations from linear combinations of variables, or combinations of transformed variables, is the most studied model in statistics as well as being the starting basis of many non-linear models.
+A linear model with input vector $X^T = (x_1, x_2, ..., x_p)$ has the form
+$$f(X) = \beta_0 +\sum_j x_j\beta_j$$
+where $\beta_j$ are the coefficients of interest to be determined.
+Assuming Gaussian noise with constant variance, $\sigma^2$, on the observation, y, 
+$$y = f(X) + \epsilon \qquad \epsilon \sim N \big(0,\sigma^2\big) $$
+we get the likelihood of getting this observation given the predictor variables from
+$$L(\beta,\sigma^2;X,y)=(2\pi\sigma^2)^{-1/2}\ exp\Big( -\frac{1}{2\sigma^2} (y-f(X))^2 \Big).$$
+The task of linear regression is to find the values of $\beta$ that maximise the likelihood function $L(\beta,\sigma^2;X,y)$.
+In frequentist statistics, the objective is to find the point values of maximum likelihood denoted $\hat\beta$.
+The most common method to determine $\hat\beta$ is to minimise the residual sum of least squares (RSS) over N observations,
+$$RSS(\beta) = \sum^N(y-f(X))^2.$$
+Writing the above in matrix form, with $\mathbf{y}$ being the vector of observations and $\mathbf{X}$ the matrix of predictor values for each observation,
+$$RSS(\beta) = (\mathbf{y}-\mathbf{X}\beta)^T(\mathbf{y}-\mathbf{X}\beta),$$
+differentiating with respect to $\beta$ and setting to zero gives the $\hat\beta$ that minises the RRS
+$$\hat\beta = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}$$
+It can be proved that the $\hat\beta$ that minimise the RSS maximises $L(\beta,\sigma^2;X,y)$ as defined above, \parencite{Hastie2009}.
+
+\subsection{Penalised linear regression}
+
+In standard linear regression the introduction of more predicting variables will always increase accuracy on a training set as the model begins learning patterns in the noise.
+As biological data sets often contain multiple possible predictors and are based on stochastic processes that are inherently noisy a model needs to select biologically relevant predictors.
+Penalised linear regression enables variable selection by introducing additional terms to the likelihood that penalise the inclusion of predictors.
+The penalty acts on the coefficients of all predictors creating penalised coefficients, $\hat{\beta}$, with general definition
+
+$$ \hat{\beta} =\mathit{argmin}_{\beta} \{L(\beta;x,y) + \mathit{pen}_\lambda(\beta)\}. $$
+
+The penalty function $\mathit{pen}_\lambda(\beta)$ has a parameter $\lambda$ that can be optimised to increase the penalty of adding coefficients and reduce the complexity of the model.
+A common penalty function is the $L_n$ norm acting on the magnitudes of the coefficients
+$$\mathit{pen}_\lambda(\beta) = \lambda \sum_j |\beta_j|^n.$$
+The $L_1$ and $L_2$ norms are regularly implemented with the corresponding penalised regression methods called lasso and ridge regression \parencite{Tibshirani1996, Hoerl1970}. 
+The choice of norm does have a significant effect on the regression with the $L_1$ norm able to set penalised coefficients exactly to zero, but the $L_2$ norm able to deal with collinearity in a more intuitive way by pulling the coefficients of collinear terms to the same value rather than arbitrarily setting some to zero.
+Furthermore, work to create a compromise between the two norms has created the elastic-net penalty 
+$$\lambda \sum_j (\alpha |\beta_j|^2 + (1-\alpha)|\beta_j|)$$
+where $\alpha$ is an additional parameter to be optimised \parencite{Zou2005}. 
+This version attempts to combine with variable selection properties of the $L_1$ norm with the collinearity properties of the $L_2$ norm.
+
+\subsection{Bayesian hierarchical models}
+The Bayesian view of probability is that it represents a reasonable expectation of an event given what we know \parencite{Cox1946}.
+The fundamental basis of a Bayesian model is Bayes' Theorem 
+$$P(\theta|D) = \frac{P(D|\theta)P(\theta)}{P(D)},$$
+which states that the probability of getting certain parameter values given the data, $P(\theta|D)$, is equal to the likelihood of getting this data given the parameters, $P(D|\theta)$, multiplied by the probability distribution over all possible values of the parameter, $P(\theta)$,  divided by the probability of all possible data points, $P(D)$.
+$P(\theta|D)$ is known as the posterior distribution, $P(\theta)$ is the prior distribution and $P(D|\theta)$ is the likelihood function.
+The theorem was published by Reverend Thomas Bayes in 1763, but the majority of the modern interpretation of Bayesian statistics was developed independently by Pierre-Simon Laplace from 1774 onwards.
+
+Bayesian hierarchical models are designed if the prior distribution itself contains parameters, $\phi$, 
+$$P(\theta, \phi|D) = \frac{P(D|\theta,\phi)P(\theta|\phi)P(\phi)}{P(D)}.$$
+The higher tiered priors may act across multiple $\theta$ enabling information to be shared across data points to counter the $p >> n$ problem.
+As an example, consider a Bayesian implementation of linear regression.
+Instead of finding the optimum value of the coefficients, $\hat{\beta}$, we are interested in the posterior distribution given the training data, $P(\beta|D)$.
+We can use the same likelihood function, but we need to define a prior distribution on the values of $P(\beta)$.
+We can recreate the feature selection properties of lasso regression if we use double-exponential distribution centred on zero for the values of $\beta$.
+The data, through the likelihood function, must then shift the probability mass above or below zero to suggest non-zero $\beta$ values.
+Alternatively, a hyperparameter can be introduced to the double-exponential distribution to select a bias term other than zero.
+The hyperparameter could be trained across all terms in the linear model possibly learning that most $\beta$'s are actually 1.
+
+\subsection{Gaussian processes}
+
+Gaussian processes are a highly applicable tool for Bayesian inference.
+Gaussian processes are an extension of a multi-variate normal distribution to infinite dimensions.
+It is a collection of random variables with any finite subset having a joint Gaussian distribution \parencite{Rasmussen2005}.
+The collection is indexed by a variable typically representing time as Gaussian processes were originally developed to filter and smooth noise time-series data. 
+A Gaussian process is fully defined by a mean function, $m(t)$, and co-variance function, $k(t,t')$, of a real function $f(t)$
+$$f(t)\sim GP\big(m(t),k(t,t')\big)$$
+$$m(t) = \mathbb{E}[f(t)] \qquad k(t,t') = \mathbb{E}[(f(t) - m(t))(f(t') - m(t'))].$$
+Unlike linear regression, Gaussian processes act on function space rather than the weight space of the $\beta$ coefficients. 
+This means a Gaussian process is able to approximate practically any function and is far more flexible when fitting data that is non-linear and/or correlated.
+The definition of the covariance function can give the Gaussian process a variety of useful properties and defines the prior distribution in the Bayesian paradigm.
+The squared exponential is a common covariance function,
+$$k(t,t') = exp\big(-\frac{1}{2}|t - t'|^2\big)$$
+which is infinite differentiable leading to a very smooth Gaussian process.
+Akin to any Bayesian method, test data points, $f(t_{*})$, can be sampled by conditioning the joint Gaussian prior distribution on any given training observations, $f(t)$,
+$$f(t_{*})\ |\ t_{*},t,f(t)\ \sim\ N\Big(k(t_{*},t)\ k(t,t)^{-1}\ f(t),\, k(t_{*},t_{*})-k(t_{*},t)\ k(t,t)^{-1}\ k(t,t_{*})\Big)$$.
+\subsection{Model selection}
+
+Rigorous assessment criteria are needed to select the best model between a group with different sets of predictors or with different penalties terms, i.e. $\lambda$.
+Ideally, the model with the lowest prediction error for all possible data would be selected.
+However, since any data set is a subset of all possible data the prediction error of a model can only be approximated.
+K-fold cross-validation is a popular method to approximate the prediction error by splitting the available data into K equal sized groups and calculating the mean prediction error when each of the groups in turn is excluded from the train set and used as the validation set
+$$CV(\hat{f})=\frac{1}{K}\sum_iL(y_i,\hat{f}^{-k(i)}(x_i))$$
+where $\hat{f}^{-k(i)}(x_i)$ is the model trained without the $i^{th}$ group.
+The model with the lowest cross validation error is then selected.
+
+Alternatively, the Akaike information criterion (AIC) and the Bayesian information criterion (BIC) can be used to assess models instead of the approximate prediction error.
+$$AIC = -\frac{2}{N}\ log\ L(y,f(x)) + 2\ \frac{d}{N},$$
+$$BIC = -2\ log\ L(y,f(x))  + d\ log(N)$$
+where is $d$ the degrees of freedom, typically the number of predictors \parencite{Schwarz1978,Akaike1971}.
+The AIC is derived from the extension of the maximum likelihood principle over the parameters space to include uncertainty over the dimensionality of the parameters, not just the values of the parameters.
+Borrowing from information theory, the distance between the ideal model and a candidate model can be measured with the Kullback–Leibler divergence.
+The AIC is the asymptotically unbiased estimate of the discrepancy in the Kullback–Leibler divergence between models of different dimensionality.
+
+In the Bayesian paradigm, if we have the posterior probability of two different models, $Pr(f_a|X,Y)$ and $Pr(f_b|X,Y)$ we can calculate the posterior odds 
+$$\frac{Pr(f_a|X,Y)}{Pr(f_b|X,Y)}.$$
+Model $f_a$ would be selected if the posterior odds > 1, else $f_b$ is selected. 
+However, using Bayes theorem
+$$\frac{Pr(f_a|X,Y)}{Pr(f_b|X,Y)} \propto \frac{Pr(X,Y|f_a)}{Pr(X,Y|f_a)}$$
+which is known as the Bayes factor.
+Under some approximations of normality of $Pr(X,Y|f_a)$ it can be shown that
+$$log\ Pr(X,Y|f_a) \approx log\ Pr(X,Y|f_a) - \frac{d}{2}\ log(N)$$
+which is $-1/2 \times BIC$. 
+Comparing the BIC values of multiple models is approximately equivalent to comparing the posterior odds of the models.
+It's important to note that both AIC and BIC contain approximations that do not hold in all cases.
+A suitable example of model selection with AIC and BIC is with nested models, i.e. when one model contains a subset of predictors contained in the other model.
+
+\subsection{Multiple hypothesis testing}
+
+Testing whether an experimental result is statistically significant given some approximate model of the process creating the data is a mainstay of modern research.
+The decision on where to place the boundary on what is or is not significant is ultimately decided by the researchers concern about Type I errors; falsely declaring a result significant when it actually arose from the variation in the data, and Type II errors; falsely declaring a result insignificant when it is in fact unexpected.
+As high-throughput experiments enable researchers to test thousands of hypothesis simultaneously the susceptibility to Type I errors increases dramatically as more outliers are expected to be detected.
+For example, in a frequentist manner, define a result to be significant if there is less than 5\% chance a result like it, or more extreme than it, occurs given the null hypothesis is true.
+If we test 100 results using this method, we would expect 5 results to exceed this threshold even if all the results are insignificant, each being Type I errors.
+If we test 10,000 results then 500 Type I errors are expected.
+Two common methods to account for the increase in Type I errors when testing multiple hypotheses are the Bonferroni correction and the False Discovery Rate (FDR) \parencite{Bonferroni1936, Hochberg1995}.
+The Bonferroni correction scales the threshold, $\alpha$, at which a results is considered significant by the number of tests being conducted, $N$,
+$$\alpha_{Bon} = \frac{\alpha}{N}.$$
+The correction is known to be conservative leading to more Type II errors and lower statistical power.
+The FDR is the ratio of Type I errors, $V$, to total number of results called significant, $S$,
+$$FDR = E\Big(\frac{V}{S}\Big).$$ 
+The FDR method attempts to keep the FDR constant by changing the threshold of significance given the total number of tests to be conducted and the number of results already tested, j,
+$$\alpha_{FDR} = \alpha \frac{j}{N}.$$
+The FDR method is implemented by ranking the results according to their p-value and comparing the the p-value to a scaled $\alpha_{FDR}$.
+
+\section{tidyqpcr Software Development}
+
+tidyqpcr was developed using the open software development best practices taught by the eLife Innovative Leaders Program \href{https://elifesciences.org/labs/bced51c5/innovation-leaders-2020-a-summary}{elifesciences.org/labs}.
 Following the Mozilla Open Leaders resources, we developed user persona's to describe the types of users that would want to use our software.
-We created a development pathway with clear targets for the minimal viable product and subsequent updates to the MVP \url{http://mozillascience.github.io/working-open-workshop/personas_pathways/}.
-A full code review was completed following the Google literature \url{https://google.github.io/eng-practices/review/}.
+We created a development pathway with clear targets for the minimal viable product and subsequent updates to the MVP \href{http://mozillascience.github.io/working-open-workshop/personas_pathways/}{mozillascience.github.io}.
 The development followed the Extreme programming paradigm with continuous integration and testing using GitHub Actions.
 Updates were small and often, sometimes paired programming was implemented to develop significant updates.
 All updates were first added to individual branches before being pulling into the protected main branch after code review.
 Unit testing was implemented using the testthat R package with a minimal test coverage of 80\% \parencite{Wickham2011}.
-Function documentation was created using the software package roxygen2 whilst the detail implementation examples were creating using Rmd vignettes \parencite{Wickham2022}.
+A full code review was completed following the Google literature  \href{https://google.github.io/eng-practices/review/}{google.github.io/eng-practices/}.
+Function documentation was created using the software package roxygen2 whilst the detailed examples were creating using Rmd vignettes \parencite{Wickham2022, Wickham2021}.
 The code was developed using git version control.
 A permissive licence, Apache-2.0, is used to share the code enabling users to modify the source code to their own problems.
 Decision making was conducted in an open manner using GitHub issue tickets and significant software changes were denoted by GitHub tags to enable users to revert to older versions.
@@ -22,8 +159,8 @@ Infrastructure to encourage inclusive and encouraging inputs from new contributo
 
 
 \subsection{User interviews}
-We explored how users interact with tidyqpcr by conducting 6 semi-structured, exploratory interviews. 
-The interviewees consisted either of academic colleagues who were known to have conducted qPCR previously or were intending to conduct research in the near future.
+We explored how users interacted with tidyqpcr by conducting 6 semi-structured, exploratory interviews. 
+The interviewees consisted either of academic colleagues who were known to have conducted qPCR previously or were intending to conduct research in the near future, \ref{tab:interviewee-table}.
 User interviews for tidyqpcr were conducted and recorded using zoom.
 The audio was then transcribed using otter.io rather than the default zoom transcriber as otter.io allows you to introduce specialist vocabulary (such as tidyqpcr, taqman, ect) to aid accuracy.
 Once the transcripts were available they were split into two halves: the semi-structured interview and the user task.
@@ -31,12 +168,14 @@ The semi-structured interview and the user task sections were combined for all t
 Each combined section was then analysed separately. 
 The text mining R packages tm and pluralize were used to preprocess the transcripts and extract frequently used words \parencite{Feinerer2008, Rudis2020}.
 The text was pre-processed by removing whitespace, numbers and common words; converting all plural nouns to singular; and changing all letters to lower case.
-The frequency of each word was then counted and any generic words regularly occurring within the transcript were removed; for example: that, like and thing.
+The frequency of each word was then counted and any generic words regularly occurring within the transcript were removed, i.e. that, like and thing.
 Finally, the word frequency matrix was used to create the text cloud with the R package wordcloud \parencite{Fellows2018}.
 
-\begin{center} 
+\begin{table}
+\centering
 \begingroup
 \setlength{\tabcolsep}{5pt}
+\def\arraystretch{1.25}
 \begin{tabular}{|| m{4cm} | m{4.3cm} | m{4cm} ||}
  \hline
  \textbf{\large Position} & \textbf{\large Coding Experience} & \textbf{\large qPCR Experience} \\ [0.5ex] 
@@ -55,14 +194,16 @@ Finally, the word frequency matrix was used to create the text cloud with the R 
  \hline
 \end{tabular}
  \endgroup
-\end{center}
+ \caption[Overview of the coding and qPCR experience of tidyqpcr interviewees]{\textbf{Overview of the coding and qPCR experience of tidyqpcr interviewees}}
+ \label{tab:interviewee-table}
+\end{table}
 
 
 
 
 
 
-\section{{Limitations} of composability of cis-regulatory elements in messenger RNA}
+\section{{Limitations} of Composability of Cis-Regulatory Elements in Messenger RNA}
 
 I did not conduct any of the experimental assays discussed in this thesis. The experiments were done by Jamie Auxillos and Weronika Danecka with help from Abhishek Jain and Clemence Alibert. I did contribute to the planning of the qPCR, construct design, platereader and RNA-seq assays conducted in the lab. I outline the protocols here for completion.
 
@@ -76,7 +217,7 @@ To prepare BY4741 for transformation, we grew it in YPDA medium, containing 2\% 
 
 All fluorescence reporter plasmids were constructed by Golden Gate assembly using the YeastFab system as described in \parencite{Garcia2018}.
 Promoters, coding sequences and terminators were either amplified from the yeast genome or synthesised by a commercial vendor (IDT) then cloned into a parts accepting plasmid (HcKan\_P for promoters, HcKan\_O for coding sequences and HcKan\_T for terminators) by Golden Gate assembly using Bsa1-HFv2 (NEB).
-A detailed protocol for Golden Gate assembly is available at protocols.io, \url{http://dx.doi.org/10.17504/protocols.io.bkqrkvv6}.
+A detailed protocol for Golden Gate assembly is available at protocols.io, \href{http://dx.doi.org/10.17504/protocols.io.bkqrkvv6}{doi:10.17504/protocols.io.bkqrkvv6}.
 Using these parts libraries, the promoters, coding sequences and terminators were assembled together into the transcription unit acceptor plasmid (POT1-ccdB) by Golden Gate assembly using Esp3I (NEB); these are low-copy centromeric plasmids with URA3 selection marker, as described in \parencite{Garcia2018}.
 Plasmid inserts were confirmed by Sanger sequencing (MRC PPU DNA Sequencing and Services, Dundee).
 DNA sequences used in this study are summarised in Supplementary Tables \ref{tab:mCherry-seq} and \ref{tab:mTurq-seq}.
@@ -98,7 +239,7 @@ Plate reader data were analysed using omniplate software \parencite{Swain2016}.
 Omniplate accounts for autofluorescence and fits a model to the time series data using Gaussian processes to infer the time of maximum growth rate for each well.
 We minimised growth-dependent effects by using the fluorescence at maximum growth rate for all of our protein fluorescence experiments.
 Each fluorescence measurement was also normalised by OD to remove dependency on cell number, so every protein fluorescence measurement is recorded as fluorescence per OD at max growth rate.
-A detailed protocol for setting up and conducting the plate reader assay is available at protocols.io, \url{https://dx.doi.org/10.17504/protocols.io.bbicikaw}.
+A detailed protocol for setting up and conducting the plate reader assay is available at protocols.io, \hrel{https://dx.doi.org/10.17504/protocols.io.bbicikaw}{doi:10.17504/protocols.io.bbicikaw}.
 The log2 fold change in fluorescence per OD at max growth rate with respect to the tPGK1 construct of each promoter set were deduced using a linear model with terminators as predictors. 
 p-values were calculated use t-tests and converted into p.adj values using the FDR \parencite{Benjamini1995}.
 
@@ -117,7 +258,7 @@ The column was washed with 700 \(\mu\)l of Zymo DNA/RNA Wash buffer (Zymo) then 
 The column was washed a second time, but with 400 \(\mu\)l of Zymo DNA/RNA Wash buffer (Zymo).
 The column was centrifuged once more to remove residual wash buffer in the column. Lastly, 30 \(\mu\)l of nuclease free water was added to the column then eluted.
 All centrifugation steps in the RNA extraction protocol were carried out at 12,000g for 1 minute unless otherwise stated.
-A detailed protocol for yeast growth and RNA extraction is available at protocols.io, \url{https://dx.doi.org/10.17504/protocols.io.beetjben}.
+A detailed protocol for yeast growth and RNA extraction is available at protocols.io, \href{https://dx.doi.org/10.17504/protocols.io.beetjben}{doi:10.17504/protocols.io.beetjben}.
 
 The quantity and quality of the RNA was measured using both a spectrophotometer (DS-11, DeNovix, Wilmington, Delaware, USA) and Fragment Analyser (Agilent).
 4 \(\mu\)g of RNA was treated with DNAse1 (Thermo) then inactivated using the RapidOut DNA removal kit (Thermo) according to the manufacturer's protocol.
@@ -130,14 +271,14 @@ We measured all +RT reactions in technical triplicate, and negative control -RT 
 We used the manufacturer's software to calculate quantification cycle (Cq) for each individual well using the fit points method, and exported both raw fluorescence and Cq data.
 All primer sets were thoroughly validated by serial dilution and by confirming amplicon size. Sequences are available in Supplementary Table \ref{tab:chimera-qpcr-primers-table}.
 
-RT-qPCR data was analysed using our tidyqpcr R package v0.3 (\url{https://github.com/ewallace/tidyqpcr}).
+The RT-qPCR data was analysed using our tidyqpcr R package version 0.3.
 For each biological replicate, \(\Delta\)Cq values were calculated by normalising the median mCherry Cq values by the median Cq values of the three reference genes (RPS3, PGK1 and URA3).
 For the constructs with motif insertions in terminators, \(\Delta\Delta\)Cq values were calculated by normalising mCherry \(\Delta\)Cq by that of control construct mod\_NNN strains (with the corresponding promoter) for tRPS3 and tTSA1 consructs.
 For the constructs with motif deletions in terminators, \(\Delta\Delta\)Cq values were calculated by normalising mCherry \(\Delta\)Cq by that of the WT terminator (with the corresponding promoter) for tPIR1 constructs.
-Complete scripts for qPCR analysis, quality control, and figure generation are available online at \url{https://github.com/DimmestP/chimera_project_manuscript/}.
+Complete scripts for qPCR analysis, quality control, and figure generation are available online at \href{https://github.com/DimmestP/chimera_project_manuscript/}{github.com/DimmestP/chimera\_project\_manuscript/}.
 
 RNA-seq libraries were prepared using QuantSeq 3' mRNA-Seq Library Prep Kit REV for Illumina (Lexogen Gmbh, Vienna Austria).
-See \url{https://doi.org/10.1016/bs.mie.2021.03.020}.
+See \href{https://doi.org/10.1016/bs.mie.2021.03.020}{doi:10.1016/bs.mie.2021.03.020}.
 500 ng of RNA (not treated with DNaseI) was used as input and manufacturer's protocol was followed without modifications.
 The number of amplification cycles was determined using PCR Add-on Kit for Illumina (Lexogen).
 The quality of the library was measured using Fragment Analyzer NGS Fragment Kit (1-6000bp) (Agilent).
@@ -146,7 +287,7 @@ Pooled libraries were then sequenced using NextSeq 500/550 (Illumina) with paire
 5PSeq libraries were prepared as described in \parencite{Zhang2021} with modifications to the reverse transcription step: anchored oligo(dT) was used instead of oligo(dT) to allow for sequencing of 3'-ends and random primers were not used.
 Library was sequenced using NextSeq system (Illumina) with paired-end reads.
 
-RNA-Seq alignment and quality control was conducted using a pipeline available online at \url{https://github.com/DimmestP/nextflow_paired_reads_pipeline}, written in Nextflow \parencite{DiTommaso2017}.
+RNA-Seq alignment and quality control was conducted using a pipeline available online at  \href{https://github.com/DimmestP/nextflow_paired_reads_pipeline}{github.com/DimmestP/nextflow\_paired\_reads\_pipeline}, written in Nextflow \parencite{DiTommaso2017}.
 Quality control was conducted with FASTQC and MultiQC reports \parencite{Ewels2016} and adapters were removed with Cutadapt \parencite{Martin2011}.
 Alignment was conducted with HISAT2 \parencite{Kim2019}, followed by processing with SAMtools \parencite{Li2009} and BEDTools \parencite{Quinlan2010}.
 The sacCer3 (R64-2-1, GCA\_000146045.1) genome build was used for alignment and transcriptome annotation was originally taken from the Saccharomyces Genome Database \parencite{Ng2020}.
@@ -206,7 +347,7 @@ The mutation of motifs for their removal from the PIR1 3'UTR was carried out so 
 
 The native and modified candidate 3'UTRs were screened for the presence of Esp3I and BsaI sites within the sequence.
 For incorporation into the YeastFab system, the sequence `agcgtgCGTCTCgTAGC' was added to the 5'-end of the 3'UTR and the sequence `CCTCcGAGACGcagcac' was added to the 3'-end of the 3'UTR.
-To check if sequences were synthesisable, 100 nt downstream of the native 3'UTR was added to the candidate and the sequence checked at the IDT gBlock entry form (\url{https://eu.idtdna.com/site/order/gblockentry}).
+To check if the sequences were synthesisable, 100 nt downstream of the native 3'UTR was added to the candidate construct and the sequence was checked at the IDT gBlock entry form (\href{https://eu.idtdna.com/site/order/gblockentry}{eu.idtdna.com/site/order/gblockentry}).
 
 \subsection{Determining motif effect on abundance}
 
