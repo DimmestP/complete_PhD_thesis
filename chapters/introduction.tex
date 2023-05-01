@@ -11,12 +11,12 @@
 Assays quantifying changes in transcript abundance with unprecedented sensitivity have rewritten our understanding of RNA regulation.
 Regulatory mechanisms for the localisation, degradation and modification of RNA transcripts can now be investigated across entire transcriptomes.
 However, as the sensitivity of experiments has increased so has the difficulty of distinguishing biologically significant effects from experimental noise.
-Confounding biological effects with experimental noise could undermine the progress promised from a data-rich age of molecular biology.
+Confounding biological effects with experimental noise could undermine the progress promised by a data-rich age of molecular biology.
 
 Science is suffering from a reproducibility crisis. 
 In 2017, Nature surveyed over 1500 scientists and found over 70\% of them tried and failed to reproduce someone else's work \parencite{Baker2016}.
 The origins of the crisis come from the lack of detail in experimental protocols, obscure analysis methods, and misunderstanding of statistical tests.
-The level at which scientists mis-use statistical tests has even led a journal to ban any reference to statistical significance \parencite{Trafimow2015}.
+The level at which scientists misuse statistical tests has even led a journal to ban any reference to statistical significance \parencite{Trafimow2015}.
 
 The reproducibility crisis is worsened by the gap between the statistical methods developed to analyse noisy data and the implementation of these methods on biological questions.
 The choice of statistical method can change depending on subject, hypothesis and data quality which also contributes to the gap \parencite{Ching2018}.
@@ -25,7 +25,7 @@ Meanwhile, those that bridge this gap are typically biologists with no formal so
 This leads to high duplication, poor reproducibility and slower overall progress \parencite{Lawlor2015}.
 
 The use of rigorous statistical methods implemented in reproducible, open-source research software is the only way to overcome this crisis.
-Furthermore, the inclusion of comprehensive documentation with research software can encourage experimental best-practices and improve the reproducibility of an entire experimental assay.
+Furthermore, the inclusion of comprehensive documentation with research software can encourage experimental best practices and improve the reproducibility of an entire experimental assay.
 This thesis combines software development best practices with rigorous analysis of multiple transcriptomic assays to conduct reproducible experiments and investigate post-transcription regulatory mechanisms acting on mRNA. 
 
 
@@ -34,12 +34,12 @@ The aim of this thesis is to develop and apply computational methods to investig
 The contributions of this thesis are as follows:
 
 \begin{itemize}
-    \item The development of tidyqpcr, an open source R package for the analysis of qPCR data. 
-    tidyqpcr contains extensive documentation and integrates with the wider tidyverse suit of data analysis packages to help users conduct reproducible, flexible, and MIQE best-practice compliant quantitative PCR experiments.
+    \item The development of tidyqpcr, an open-source R package for the analysis of qPCR data. 
+    tidyqpcr contains extensive documentation and integrates with the wider tidyverse suite of data analysis packages to help users conduct reproducible, flexible, and MIQE best-practice-compliant quantitative PCR experiments.
     The R package is available to download and has an accompanying publication in the Journal for Open Source Software, \href{https://joss.theoj.org/papers/10.21105/joss.04507}{doi:10.21105/joss.04507}.
     \item  The detection of the limitations of composability of cis-regulatory elements beyond promoter and terminator regions.
     Short regulatory sequences in the 3'UTR of mRNA transcripts are shown to have different contributions to gene expression depending on context.
-    The paper is currently under review by Nucleic Acids Research with a preprint available on bioarxiv, \href{https://www.biorxiv.org/content/10.1101/2021.08.12.455418v2}{doi:10.1101/2021.08.12.455418v2}.
+    The paper is currently under review by Nucleic Acids Research with a preprint available on bioR$\chi$iv, \href{https://www.biorxiv.org/content/10.1101/2021.08.12.455418v2}{doi:10.1101/2021.08.12.455418v2}.
     \item The development of DiffFracSeq, a novel Bayesian statistical model that normalises bulk RNA-Seq assays exploring differential fractionation. 
     Exploiting the physical properties of sequencing sub-fractions of a larger body DiffFracSeq can overcome issues with normalising samples that have global changes in the transcriptome.
     The model to available to use as an R package downloadable from GitHub, \href{https://github.com/DimmestP/DiffFracSeq}{github.com/DimmestP/DiffFracSeq}.
@@ -58,7 +58,7 @@ Chapter 3 describes the materials and methods used to complete my PhD, including
 Chapter 4 starts by justifying the need for a new qPCR analysis package and explaining how tidyqpcr has been designed to overcome some of the deficiencies in currently available software.
 
 Chapter 5 introduces the concept of composability of regulatory elements in the contexts of synthetic and computational biology.
-Then, the changing contributions to gene expression from terminators when paired with different promoters and coding sequences is shown.
+Then, the changing contributions to gene expression from terminators when paired with different promoters and coding sequences are shown.
 The chapter ends by describing the design of constructs with short regulatory motifs inserted or removed from their terminators and showing that these motifs also have differing contributions depending on context.
 
 Chapter 6 begins by outlying the difficulties in detecting differential fractionation using standard RNA-Seq analysis software.

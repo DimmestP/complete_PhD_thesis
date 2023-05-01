@@ -7,15 +7,24 @@
 \section{Statistical Methods}
 
 The list of statistical methods described has been curated to cover the methods implemented in this thesis.
-A comprehensive overview of methods to explore data in the $p >> n$ regime, where $p$ is the number of feature and $n$ is the number of data points, is beyond the scope of this section.
+A comprehensive overview of methods to explore data in the $p >> n$ regime, where $p$ is the number of features and $n$ is the number of data points, is beyond the scope of this section.
 This section draws broadly from several sources: the Elements of Statistical Learning \parencite{Hastie2009}, Bayesian Data Analysis \parencite{Gelman2014} as well as relevant review papers \parencite{Greener2021, Wu2015}.
 A more representative view of available statistical methods can be found in the original literature.
 
 The list also reveals a pragmatic approach to the frequentist vs Bayesian debate on statistical inference.
 Philosophically, the idea that there is an objective truth to be found for any inference task, which motivated the methods within the frequentist ideology, has been unhelpful at best in the pursuit of scientific knowledge.
 The Bayesian method of incorporating prior knowledge into a model and exploring uncertainty in your results by sampling from a posterior distribution offers a highly applicable structure for compartmentalising sources of error.
-However, the efficiency at which frequentist methods can be applied and the quality of available software implementations using them means they are an useful tools in high-throughput data analysis.
+However, the efficiency at which frequentist methods can be applied and the quality of available software implementations using them means they are useful tools in high-throughput data analysis.
 Their use as methods to highlight fruitful avenues for further exploration is distinct from their misuse as arbitrators of truth. 
+
+\subsection{Correlation metrics}
+
+The initial exploration and quality checking of a data set typically includes the determination of a linear dependency between variables.
+The Pearson correlation coefficient, R, is a metric for determining positive, negative or uncorrelated linear dependencies between two variables.
+The correlation coefficient between two random variables x and y is defined as
+$$R = \frac{\sum_i (x_i-\mu_x)(y_i-\mu_y)}{\sigma_x\sigma_y}$$
+where $\mu_x$, $\mu_y$ are the mean values for x and y and $\sigma_x$, $\sigma_y$ are the standard deviations of x and y.
+Alternative correlation metrics have been developed that enable the exploration of non-linear monotonic relationships between variables, such as the Spearman's rank correlation coefficient. 
 
 \subsection{Linear regression}
 
@@ -33,13 +42,13 @@ The most common method to determine $\hat\beta$ is to minimise the residual sum 
 $$RSS(\beta) = \sum^N(y-f(X))^2.$$
 Writing the above in matrix form, with $\mathbf{y}$ being the vector of observations and $\mathbf{X}$ the matrix of predictor values for each observation,
 $$RSS(\beta) = (\mathbf{y}-\mathbf{X}\beta)^T(\mathbf{y}-\mathbf{X}\beta),$$
-differentiating with respect to $\beta$ and setting to zero gives the $\hat\beta$ that minises the RRS
+differentiating with respect to $\beta$ and setting to zero gives the $\hat\beta$ that minimises the RRS
 $$\hat\beta = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}$$
-It can be proved that the $\hat\beta$ that minimise the RSS maximises $L(\beta,\sigma^2;X,y)$ as defined above, \parencite{Hastie2009}.
+It can be proved that the $\hat\beta$ that minimises the RSS maximises $L(\beta,\sigma^2;X,y)$ as defined above, \parencite{Hastie2009}.
 
 \subsection{Penalised linear regression}
 
-In standard linear regression the introduction of more predicting variables will always increase accuracy on a training set as the model begins learning patterns in the noise.
+In standard linear regression, the introduction of more predicting variables will always increase accuracy on a training set as the model begins learning patterns in the noise.
 As biological data sets often contain multiple possible predictors and are based on stochastic processes that are inherently noisy a model needs to select biologically relevant predictors.
 Penalised linear regression enables variable selection by introducing additional terms to the likelihood that penalise the inclusion of predictors.
 The penalty acts on the coefficients of all predictors creating penalised coefficients, $\hat{\beta}$, with general definition
@@ -73,12 +82,12 @@ We can use the same likelihood function, but we need to define a prior distribut
 We can recreate the feature selection properties of lasso regression if we use double-exponential distribution centred on zero for the values of $\beta$.
 The data, through the likelihood function, must then shift the probability mass above or below zero to suggest non-zero $\beta$ values.
 Alternatively, a hyperparameter can be introduced to the double-exponential distribution to select a bias term other than zero.
-The hyperparameter could be trained across all terms in the linear model possibly learning that most $\beta$'s are actually 1.
+The hyperparameter could be trained across all terms in the linear model possibly learning that most $\beta$s are actually 1.
 
 \subsection{Gaussian processes}
 
 Gaussian processes are a highly applicable tool for Bayesian inference.
-Gaussian processes are an extension of a multi-variate normal distribution to infinite dimensions.
+Gaussian processes are an extension of a multivariate normal distribution to infinite dimensions.
 It is a collection of random variables with any finite subset having a joint Gaussian distribution \parencite{Rasmussen2005}.
 The collection is indexed by a variable typically representing time as Gaussian processes were originally developed to filter and smooth noise time-series data. 
 A Gaussian process is fully defined by a mean function, $m(t)$, and co-variance function, $k(t,t')$, of a real function $f(t)$
@@ -94,13 +103,13 @@ Akin to any Bayesian method, test data points, $f(t_{*})$, can be sampled by con
 $$f(t_{*})\ |\ t_{*},t,f(t)\ \sim\ N\Big(k(t_{*},t)\ k(t,t)^{-1}\ f(t),\, k(t_{*},t_{*})-k(t_{*},t)\ k(t,t)^{-1}\ k(t,t_{*})\Big)$$.
 \subsection{Model selection}
 
-Rigorous assessment criteria are needed to select the best model between a group with different sets of predictors or with different penalties terms, i.e. $\lambda$.
+Rigorous assessment criteria are needed to select the best model between a group with different sets of predictors or with different penalty terms, i.e. $\lambda$.
 Ideally, the model with the lowest prediction error for all possible data would be selected.
 However, since any data set is a subset of all possible data the prediction error of a model can only be approximated.
-K-fold cross-validation is a popular method to approximate the prediction error by splitting the available data into K equal sized groups and calculating the mean prediction error when each of the groups in turn is excluded from the train set and used as the validation set
+K-fold cross-validation is a popular method to approximate the prediction error by splitting the available data into K equal-sized groups and calculating the mean prediction error when each of the groups in turn is excluded from the train set and used as the validation set
 $$CV(\hat{f})=\frac{1}{K}\sum_iL(y_i,\hat{f}^{-k(i)}(x_i))$$
 where $\hat{f}^{-k(i)}(x_i)$ is the model trained without the $i^{th}$ group.
-The model with the lowest cross validation error is then selected.
+The model with the lowest cross-validation error is then selected.
 
 Alternatively, the Akaike information criterion (AIC) and the Bayesian information criterion (BIC) can be used to assess models instead of the approximate prediction error.
 $$AIC = -\frac{2}{N}\ log\ L(y,f(x)) + 2\ \frac{d}{N},$$
@@ -120,41 +129,57 @@ Under some approximations of normality of $Pr(X,Y|f_a)$ it can be shown that
 $$log\ Pr(X,Y|f_a) \approx log\ Pr(X,Y|f_a) - \frac{d}{2}\ log(N)$$
 which is $-1/2 \times BIC$. 
 Comparing the BIC values of multiple models is approximately equivalent to comparing the posterior odds of the models.
-It's important to note that both AIC and BIC contain approximations that do not hold in all cases.
+It is important to note that both AIC and BIC contain approximations that do not hold in all cases.
 A suitable example of model selection with AIC and BIC is with nested models, i.e. when one model contains a subset of predictors contained in the other model.
+
+\subsection{Model evaluation}
+
+Once a model has been selected, its effectiveness at predicting the observed data can be evaluated. 
+The coefficient of determination, $R^2$, represents the fraction of the total variance in the observed data that is explained by the model. 
+$R^2$ is a common goodness-of-fit metric for linear models and generally defined as
+
+$$R^2 = 1 - \frac{SS_{res}}{SS_{tot}}$$
+
+$$SS_{res} = \sum_i (y_i - \hat{y}_i)^2$$
+
+$$SS_{tot} = \sum_i(y_i - \Bar{y})^2,$$
+where $y_i$ is an observed value, $\Bar{y}$ is the mean of the observed values, and $\hat{y}_i$ is the predicted value.
+In linear regression, the coefficient of determination can also be defined as the square of the correlation coefficient.
+This limits the value of $R^2$ to between 0 and 1.
+Although in the general case, the coefficient of determination can be negative, i.e. when $SS_{res}$ > $SS_{tot}$.
 
 \subsection{Multiple hypothesis testing}
 
 Testing whether an experimental result is statistically significant given some approximate model of the process creating the data is a mainstay of modern research.
-The decision on where to place the boundary on what is or is not significant is ultimately decided by the researchers concern about Type I errors; falsely declaring a result significant when it actually arose from the variation in the data, and Type II errors; falsely declaring a result insignificant when it is in fact unexpected.
-As high-throughput experiments enable researchers to test thousands of hypothesis simultaneously the susceptibility to Type I errors increases dramatically as more outliers are expected to be detected.
+The decision on where to place the boundary on what is or is not significant is ultimately decided by the researcher's concern about Type I errors; falsely declaring a result significant when it actually arose from the variation in the data, and Type II errors; falsely declaring a result insignificant when it is in fact unexpected.
+As high-throughput experiments enable researchers to test thousands of hypotheses simultaneously the susceptibility to Type I errors increases dramatically as more outliers are expected to be detected.
 For example, in a frequentist manner, define a result to be significant if there is less than 5\% chance a result like it, or more extreme than it, occurs given the null hypothesis is true.
 If we test 100 results using this method, we would expect 5 results to exceed this threshold even if all the results are insignificant, each being Type I errors.
 If we test 10,000 results then 500 Type I errors are expected.
 Two common methods to account for the increase in Type I errors when testing multiple hypotheses are the Bonferroni correction and the False Discovery Rate (FDR) \parencite{Bonferroni1936, Hochberg1995}.
-The Bonferroni correction scales the threshold, $\alpha$, at which a results is considered significant by the number of tests being conducted, $N$,
+The Bonferroni correction scales the threshold, $\alpha$, at which a result is considered significant by the number of tests being conducted, $N$,
 $$\alpha_{Bon} = \frac{\alpha}{N}.$$
 The correction is known to be conservative leading to more Type II errors and lower statistical power.
 The FDR is the ratio of Type I errors, $V$, to total number of results called significant, $S$,
 $$FDR = E\Big(\frac{V}{S}\Big).$$ 
 The FDR method attempts to keep the FDR constant by changing the threshold of significance given the total number of tests to be conducted and the number of results already tested, j,
 $$\alpha_{FDR} = \alpha \frac{j}{N}.$$
-The FDR method is implemented by ranking the results according to their p-value and comparing the the p-value to a scaled $\alpha_{FDR}$.
+The FDR method is implemented by ranking the results according to their p-value and comparing the p-value to a scaled $\alpha_{FDR}$.
 
 \section{tidyqpcr Software Development}
 
 tidyqpcr was developed using the open software development best practices taught by the eLife Innovative Leaders Program \href{https://elifesciences.org/labs/bced51c5/innovation-leaders-2020-a-summary}{elifesciences.org/labs}.
-Following the Mozilla Open Leaders resources, we developed user persona's to describe the types of users that would want to use our software.
+Following the Mozilla Open Leaders resources, we developed user personas to describe the types of users that would want to use our software.
 We created a development pathway with clear targets for the minimal viable product and subsequent updates to the MVP \href{http://mozillascience.github.io/working-open-workshop/personas_pathways/}{mozillascience.github.io}.
 The development followed the Extreme programming paradigm with continuous integration and testing using GitHub Actions.
 Updates were small and often, sometimes paired programming was implemented to develop significant updates.
-All updates were first added to individual branches before being pulling into the protected main branch after code review.
+All updates were first added to individual branches before being pulled into the protected main branch after code review.
 Unit testing was implemented using the testthat R package with a minimal test coverage of 80\% \parencite{Wickham2011}.
 A full code review was completed following the Google literature  \href{https://google.github.io/eng-practices/review/}{google.github.io/eng-practices/}.
-Function documentation was created using the software package roxygen2 whilst the detailed examples were creating using Rmd vignettes \parencite{Wickham2022, Wickham2021}.
+Function documentation was created using the software package roxygen2 whilst the detailed examples were created using Rmd vignettes \parencite{Wickham2022, Wickham2021}.
 The code was developed using git version control.
 A permissive licence, Apache-2.0, is used to share the code enabling users to modify the source code to their own problems.
-Decision making was conducted in an open manner using GitHub issue tickets and significant software changes were denoted by GitHub tags to enable users to revert to older versions.
+Decision-making was conducted in an open manner using GitHub issue tickets and significant software changes were denoted by GitHub tags to enable users to revert to older versions.
 Infrastructure to encourage inclusive and encouraging inputs from new contributors was provided by introducing a code of conduct created by rOpenSci.
 
 
@@ -162,12 +187,12 @@ Infrastructure to encourage inclusive and encouraging inputs from new contributo
 We explored how users interacted with tidyqpcr by conducting 6 semi-structured, exploratory interviews. 
 The interviewees consisted either of academic colleagues who were known to have conducted qPCR previously or were intending to conduct research in the near future, \ref{tab:interviewee-table}.
 User interviews for tidyqpcr were conducted and recorded using zoom.
-The audio was then transcribed using otter.io rather than the default zoom transcriber as otter.io allows you to introduce specialist vocabulary (such as tidyqpcr, taqman, ect) to aid accuracy.
+The audio was then transcribed using otter.io rather than the default zoom transcriber as otter.io allows you to introduce specialist vocabulary (such as tidyqpcr, TaqMan, ect.) to aid accuracy.
 Once the transcripts were available they were split into two halves: the semi-structured interview and the user task.
 The semi-structured interview and the user task sections were combined for all the user interviews.
 Each combined section was then analysed separately. 
 The text mining R packages tm and pluralize were used to preprocess the transcripts and extract frequently used words \parencite{Feinerer2008, Rudis2020}.
-The text was pre-processed by removing whitespace, numbers and common words; converting all plural nouns to singular; and changing all letters to lower case.
+The text was pre-processed by removing whitespace, numbers and common words; converting all plural nouns to singular; and changing all letters to lowercase.
 The frequency of each word was then counted and any generic words regularly occurring within the transcript were removed, i.e. that, like and thing.
 Finally, the word frequency matrix was used to create the text cloud with the R package wordcloud \parencite{Fellows2018}.
 
@@ -184,7 +209,7 @@ Finally, the word frequency matrix was used to create the text cloud with the R 
  \hline
  Senior post-doctoral research assistant. & Intermediate R user & Conducting qPCR for >10 years \\
  \hline
- Research assistant & Intermediate R user & Conducted 1000's of qPCR experiments\\
+ Research assistant & Intermediate R user & Conducted 1000s of qPCR experiments\\
  \hline
  PhD student & Confident R user & Conducted several qPCR experiments \\
  \hline
@@ -205,7 +230,7 @@ Finally, the word frequency matrix was used to create the text cloud with the R 
 
 \section{{Limitations} of Composability of Cis-Regulatory Elements in Messenger RNA}
 
-I did not conduct any of the experimental assays discussed in this thesis. The experiments were done by Jamie Auxillos and Weronika Danecka with help from Abhishek Jain and Clemence Alibert. I did contribute to the planning of the qPCR, construct design, platereader and RNA-seq assays conducted in the lab. I outline the protocols here for completion.
+I did not conduct any of the experimental assays discussed in this thesis. The experiments were done by Jamie Auxillos and Weronika Danecka with help from Abhishek Jain and Clemence Alibert. I did contribute to the planning of the qPCR, construct design, plate reader and RNA-seq assays conducted in the lab. I outline the protocols here for completion.
 
 \subsection{Strains and media}
 
@@ -216,7 +241,7 @@ To prepare BY4741 for transformation, we grew it in YPDA medium, containing 2\% 
 \subsection{Construction of chimeric reporter plasmids}
 
 All fluorescence reporter plasmids were constructed by Golden Gate assembly using the YeastFab system as described in \parencite{Garcia2018}.
-Promoters, coding sequences and terminators were either amplified from the yeast genome or synthesised by a commercial vendor (IDT) then cloned into a parts accepting plasmid (HcKan\_P for promoters, HcKan\_O for coding sequences and HcKan\_T for terminators) by Golden Gate assembly using Bsa1-HFv2 (NEB).
+Promoters, coding sequences and terminators were either amplified from the yeast genome or synthesised by a commercial vendor (IDT) and then cloned into a parts accepting plasmid (HcKan\_P for promoters, HcKan\_O for coding sequences and HcKan\_T for terminators) by Golden Gate assembly using Bsa1-HFv2 (NEB).
 A detailed protocol for Golden Gate assembly is available at protocols.io, \href{http://dx.doi.org/10.17504/protocols.io.bkqrkvv6}{doi:10.17504/protocols.io.bkqrkvv6}.
 Using these parts libraries, the promoters, coding sequences and terminators were assembled together into the transcription unit acceptor plasmid (POT1-ccdB) by Golden Gate assembly using Esp3I (NEB); these are low-copy centromeric plasmids with URA3 selection marker, as described in \parencite{Garcia2018}.
 Plasmid inserts were confirmed by Sanger sequencing (MRC PPU DNA Sequencing and Services, Dundee).
@@ -241,83 +266,89 @@ We minimised growth-dependent effects by using the fluorescence at maximum growt
 Each fluorescence measurement was also normalised by OD to remove dependency on cell number, so every protein fluorescence measurement is recorded as fluorescence per OD at max growth rate.
 A detailed protocol for setting up and conducting the plate reader assay is available at protocols.io, \hrel{https://dx.doi.org/10.17504/protocols.io.bbicikaw}{doi:10.17504/protocols.io.bbicikaw}.
 The log2 fold change in fluorescence per OD at max growth rate with respect to the tPGK1 construct of each promoter set were deduced using a linear model with terminators as predictors. 
-p-values were calculated use t-tests and converted into p.adj values using the FDR \parencite{Benjamini1995}.
+p-values were calculated using t-tests and converted into p.adj values using the FDR \parencite{Benjamini1995}.
 
 \subsection{RNA measurements: Strain growth, RNA extraction, RT-qPCR, RNA-Seq and analysis}
 
-Yeast with plasmids were grown in a 24-well deep well plate plate (4titude) containing 1.5 ml of SC-Ura for \textasciitilde20 hours at 30°C in a shaking incubator set at 250 rpm.
+Yeast with plasmids were grown in a 24-well deep well plate (4titude) containing 1.5 ml of SC-Ura for \textasciitilde20 hours at 30°C in a shaking incubator set at 250 rpm.
 The next day, the OD was diluted to a starting OD between 0.15-0.2 in a 12-column deep well reservoir plate (4titude) to a total volume of 7 ml.
 Diluted cultures were grown at 30°C in a shaking incubator set at 90 rpm to an OD of 0.5-0.7 then pelleted by centrifugation.
-Pelleted cells in the plate were stored in -80°C.
+Pelleted cells in the plate were stored at -80°C.
 
 To extract RNA, we adapted a silica column DNA/RNA extraction protocol from Zymo Research (Irvine, California, USA).
-The pelleted cells were thawed and individually resuspended in 400 \(\mu\)l of RNA binding buffer (Zymo), then transferred to 2 ml screw cap tubes containing zirconia beads, lysed using the Precellys Evolution homogeniser then pelleted by centrifugation for 1.5 minutes.
-The supernatant was transferred to a Zymo Spin IIICG column (Zymo) then centrifuged. The flow through was mixed with 1 volume of ethanol then transferred to a Zymo Spin IIC column (Zymo) and centrifuged.
-This flow through was discarded and 1 volume of DNA/RNA Prep buffer (Zymo) was added then centrifuged.
-The column was washed with 700 \(\mu\)l of Zymo DNA/RNA Wash buffer (Zymo) then centrifuged.
+The pelleted cells were thawed and individually resuspended in 400 \(\mu\)l of RNA binding buffer (Zymo), then transferred to 2 ml screw-cap tubes containing zirconia beads, lysed using the Precellys Evolution homogeniser then pelleted by centrifugation for 1.5 minutes.
+The supernatant was transferred to a Zymo Spin IIICG column (Zymo) and then centrifuged. The flow through was mixed with 1 volume of ethanol then transferred to a Zymo Spin IIC column (Zymo) and centrifuged.
+This flow through was discarded and 1 volume of DNA/RNA Prep buffer (Zymo) was added and then centrifuged.
+The column was washed with 700 \(\mu\)l of Zymo DNA/RNA Wash buffer (Zymo) and then centrifuged.
 The column was washed a second time, but with 400 \(\mu\)l of Zymo DNA/RNA Wash buffer (Zymo).
-The column was centrifuged once more to remove residual wash buffer in the column. Lastly, 30 \(\mu\)l of nuclease free water was added to the column then eluted.
+The column was centrifuged once more to remove residual wash buffer in the column. Lastly, 30 \(\mu\)l of nuclease free water was added to the column and then eluted.
 All centrifugation steps in the RNA extraction protocol were carried out at 12,000g for 1 minute unless otherwise stated.
 A detailed protocol for yeast growth and RNA extraction is available at protocols.io, \href{https://dx.doi.org/10.17504/protocols.io.beetjben}{doi:10.17504/protocols.io.beetjben}.
 
-The quantity and quality of the RNA was measured using both a spectrophotometer (DS-11, DeNovix, Wilmington, Delaware, USA) and Fragment Analyser (Agilent).
-4 \(\mu\)g of RNA was treated with DNAse1 (Thermo) then inactivated using the RapidOut DNA removal kit (Thermo) according to the manufacturer's protocol.
-2.5 \(\mu\)l of Random primer mix (NEB) was added to the mixture then separated into 2 PCR tubes (one for -RT and one for +RT) then denatured at 70°C followed by cooling on ice.
+The quantity and quality of the RNA were measured using both a spectrophotometer (DS-11, DeNovix, Wilmington, Delaware, USA) and Fragment Analyser (Agilent).
+4 \(\mu\)g of RNA was treated with DNAse1 (Thermo) and then inactivated using the RapidOut DNA removal kit (Thermo) according to the manufacturer's protocol.
+2.5 \(\mu\)l of Random primer mix (NEB) was added to the mixture and then separated into 2 PCR tubes (one for -RT and one for +RT) then denatured at 70°C followed by cooling on ice.
 Reverse transcription (RT) master mix was prepared, containing 2 \(\mu\)l of First Strand synthesis buffer, 0.75 \(\mu\)l of 10mM dNTP mix, 1.5 \(\mu\)l of nuclease free water, 0.25 \(\mu\)l of RNase inhibitor and 0.5 \(\mu\)l of SuperScript IV Reverse Transcriptase (Invitrogen) per reaction.
-5 \(\mu\)l of the RT master mix was added to the denatured RNA then incubated at 25°C for 5 minutes then 55°C for 1 hour. The cDNA was diluted with 200 \(\mu\)l of nuclease free water.
+5 \(\mu\)l of the RT master mix was added to the denatured RNA and then incubated at 25°C for 5 minutes then 55°C for 1 hour. The cDNA was diluted with 200 \(\mu\)l of nuclease free water.
 
 Target cDNAs were measured by quantitative PCR with Brilliant III Ultra-Fast SYBR Green qPCR master mix (Agilent) using a Lightcycler 480 qPCR machine (Roche).
 We measured all +RT reactions in technical triplicate, and negative control -RT samples using one replicate.
-We used the manufacturer's software to calculate quantification cycle (Cq) for each individual well using the fit points method, and exported both raw fluorescence and Cq data.
+We used the manufacturer's software to calculate the quantification cycle (Cq) for each individual well using the fit points method and exported both raw fluorescence and Cq data.
 All primer sets were thoroughly validated by serial dilution and by confirming amplicon size. Sequences are available in Supplementary Table \ref{tab:chimera-qpcr-primers-table}.
 
 The RT-qPCR data was analysed using our tidyqpcr R package version 0.3.
 For each biological replicate, \(\Delta\)Cq values were calculated by normalising the median mCherry Cq values by the median Cq values of the three reference genes (RPS3, PGK1 and URA3).
-For the constructs with motif insertions in terminators, \(\Delta\Delta\)Cq values were calculated by normalising mCherry \(\Delta\)Cq by that of control construct mod\_NNN strains (with the corresponding promoter) for tRPS3 and tTSA1 consructs.
+For the constructs with motif insertions in terminators, \(\Delta\Delta\)Cq values were calculated by normalising mCherry \(\Delta\)Cq by that of control construct mod\_NNN strains (with the corresponding promoter) for tRPS3 and tTSA1 constructs.
 For the constructs with motif deletions in terminators, \(\Delta\Delta\)Cq values were calculated by normalising mCherry \(\Delta\)Cq by that of the WT terminator (with the corresponding promoter) for tPIR1 constructs.
 Complete scripts for qPCR analysis, quality control, and figure generation are available online at \href{https://github.com/DimmestP/chimera_project_manuscript/}{github.com/DimmestP/chimera\_project\_manuscript/}.
 
 RNA-seq libraries were prepared using QuantSeq 3' mRNA-Seq Library Prep Kit REV for Illumina (Lexogen Gmbh, Vienna Austria).
 See \href{https://doi.org/10.1016/bs.mie.2021.03.020}{doi:10.1016/bs.mie.2021.03.020}.
-500 ng of RNA (not treated with DNaseI) was used as input and manufacturer's protocol was followed without modifications.
+500 ng of RNA (not treated with DNaseI) was used as input and the manufacturer's protocol was followed without modifications.
 The number of amplification cycles was determined using PCR Add-on Kit for Illumina (Lexogen).
 The quality of the library was measured using Fragment Analyzer NGS Fragment Kit (1-6000bp) (Agilent).
 Pooled libraries were then sequenced using NextSeq 500/550 (Illumina) with paired-end reads using Custom Sequencing Primer to obtain 3'-end reads.
 
 5PSeq libraries were prepared as described in \parencite{Zhang2021} with modifications to the reverse transcription step: anchored oligo(dT) was used instead of oligo(dT) to allow for sequencing of 3'-ends and random primers were not used.
-Library was sequenced using NextSeq system (Illumina) with paired-end reads.
+The library was sequenced using NextSeq system (Illumina) with paired-end reads.
 
-RNA-Seq alignment and quality control was conducted using a pipeline available online at  \href{https://github.com/DimmestP/nextflow_paired_reads_pipeline}{github.com/DimmestP/nextflow\_paired\_reads\_pipeline}, written in Nextflow \parencite{DiTommaso2017}.
+RNA-Seq alignment and quality control were conducted using a pipeline available online at  \href{https://github.com/DimmestP/nextflow_paired_reads_pipeline}{github.com/DimmestP/nextflow\_paired\_reads\_pipeline}, written in Nextflow \parencite{DiTommaso2017}.
 Quality control was conducted with FASTQC and MultiQC reports \parencite{Ewels2016} and adapters were removed with Cutadapt \parencite{Martin2011}.
 Alignment was conducted with HISAT2 \parencite{Kim2019}, followed by processing with SAMtools \parencite{Li2009} and BEDTools \parencite{Quinlan2010}.
 The sacCer3 (R64-2-1, GCA\_000146045.1) genome build was used for alignment and transcriptome annotation was originally taken from the Saccharomyces Genome Database \parencite{Ng2020}.
 5PSeq reads contain UMIs, which were used to deduplicate reads using UMI-tools \parencite{Smith2017}; QuantSeq reads do not.
 Counts to genomic regions of interest were calculated using FeatureCounts \parencite{Liao2014}.
-For 5PSeq data, 5'P ends were also analysed using fivepseq pipeline \cite{Nersisyan2020}.
-Alternative Poly(A) site usage was tested using a Mann–Whitney U test \parencite{Mann1947} on relative reads mapped to a 9 nucleartide window centered on the major Poly(A) site.
+For 5PSeq data, 5'P ends were also analysed using the fivepseq pipeline \cite{Nersisyan2020}.
+Alternative Poly(A) site usage was tested using a Mann–Whitney U test \parencite{Mann1947} on relative reads mapped to a 9 nucleotide window centred on the major Poly(A) site.
 p-values were calculated by comparing construct relative counts to wildtype relative counts and converted into p.adj values using the FDR \parencite{Benjamini1995}.
 
 
 \subsection{Determining 3'UTR decay motifs}
 
 We initially selected 69 3'UTR motifs to investigate from three separate studies of cis-regulatory elements suspected to regulate mRNA decay \parencite{Hogan2008, Shalgi2005, Cheng2017}.
-To select a short list of motifs to test for context dependence, we determined each motif's contribution to a linear model predicting half-life.
+To select a short list of motifs to test for context dependence, we determined the contribution of each motif to a linear model predicting half-life.
 Following \parencite{Cheng2017}, we quantified the effect of motifs on transcript half-life using a linear model predicting half-life on the basis of codon usage, 3'UTR length, and 3'UTR motif frequency.
 \[log_2(\lambda_g^{1/2}) = \sum_c\beta_cp_{cg} + \sum_m\alpha_mn_{mg} + \gamma \omega_g + \epsilon\]
-where \(\lambda_g^{1/2}\) is the half-life of gene g, \(\beta_c\) is the coefficient associated with codon c, \(p_{cg}\) is the proportion of gene g's coding sequence that corresponds to codon c, \(\gamma\) is the coefficient associated with 3'UTR length, \(\omega_g\) is the 3'UTR length of gene \(g\), \(\alpha_m\) is the coefficient associated with motif \(m\), \(n_{mg}\) is number of occurrences of motif \(m\) in gene \(g\)'s 3'UTR, and \(\epsilon\) is the noise term.
-To choose 3'UTR lengths and to assess which sequence to use for 3'UTR motif search, we used the median 3'UTR length estimates (precisely, the median length of clustered major transcript isoforms) reported from the TIF-seq analysis in \parencite{Pelechano2013}.
+where \(\lambda_g^{1/2}\) is the half-life of gene g, \(\beta_c\) is the coefficient associated with codon c, \(p_{cg}\) is the proportion of gene g's coding sequence that corresponds to codon c, \(\gamma\) is the coefficient associated with 3'UTR length, \(\omega_g\) is the 3'UTR length of gene \(g\), \(\alpha_m\) is the coefficient associated with motif \(m\), \(n_{mg}\) is the number of occurrences of motif \(m\) in gene \(g\)'s 3'UTR, and \(\epsilon\) is the noise term.
+To choose 3'UTR lengths and to assess which sequence to use for the 3'UTR motif search, we used the median 3'UTR length estimates (precisely, the median length of clustered major transcript isoforms) reported from the TIF-seq analysis in \parencite{Pelechano2013}.
 
 We removed motifs that did not significantly contribute to half-life by using a greedy model selection algorithm that minimises the Akaike information criterion (AIC).
 \[AIC = 2k - 2ln(\hat{L})\]
 where \(k\) is the number of parameters in the model and \(\hat L\) is the maximum value of the likelihood function \parencite{Akaike1998}.
 We implement this motif comparison using the R function step \parencite{Rstats,Ripley2002},
-to iteratively add the motif which reduces the model's AIC the most until the penalty for adding news terms overcomes the benefit of including a new motif.
+to iteratively add the motif which reduces the AIC of the model the most until the penalty for adding news terms overcomes the benefit of including a new motif.
 This procedure was run on each decay data set independently.
 p-values were calculated use t-tests and converted into p.adj values using the FDR \parencite{Benjamini1995}.
 
-The variance explained by each predictor in the linear model trained on the \parencite{Chan2018} dataset is estimated in three ways. First, the variance explained by three individual linear models each containing one of the predicates is calculated. Then, we determine the reduction in variance explained when one of the predicates is removed from the full model. Finally, the increase in variance explained when each predicate is added to the model sequentially, starting with codon usage and ending with 3'UTR length, is reported.
+The variance explained by the codon usage, 3’UTR length, and motif presence features are estimated in three ways for the linear model trained on the \parencite{Chan2018} data set.
+The motif presence feature is the total contribution to the linear model when the counts of the all of the shortlisted motifs are included together.
+The codon usage feature is the total contribution to the linear model when the counts of all codons are included together.
+The first way to estimate variance explained was with each feature individually as separate regression models.
+Then, features were added in descending order of their individual explained variance to create three models: codon, codon + motif and codon + motif + 3'UTR length.
+The variance explained by the joint models are denoted the cumulative variances explained.
+Finally, starting with the full model with all three features the drop in variance explained when one of the features is removed was reported.
 
-We selected the specific versions of the HWNCATTWY and TGTAHMNTA motifs by running two addition linear models predicting half-life that inferred separate coefficients for each version of its consensus sequence.
+We selected the specific versions of the HWNCATTWY and TGTAHMNTA motifs by running two additional linear models predicting half-life that inferred separate coefficients for each version of its consensus sequence.
 Coefficients were reported for the significant motif versions (Supplementary Table \ref{tab:HWNCATTWY-motif-coef}, \ref{tab:TGTAHMNTA-motif-coef}).
 We chose instances with similar effect size, statistical significance, and number of occurrences in native transcripts.
 We chose TTTCATTTC for HWNCATTWY and for TGTAHMNTA chose TGTACAATA over TGTATATTA specifically to avoid the 5nt stretch also found in ATATTC.
@@ -368,13 +399,13 @@ The steady state solution for the average number of transcripts, \(\langle m \ra
 \[\langle m \rangle = \frac{k}{\delta}\]
 where k is the rate of transcription, which can include multiple active states, and \(\delta\) is the rate of decay for the transcript \parencite{Sanchez2008}.
 
-Now consider a control transcript \(m_0\), and a similar transcript with an altered terminator \(m_a\). Assuming the alterations to the host gene's terminator have a minimal impact on the transcription rate, the above equation says that the ratio of predicted abundance \(\langle m_a \rangle\) to the control transcript abundance, \(\langle m_0 \rangle\), is the same as the ratio of their half-lives:
+Now consider a control transcript \(m_0\), and a similar transcript with an altered terminator \(m_a\). Assuming the alterations to the terminator of the host gene have a minimal impact on the transcription rate, the above equation says that the ratio of predicted abundance \(\langle m_a \rangle\) to the control transcript abundance, \(\langle m_0 \rangle\), is the same as the ratio of their half-lives:
 \[\frac{\langle m_a \rangle}{\langle m_0 \rangle} = \frac{\delta_0}{\delta_a} =\frac{\lambda^{1/2}_a}{\lambda^{1/2}_0}\]
 This gives a linear effect on the log-scale abundance
 \[\log\langle m_a \rangle =\Delta \log\lambda^{1/2} + \log\langle m_0 \rangle\]
 and because PCR quantification cycle Cq is proportional to \(\log2(m)\), this directly leads to a linear effect on Cq.
 
-All analysis made extensive use of the tidyverse and ggplot2 \parencite{Wickham2016, Wickham2019}.
+All analyses made extensive use of the tidyverse and ggplot2 \parencite{Wickham2016, Wickham2019}.
 
 
 \end{document}
